@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>ENSPD — École Nationale de Statistique, de Planification et de Démographie | Université de Parakou</title>
+<meta name="description" content="Site officiel de l'ENSPD — Formation en Statistique, Planification et Démographie. Licences, Masters, Doctorat LMD. Université de Parakou, Bénin.">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0C0E1A">
+<meta name="author" content="ENSPD — Université de Parakou">
+<meta name="keywords" content="ENSPD, statistique, planification, démographie, Bénin, Université de Parakou, LMD, concours, master, licence">
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="ENSPD">
+<meta property="og:title" content="ENSPD — École Nationale de Statistique, de Planification et de Démographie">
+<meta property="og:description" content="Formations en Statistique, Planification et Démographie. Licences, Masters, Doctorat LMD. Université de Parakou, Bénin.">
+<meta property="og:image" content="assets/campus/batimentENSPD.jpeg">
+<meta property="og:locale" content="fr_BJ">
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ENSPD — Université de Parakou">
+<meta name="twitter:description" content="École Nationale de Statistique, de Planification et de Démographie. Bénin.">
+<meta name="twitter:image" content="assets/campus/batimentENSPD.jpeg">
+<!-- Performance: preconnect fonts before stylesheet -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="shared.css">
+<link rel="icon" type="image/jpeg" href="assets/logos/Logo_ENSPD.jpg">
+<link rel="apple-touch-icon" href="assets/logos/Logo_ENSPD.jpg">
+</head>
+<body>
+
+<!-- Skip navigation for keyboard users -->
+<a href="#p-accueil" class="skip-link" data-i18n="skip_link">Aller au contenu principal</a>
+
+<!-- ADMIN BAR (affiché si admin connecté) -->
+<div id="admin-bar" class="admin-bar"></div>
+
+<!-- TOP BAR -->
+<div class="top-bar">
+  <div class="top-bar-scroller">
+    <div class="top-bar-content">
+      <span data-i18n="topbar_txt">📢 Concours ENSPD 2026-2027 — organisé par le <strong>MESRS/DEC</strong> — Bac C ou D requis</span>
+      <a href="#" onclick="nav('admissions');return false" data-i18n="topbar_link">Informations →</a>
+    </div>
+    <div class="top-bar-content" aria-hidden="true">
+      <span data-i18n="topbar_txt">📢 Concours ENSPD 2026-2027 organisé par le <strong>MESRS/DEC</strong> — Bac C ou D requis</span>
+      <a href="#" onclick="nav('admissions');return false" tabindex="-1" data-i18n="topbar_link">Informations →</a>
+    </div>
+  </div>
+</div>
+
+<!-- ===== NAVBAR ===== -->
+<nav class="nav" id="navbar" role="navigation" aria-label="Navigation principale">
+  <a class="nav-brand" href="#" onclick="nav('accueil');return false" aria-label="ENSPD — Accueil">
+    <img src="assets/logos/Logo_ENSPD.jpg" alt="Logo ENSPD" class="nav-logo"
+         width="36" height="36"
+         onerror="this.style.display='none';this.nextSibling.style.display='flex'">
+    <div class="nav-logo-ph" hidden><span>ENSPD</span></div>
+    <div class="nav-brand-txt">
+      <strong>ENSPD</strong>
+      <small data-i18n="nav_univ">Université de Parakou — Bénin</small>
+    </div>
+  </a>
+
+  <div class="nav-links" id="nav-links" role="menubar">
+    <a href="#" data-p="accueil" class="act" data-i18n="nav_home" role="menuitem">Accueil</a>
+    <a href="#" data-p="ecole" data-i18n="nav_school" role="menuitem">L'École</a>
+    <a href="#" data-p="formations" data-i18n="nav_prog" role="menuitem">Formations</a>
+    <a href="#" data-p="admissions" data-i18n="nav_adm" role="menuitem">Admissions</a>
+    <a href="#" data-p="actualites" data-i18n="nav_news" role="menuitem">Actualités</a>
+    <a href="#" data-p="recherche" data-i18n="nav_research" role="menuitem">Recherche</a>
+    <a href="#" data-p="evenements" data-i18n="nav_events" role="menuitem">Agenda</a>
+    <a href="#" data-p="contact" data-i18n="nav_contact" role="menuitem">Contact</a>
+    <div id="nav-mobile-auth" class="nav-mobile-auth"></div>
+    <a href="#" data-p="admin" id="nav-admin-link" hidden>⚙️ Admin</a>
+  </div>
+
+  <div class="nav-acts">
+    <button class="nav-ib" id="dark-btn" onclick="toggleDark()" aria-label="Basculer le thème sombre/clair">☀️</button>
+    <div class="lang-selector" role="group" aria-label="Sélection de langue">
+      <button class="lang-opt on" id="lang-fr" onclick="setLang('fr')" aria-pressed="true">FR</button>
+      <button class="lang-opt" id="lang-en" onclick="setLang('en')" aria-pressed="false">EN</button>
+    </div>
+    <button class="btn b-sec b-sm" onclick="window.open('bue.html');return false"
+            style="font-size:11.5px" aria-label="Ouvrir le site BUE-ENSPD">BUE</button>
+  </div>
+
+  <div class="nav-auth" id="nav-auth" aria-live="polite"></div>
+  <button class="burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="nav-links">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- ================================================================
+     ACCUEIL
+================================================================ -->
+<div class="page act" id="p-accueil" tabindex="-1">
+
+  <!-- HERO — Photo bâtiment plein écran avec overlay marine -->
+  <section class="hero" aria-label="Présentation de l'ENSPD">
+    <div class="hero-bg">
+      <img src="assets/campus/batimentENSPD.jpeg" alt="Bâtiment principal du Campus ENSPD, Université de Parakou"
+           width="1211" height="698"
+           loading="eager"
+           fetchpriority="high"
+           onerror="this.src='assets/campus/batiment_enspd.jpg';this.onerror=function(){this.style.display='none';}">
+    </div>
+    <div class="hero-in">
+      <div class="hero-eyebrow anim">
+        <span class="hero-eyebrow-dot" aria-hidden="true"></span>
+        <span data-i18n="nav_univ">Université de Parakou — Bénin</span>
+      </div>
+      <h1 class="hero-title anim d1">
+        <span data-i18n="hero_l1">Former les experts</span><br>
+        <em class="ht-accent" data-i18n="hero_l2">qui pilotent</em><br>
+        <span data-i18n="hero_l3">le développement</span>
+      </h1>
+      <p class="hero-desc anim d2" data-i18n="hero_desc">L'ENSPD est la seule école supérieure spécialisée en statistique, planification et démographie au Bénin. Nous formons des cadres capables de relever les défis du développement national et africain.</p>
+      <div class="hero-ctas anim d3">
+        <a href="#" onclick="nav('admissions');return false" class="btn b-or b-lg" data-i18n="btn_adm">Infos Concours 2026</a>
+        <a href="#" onclick="nav('formations');return false" class="btn b-sec b-lg" data-i18n="btn_prog">Nos formations →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS BANDE — countup déclenché par Intersection Observer -->
+  <div class="stats-band" id="stats-band" role="region" aria-label="Chiffres clés">
+    <div class="stats-in">
+      <div class="sbox"><div class="sval" data-count="400" data-s="+">400+</div><div class="slbl" data-i18n="ss1">Étudiants 2025-26</div></div>
+      <div class="sbox"><div class="sval" data-count="8"   data-s="">8</div>  <div class="slbl" data-i18n="ss2">Formations LMD</div></div>
+      <div class="sbox"><div class="sval" data-count="2"   data-s="">2</div>  <div class="slbl" data-i18n="ss3">Laboratoires actifs</div></div>
+      <div class="sbox"><div class="sval" data-count="5"   data-s="">5</div>  <div class="slbl" data-i18n="ss4">Masters spécialisés</div></div>
+    </div>
+  </div>
+
+  <!-- ACCÈS RAPIDE -->
+  <div class="quick-actions-strip">
+    <div class="qa-wrap">
+      <a href="#" onclick="nav('admissions');return false" class="qa-card">
+        <div class="qa-ico">📋</div>
+        <div class="qa-body">
+          <strong data-i18n="qa_concours">Concours 2026-2027</strong>
+          <span data-i18n="qa_concours_s">Conditions &amp; inscriptions</span>
+        </div>
+        <span class="qa-arr">→</span>
+      </a>
+      <a href="#" onclick="nav('actualites');return false" class="qa-card">
+        <div class="qa-ico">📊</div>
+        <div class="qa-body">
+          <strong data-i18n="qa_resultats">Résultats &amp; Actualités</strong>
+          <span data-i18n="qa_resultats_s">Concours, examens, annonces</span>
+        </div>
+        <span class="qa-arr">→</span>
+      </a>
+      <a href="#" onclick="nav('formations');return false" class="qa-card">
+        <div class="qa-ico">🎓</div>
+        <div class="qa-body">
+          <strong data-i18n="qa_formations">8 Formations LMD</strong>
+          <span data-i18n="qa_formations_s">Licence · Master · Doctorat</span>
+        </div>
+        <span class="qa-arr">→</span>
+      </a>
+      <a href="#" onclick="nav('contact');return false" class="qa-card">
+        <div class="qa-ico">📞</div>
+        <div class="qa-body">
+          <strong data-i18n="qa_contact">Scolarité &amp; Contact</strong>
+          <span data-i18n="qa_contact_s">Lun–Ven · 08h–17h</span>
+        </div>
+        <span class="qa-arr">→</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- MOT DU DIRECTEUR -->
+  <section class="sec sec-dir" aria-labelledby="dir-section-h">
+    <div class="wrap">
+      <div class="dir-box anim">
+        <div class="dir-ph" id="dir-avatar" aria-label="Photo du Directeur">
+          <span aria-hidden="true">🏛️</span>
+        </div>
+        <div class="dir-txt">
+          <span class="stag mb14" style="display:inline-block" data-i18n="dir_tag">Mot du Directeur</span>
+          <span class="dir-q" aria-hidden="true">"</span>
+          <blockquote data-i18n="dir_q">"Chers étudiants, chers visiteurs, bienvenue sur le site officiel de l'ENSPD. Notre école forme des cadres compétents capables de piloter les projets de développement par la donnée et l'analyse. Ensemble, faisons de l'ENSPD un lieu d'excellence, d'éthique et d'impact."</blockquote>
+          <div class="dir-sign">
+            <div class="n" data-i18n="dir_name">Prof. Épiphane SODJINOU</div>
+            <div class="r" data-i18n="dir_role">Directeur · Ph.D. Économie Agricole, Univ. Copenhague</div>
+          </div>
+          <a href="#" onclick="nav('ecole');return false" class="btn b-ovt b-sm mt16" data-i18n="dir_more">En savoir plus →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FORMATIONS APERÇU -->
+  <section class="sec bg-bg" aria-labelledby="prog-h">
+    <div class="wrap">
+      <div class="sh c">
+        <span class="stag" data-i18n="prog_tag">Offres de formation</span>
+        <h2 class="sh-h2" id="prog-h" data-i18n="prog_t">Choisissez votre parcours</h2>
+        <p class="sh-sub" data-i18n="prog_sub">2 Licences · 5 Masters · 1 Doctorat — Cliquez pour voir le programme.</p>
+      </div>
+      <div class="form-apercu-grid" id="form-apercu"></div>
+      <div class="tc mt32">
+        <a href="#" onclick="nav('formations');return false" class="btn b-omn b-lg" data-i18n="prog_all">Voir toutes les formations →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- POURQUOI L'ENSPD -->
+  <section class="sec bg-w" aria-labelledby="why-h">
+    <div class="wrap">
+      <div class="why-layout">
+        <div class="anim al">
+          <span class="stag" data-i18n="why_tag">Pourquoi l'ENSPD ?</span>
+          <h2 class="sh-h2 mt12" id="why-h" data-i18n="why_t">Une école au service du développement</h2>
+          <div class="why-grid-2" id="why-grid"></div>
+          <a href="#" onclick="nav('ecole');return false" class="btn b-vt mt24" data-i18n="dir_more">En savoir plus →</a>
+        </div>
+        <div class="why-imgs anim ar">
+          <img src="assets/campus/batiment_enspd.jpg" alt="Bâtiment ENSPD"
+               width="560" height="220" loading="lazy"
+               class="why-img-main"
+               onerror="this.outerHTML='<div class=\'ph why-img-main\'><div class=\'ph-ico\'>📷</div><span class=\'ph-txt\'>Bâtiment ENSPD</span></div>'">
+          <img src="assets/campus/photo_groupe.jpg" alt="Étudiants ENSPD"
+               width="560" height="150" loading="lazy"
+               class="why-img-sub"
+               onerror="this.hidden=true">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PARTENAIRES -->
+  <section class="sec bg-bg partners-wall-section" aria-labelledby="part-h">
+    <div class="wrap">
+      <div class="sh c">
+        <div class="para-accent para-accent--or"></div>
+        <span class="stag" data-i18n="part_tag">Partenariats</span>
+        <h2 class="sh-h2 mt8" id="part-h" data-i18n="part_t">Nos partenaires institutionnels</h2>
+      </div>
+      <div class="partners-logo-wall" id="partners-logo-wall"></div>
+    </div>
+  </section>
+
+  <!-- ÉVÉNEMENTS PHARES : JSSED + RENTRÉE SOLENNELLE -->
+  <section class="sec bg-bg" aria-labelledby="ev-h">
+    <div class="wrap">
+      <div class="sh c">
+        <span class="stag" data-i18n="ev_tag">Événements phares</span>
+        <h2 class="sh-h2" id="ev-h" data-i18n="ev_t">Deux rendez-vous incontournables</h2>
+      </div>
+      <div class="g2">
+        <!-- JSSED -->
+        <div class="ev-card ev-card-jssed anim al">
+          <div class="ev-card-deco" aria-hidden="true"></div>
+          <span class="badge bor ev-badge" data-i18n="jssed_ed">2ème édition · Sep 2026</span>
+          <h3 class="ev-card-title">JSSED</h3>
+          <p class="ev-card-sub" data-i18n="jssed_full">Journée de la Statistique, du Suivi-Évaluation et de la Démographie</p>
+          <p class="ev-card-desc" data-i18n="jssed_desc">Événement phare réunissant étudiants, enseignants, professionnels et partenaires.</p>
+          <img src="assets/galerie/bue/jssed_1775853364124.jpg" alt="JSSED — aperçu"
+               width="560" height="130" loading="lazy" class="ev-card-img"
+               onerror="this.outerHTML='<div class=\'ev-card-img-ph\'><span>📊 JSSED 2025</span></div>'">
+          <div class="ev-card-acts">
+            <a href="#" onclick="nav('evenements');return false" class="btn b-sm b-or" data-i18n="en_savoir_plus">En savoir plus</a>
+            <button class="btn b-sm b-sec" onclick="window.open('jssed.html');return false" data-i18n="btn_dedicated">Site dédié →</button>
+          </div>
+        </div>
+        <!-- RENTRÉE SOLENNELLE -->
+        <div class="card ev-card-rentree anim ar">
+          <span class="stag or mb14" style="display:inline-block">4ème édition · Déc 2026</span>
+          <h3 class="ev-card-title-dark" data-i18n="rentree_t">Rentrée Solennelle ENSPD</h3>
+          <p class="ev-card-desc-dark" data-i18n="rentree_desc">La 3ème édition (1er Déc 2025) était placée sous le thème <em>«L'IA au service de l'enseignement supérieur»</em>. La 4ème édition est prévue en décembre 2026.</p>
+          <div class="ev-badges">
+            <span class="badge bv">1ère éd. 2023</span>
+            <span class="badge bv">2ème éd. 2024</span>
+            <span class="badge bv">3ème éd. Déc 2025 ✓</span>
+            <span class="badge bor">4ème éd. Déc 2026</span>
+          </div>
+          <img src="assets/galerie/enspd/rentree_1775854492374.jpg" alt="Rentrée solennelle ENSPD"
+               width="560" height="130" loading="lazy" class="ev-card-img"
+               onerror="this.outerHTML='<div class=\'ev-card-img-ph\'><span>🎓 Rentrée Solennelle</span></div>'">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ACTUALITÉS -->
+  <section class="sec bg-w" aria-labelledby="news-home-h">
+    <div class="wrap">
+      <div class="sec-head-row">
+        <div>
+          <span class="stag" data-i18n="news_tag">Actualités</span>
+          <h2 class="sh-h2 mt8" id="news-home-h" data-i18n="news_t">Dernières nouvelles</h2>
+        </div>
+        <a href="#" onclick="nav('actualites');return false" class="btn b-gh" data-i18n="news_all">Toutes →</a>
+      </div>
+      <div class="g3" id="actus-home"></div>
+    </div>
+  </section>
+
+  <!-- TÉMOIGNAGES -->
+  <section class="sec bg-dk" aria-labelledby="temo-h">
+    <div class="wrap">
+      <div class="sh c">
+        <span class="stag w" data-i18n="temo_tag">Témoignages</span>
+        <h2 class="sh-h2 w" id="temo-h" data-i18n="temo_t">Ils ont réussi depuis l'ENSPD</h2>
+      </div>
+      <div class="temo-wrap">
+        <div class="temo-slider" id="temo-slider" role="list"></div>
+      </div>
+      <div class="temo-dots" id="temo-dots" role="tablist" aria-label="Navigation témoignages"></div>
+    </div>
+  </section>
+
+</div><!-- /#p-accueil -->
+
+<!-- ================================================================
+     L'ÉCOLE
+================================================================ -->
+<div class="page" id="p-ecole">
+  <div class="pg-hero">
+    <div class="wi wrap">
+      <div class="bc"><span data-i18n="bc_home">Accueil</span> / <span data-i18n="pt_school_bc">L'École</span></div>
+      <h1 data-i18n="sch_h1">L'ENSPD en quelques mots</h1>
+      <p data-i18n="sch_h_sub">Établissement public de formation, de recherche et d'appui au développement.</p>
+    </div>
+  </div>
+  <section class="sec bg-w">
+    <div class="wrap">
+      <div class="g2-loose mb56">
+        <div class="anim al">
+          <span class="stag mb14" style="display:inline-block" data-i18n="sch_hist">Historique</span>
+          <h2 class="sh-h2 mt4" data-i18n="sch_hist_t">Une réponse au besoin de développement</h2>
+          <div class="timeline-vt">
+            <div class="tl-item">
+              <div class="tl-date" data-i18n="hist_2012_lbl">Juin 2012</div>
+              <p class="tl-desc" data-i18n="hist_2012_d">Création par arrêté ministériel n°256/MESRS — Campus Tchaourou, sous le parrainage du Pr. François Adébayo Abiola.</p>
+            </div>
+            <div class="tl-item">
+              <div class="tl-date" data-i18n="hist_2014_lbl">Décembre 2014</div>
+              <p class="tl-desc" data-i18n="hist_2014_d">Création du LaReSPD par arrêté rectoral N°2335-2014/R-UP/VR-AARU.</p>
+            </div>
+            <div class="tl-item">
+              <div class="tl-date" data-i18n="hist_2016_lbl">Novembre 2016</div>
+              <p class="tl-desc" data-i18n="hist_2016_d">Délocalisation vers le campus principal de l'Université de Parakou.</p>
+            </div>
+            <div class="tl-item">
+              <div class="tl-date"><span data-i18n="hist_today_lbl">2016 — Aujourd'hui</span></div>
+              <p class="tl-desc" data-i18n="hist_today_d">Création ODeSPoL, ouverture des Masters, rayonnement sous-régional croissant.</p>
+            </div>
+          </div>
+        </div>
+        <div class="anim ar col-stack">
+          <div class="card cp card-vt">
+            <span class="stag mb10" style="display:inline-block" data-i18n="sch_mission">Mission</span>
+            <p class="card-p" data-i18n="sch_mission_d">Établissement Public d'Enseignement, de Formation, de Recherche et d'appui au développement. L'une des 9 UFR de l'Université de Parakou. Deux Départements. 4 personnels ATS.</p>
+          </div>
+          <div class="card cp card-mn">
+            <span class="stag mn mb10" style="display:inline-block" data-i18n="sch_vision">Vision</span>
+            <p class="card-p" data-i18n="sch_vision_d">Devenir une école de référence nationale et sous-régionale en statistique, démographie et planification du développement.</p>
+          </div>
+          <div class="sch-stats-mini">
+            <div class="tc"><div class="sch-stat-n" style="color:var(--vt-m)">237</div><div class="sch-stat-l" data-i18n="sch_boys">Garçons 2024-25</div></div>
+            <div class="tc"><div class="sch-stat-n" style="color:var(--mn)">69</div><div class="sch-stat-l" data-i18n="sch_girls">Filles 2024-25</div></div>
+          </div>
+        </div>
+      </div>
+      <!-- Mot du directeur complet -->
+      <div class="dir-box anim mb32">
+        <div class="dir-ph" aria-label="Photo du Directeur">
+          <span aria-hidden="true">🏛️</span>
+        </div>
+        <div class="dir-txt">
+          <span class="stag mb14" style="display:inline-block" data-i18n="dir_tag">Mot du Directeur</span>
+          <span class="dir-q" aria-hidden="true">"</span>
+          <blockquote data-i18n="dir_quote_long">"C'est avec une vive satisfaction que je vous présente l'ENSPD. Conçue pour accompagner chaque étudiant dans son parcours académique, l'ENSPD a pour mission de former des cadres compétents en statistique, planification, suivi-évaluation et démographie. Notre engagement : la rigueur, l'intégrité intellectuelle et la solidarité entre pairs. Ensemble, faisons de l'ENSPD un lieu d'excellence et d'impact pour le développement durable de notre pays."</blockquote>
+          <div class="dir-sign">
+            <div class="n" data-i18n="dir_name">Prof. Épiphane SODJINOU</div>
+            <div class="r" data-i18n="dir_role_long">Directeur de l'ENSPD · Maître de Conférences · Ph.D. Économie Agricole, Université de Copenhague</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Administration -->
+  <section class="sec bg-bg" aria-labelledby="org-h">
+    <div class="wrap">
+      <div class="sh c mb32">
+        <span class="stag" data-i18n="sch_org">Organisation</span>
+        <h2 class="sh-h2" id="org-h" data-i18n="sch_org_t">Administration &amp; Services</h2>
+        <p class="sh-sub" data-i18n="sch_org_sub">Structure organisée autour de la Direction et de 4 services opérationnels.</p>
+      </div>
+      <div class="adm-dir-wrap" id="adm-dir"></div>
+      <div class="org-conn" aria-hidden="true"></div>
+      <div class="adm-grid" id="adm-svcs"></div>
+    </div>
+  </section>
+</div>
+
+<!-- ================================================================
+     FORMATIONS
+================================================================ -->
+<div class="page" id="p-formations">
+  <div class="pg-hero">
+    <div class="wi wrap">
+      <div class="bc"><span data-i18n="bc_home">Accueil</span> / <span data-i18n="pt_form_bc">Formations</span></div>
+      <h1 data-i18n="prog_h1">Offres de formation</h1>
+      <p data-i18n="prog_h_sub">Système LMD — 8 formations. Cliquez pour voir le programme complet.</p>
+    </div>
+  </div>
+  <section class="sec bg-bg">
+    <div class="wrap">
+      <div class="alert a-mn mb24" role="note">
+        <span aria-hidden="true">📖</span>
+        <div data-i18n="prog_lmd"><strong>Système LMD</strong> — 1 crédit = 20-25h · Licence = 6 semestres = 180 crédits · Master = 4 semestres = 120 crédits · Doctorat = 6 semestres = 180 crédits · Validation UE : note ≥ 12/20</div>
+      </div>
+      <div class="filter-bar" role="group" aria-label="Filtrer les formations">
+        <button class="btn b-vt b-sm ff" onclick="filterFil('tout',this)" data-i18n="prog_filt_all">Tout (8)</button>
+        <button class="btn b-gh b-sm ff" onclick="filterFil('Licence',this)" data-i18n="prog_filt_lic">Licence (2)</button>
+        <button class="btn b-gh b-sm ff" onclick="filterFil('Master',this)" data-i18n="prog_filt_mas">Master (5)</button>
+        <button class="btn b-gh b-sm ff" onclick="filterFil('Doctorat',this)" data-i18n="prog_filt_doc">Doctorat (1)</button>
+      </div>
+      <div class="ga" id="fil-list"></div>
+    </div>
+  </section>
+  <section class="sec-s bg-w" aria-labelledby="deb-h">
+    <div class="wrap">
+      <div class="sh c mb24">
+        <span class="stag" data-i18n="deb_tag">Débouchés</span>
+        <h2 class="sh-h2" id="deb-h" data-i18n="deb_t">Où travaillent nos diplômés ?</h2>
+      </div>
+      <div class="debouches-grid" id="debouches-grid"></div>
+    </div>
+  </section>
+</div>
+
+<!-- ================================================================
+     ADMISSIONS
+================================================================ -->
+<div class="page" id="p-admissions">
+  <div class="pg-hero pg-hero-mn">
+    <div class="wi wrap">
+      <div class="bc"><span data-i18n="bc_home">Accueil</span> / <span data-i18n="pt_adm_bc">Admissions</span></div>
+      <h1 data-i18n="adm_h1">Intégrer l'ENSPD</h1>
+      <p data-i18n="adm_sub">Conditions d'entrée, paiement et documents officiels.</p>
+    </div>
+  </div>
+  <section class="sec bg-w">
+    <div class="wrap">
+      <div class="alert a-mn mb32" role="note">
+        <span style="font-size:20px" aria-hidden="true">ℹ</span>
+        <div>
+          <strong style="display:block;margin-bottom:4px" data-i18n="adm_alert_t">Le concours est organisé par le MESRS</strong>
+          <span data-i18n="adm_alert_d">L'admission à l'ENSPD se fait par concours organisé par le <strong>Ministère de l'Enseignement Supérieur (MESRS)</strong> via la Direction des Examens et Concours (DEC). Inscriptions sur <strong>apresmonbac.bj</strong>. L'ENSPD ne gère pas directement les inscriptions.</span>
+        </div>
+      </div>
+      <h2 class="sh-h2 mb24" data-i18n="adm_cond">Conditions d'accès</h2>
+      <div class="g2 mb48" id="cond-list"></div>
+      <h2 class="sh-h2 mb8" data-i18n="adm_pay">Paiement des droits universitaires</h2>
+      <p class="f14 c2 mb24" data-i18n="adm_pay_sub">Les droits se paient via la plateforme officielle du Trésor Public du Bénin.</p>
+      <div class="alert a-vt mb24" role="note">
+        <span aria-hidden="true">🏦</span>
+        <div data-i18n="adm_pay_info">Plateforme : <strong>paiement.tresorbenin.bj</strong> · Compte ENSPD : <strong>01001 000001048692 20</strong> (BJ66 0010 0100 0001 0486 9220) · MTN / Moov / Carte bancaire</div>
+      </div>
+      <div class="g4 mb48" id="steps-list"></div>
+      <h2 class="sh-h2 mb8" data-i18n="res_docs">Demandes de documents officiels</h2>
+      <p class="f14 c2 mb24" data-i18n="res_docs_sub">Toute demande est adressée manuscritement au Directeur, accompagnée des pièces requises.</p>
+      <div id="docs-list"></div>
+
+      <!-- FAQ ADMISSIONS -->
+      <div class="faq-wrap mt48" id="faq-admissions-wrap">
+        <div class="sh c mb28">
+          <div class="para-accent para-accent--mn"></div>
+          <span class="stag" data-i18n="faq_tag">FAQ</span>
+          <h2 class="sh-h2 mt8" data-i18n="faq_t">Questions fréquentes</h2>
+        </div>
+        <div class="faq-list" id="faq-list" role="list"></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ================================================================
+     RECHERCHE
+================================================================ -->
+<div class="page" id="p-recherche">
+  <div class="pg-hero pg-hero-vt">
+    <div class="wi wrap">
+      <div class="bc"><span data-i18n="bc_home">Accueil</span> / <span data-i18n="pt_rec_bc">Recherche</span></div>
+      <h1 data-i18n="rec_h1">Recherche &amp; Laboratoires</h1>
+      <p data-i18n="rec_sub">Deux laboratoires actifs au service du développement local.</p>
+    </div>
+  </div>
+  <section class="sec bg-w">
+    <div class="wrap">
+      <div class="g2 mb48" id="labos-list"></div>
+      <div class="partners-box" aria-label="Partenariats de recherche">
+        <h3 class="partners-title" data-i18n="rec_partners">Partenariats de recherche</h3>
+        <div class="partners-tags" id="partners-list"></div>
+      </div>
+
+      <!-- PUBLICATIONS -->
+      <div class="mt48">
+        <div class="sh c mb24">
+          <div class="para-accent"></div>
+          <span class="stag" data-i18n="pub_tag">Publications</span>
+          <h2 class="sh-h2 mt8" data-i18n="pub_t">Travaux scientifiques récents</h2>
+        </div>
+        <div class="pub-list" id="pub-list"></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ================================================================
+     ACTUALITÉS
+================================================================ -->
+<div class="page" id="p-actualites">
+  <div class="pg-hero pg-hero-deep">
+    <div class="wi wrap">
+      <div class="bc"><span data-i18n="bc_home">Accueil</span> / <span data-i18n="pt_news_bc">Actualités</span></div>
+      <h1 data-i18n="news_h1">Actualités ENSPD</h1>
+      <p data-i18n="news_sub">Concours, soutenances, partenariats et événements.</p>
+    </div>
+  </div>
+  <section class="sec bg-bg">
+    <div class="wrap">
+      <div class="filter-bar" role="group" aria-label="Filtrer les actualités">
+        <button class="btn b-vt b-sm af" onclick="filterActus('',this)" data-i18n="nf_all">Tout</button>
+        <button class="btn b-gh b-sm af" onclick="filterActus('Concours',this)" data-i18n="nf_concours">Concours</button>
+        <button class="btn b-gh b-sm af" onclick="filterActus('Événement',this)" data-i18n="nf_event">Événements</button>
+        <button class="btn b-gh b-sm af" onclick="filterActus('JSSED',this)" data-i18n="nf_jssed">JSSED</button>
+        <button class="btn b-gh b-sm af" onclick="filterActus('Partenariat',this)" data-i18n="nf_part">Partenariats</button>
+        <button class="btn b-gh b-sm af" onclick="filterActus('Recherche',this)" data-i18n="nf_research">Recherche</button>
+        <button class="btn b-gh b-sm af" onclick="filterActus('Innovation',this)" data-i18n="nf_innov">Innovation</button>
+      </div>
+      <div class="g3" id="actus-list"></div>
+    </div>
+  </section>
+</div>
+
+<!-- ================================================================
+     ÉVÉNEMENTS
+================================================================ -->
+<div class="page" id="p-evenements">
+  <div class="pg-hero">
+    <div class="wi wrap">
+      <div class="bc"><span data-i18n="bc_home">Accueil</span> / <span data-i18n="pt_agd_bc">Agenda</span></div>
+      <h1 data-i18n="events_h1">Agenda ENSPD</h1>
+      <p data-i18n="events_sub">JSSED, Rentrée solennelle, Portes Ouvertes.</p>
+    </div>
+  </div>
+  <section class="sec bg-bg">
+    <div class="wrap">
+      <div class="sec-head-row mb28">
+        <h2 class="page-h2" data-i18n="events_next">Prochains événements</h2>
+        <button class="btn b-vt b-sm" id="btn-add-ev" hidden onclick="openPubEvModal()">+ Ajouter un événement</button>
+      </div>
+      <div id="events-list"></div>
+    </div>
+  </section>
+</div>
+
+<!-- ================================================================
+     CONTACT
+================================================================ -->
+<div class="page" id="p-contact">
+  <div class="pg-hero">
+    <div class="wi wrap">
+      <div class="bc"><span data-i18n="bc_home">Accueil</span> / <span data-i18n="pt_ctc_bc">Contact</span></div>
+      <h1 data-i18n="contact_h1">Contactez l'ENSPD</h1>
+      <p data-i18n="contact_sub">Notre équipe répond sous 48h ouvrables.</p>
+    </div>
+  </div>
+  <section class="sec bg-w">
+    <div class="wrap">
+      <div class="g2-loose">
+        <div class="anim al">
+          <h2 class="page-h2 mb24" data-i18n="form_title">Envoyer un message</h2>
+          <form onsubmit="envoyerContact(event)" id="contact-form" novalidate>
+            <div class="fg">
+              <label for="c-nom" data-i18n="form_name">Nom complet *</label>
+              <input id="c-nom" type="text" class="fi" placeholder="Votre nom et prénoms" data-i18n-ph="form_name_ph" required autocomplete="name">
+            </div>
+            <div class="fg">
+              <label for="c-email" data-i18n="form_email">Email *</label>
+              <input id="c-email" type="email" class="fi" placeholder="votre@email.com" data-i18n-ph="form_email_ph" required autocomplete="email">
+            </div>
+            <div class="fg">
+              <label for="c-subject" data-i18n="form_subject">Objet</label>
+              <select id="c-subject" class="fs">
+                <option>Renseignements sur les formations</option>
+                <option>Informations concours (MESRS)</option>
+                <option>Partenariat institutionnel</option>
+                <option>Stage ou emploi</option>
+                <option>Autre</option>
+              </select>
+            </div>
+            <div class="fg">
+              <label for="c-msg" data-i18n="form_msg">Message *</label>
+              <textarea id="c-msg" class="ft" placeholder="Votre message…" data-i18n-ph="form_msg_ph" required></textarea>
+            </div>
+            <button type="submit" class="btn b-vt b-lg btn-full" data-i18n="btn_send">Envoyer le message</button>
+          </form>
+        </div>
+        <div class="anim ar col-stack-sm">
+          <h2 class="page-h2" data-i18n="info_title">Informations pratiques</h2>
+          <div class="card cp info-card-row">
+            <div class="info-ico" aria-hidden="true">📍</div>
+            <div class="info-txt"><strong data-i18n="info_addr">Adresse</strong><p data-i18n="info_addr_v">Campus de Logbessou<br>Université de Parakou, Bénin</p></div>
+          </div>
+          <div class="card cp info-card-row">
+            <div class="info-ico" aria-hidden="true">📧</div>
+            <div class="info-txt"><strong data-i18n="info_email">Email</strong><a href="mailto:contact@enspd-up.bj">contact@enspd-up.bj</a></div>
+          </div>
+          <div class="card cp info-card-row">
+            <div class="info-ico" aria-hidden="true">🌐</div>
+            <div class="info-txt"><strong data-i18n="info_up">Université de Parakou</strong><a href="http://www.univ-parakou.bj" target="_blank" rel="noopener noreferrer">www.univ-parakou.bj</a></div>
+          </div>
+          <div class="card cp card-vt">
+            <strong class="info-hours-lbl" data-i18n="info_hours">Horaires</strong>
+            <p class="info-hours-p" data-i18n="info_hours_v">Lun–Ven : 08h00–17h00<br>Scolarité : 08h–12h / 15h–17h<br>Fermé weekends &amp; jours fériés</p>
+          </div>
+          <button class="btn b-mn b-lg tc" onclick="window.open('bue.html');return false" data-i18n="btn_visit_bue">Visiter le site BUE →</button>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ================================================================
+     ADMIN (contenu injecté par JS)
+================================================================ -->
+<div class="page" id="p-admin" role="region" aria-label="Tableau de bord administrateur"></div>
+
+<!-- ================================================================
+     MENTIONS LÉGALES
+================================================================ -->
+<div class="page" id="p-legal">
+  <div class="pg-hero" style="background:linear-gradient(135deg,#1a1a2e,#16213e)">
+    <div class="wi wrap">
+      <div class="bc"><span data-i18n="bc_home">Accueil</span> / <span data-i18n="pt_legal_bc">Mentions légales</span></div>
+      <h1 data-i18n="legal_h1">Mentions légales &amp; Confidentialité</h1>
+      <p data-i18n="legal_sub">Informations légales, politique de confidentialité et gestion des cookies.</p>
+    </div>
+  </div>
+  <section class="sec bg-w">
+    <div class="wrap" style="max-width:800px">
+      <div class="legal-content" id="legal-content"></div>
+    </div>
+  </section>
+</div>
+
+<!-- ================================================================
+     FOOTER
+================================================================ -->
+<footer class="footer" role="contentinfo">
+  <div class="footer-g">
+    <div class="footer-brand">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
+        <img src="assets/logos/Logo_ENSPD.jpg" alt="Logo ENSPD"
+             width="34" height="34"
+             style="border-radius:6px;background:#fff;padding:2px"
+             loading="lazy"
+             onerror="this.hidden=true">
+        <div style="color:#fff;font-weight:700;font-size:15px">ENSPD</div>
+      </div>
+      <p data-i18n="foot_desc">École Nationale de Statistique, de Planification et de Démographie — Université de Parakou, Bénin. Fondée en 2012.</p>
+      <div class="social-links" aria-label="Réseaux sociaux">
+        <a class="social-btn fb" href="https://www.facebook.com/ENSPD.UP.Officiel"
+           target="_blank" rel="noopener noreferrer" title="Facebook ENSPD" aria-label="ENSPD sur Facebook">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+        </a>
+        <a class="social-btn li" href="https://www.linkedin.com/school/enspd-universite-parakou"
+           target="_blank" rel="noopener noreferrer" title="LinkedIn ENSPD" aria-label="ENSPD sur LinkedIn">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        </a>
+        <a class="social-btn em" href="mailto:contact@enspd-up.bj" title="Email ENSPD" aria-label="Contacter l'ENSPD par email">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+        </a>
+      </div>
+    </div>
+    <div class="fc-col">
+      <h4 data-i18n="foot_h_school">L'École</h4>
+      <a href="#" data-p="ecole" data-i18n="foot_about">À propos</a>
+      <a href="#" data-p="ecole" data-i18n="foot_dir">Mot du Directeur</a>
+      <a href="#" data-p="recherche" data-i18n="foot_labs">Laboratoires</a>
+      <a href="#" data-p="evenements" data-i18n="foot_agenda">Agenda</a>
+    </div>
+    <div class="fc-col">
+      <h4 data-i18n="foot_h_form">Formation</h4>
+      <a href="#" data-p="formations" data-i18n="foot_all_fil">Toutes les filières</a>
+      <a href="#" data-p="admissions" data-i18n="nav_adm">Admissions</a>
+      <a href="#" data-p="admissions" data-i18n="foot_pay">Paiement droits</a>
+      <a href="https://www.apresmonbac.bj" target="_blank" rel="noopener noreferrer" data-i18n="foot_apresbac">Après mon Bac BJ</a>
+    </div>
+    <div class="fc-col">
+      <h4 data-i18n="foot_h_links">Liens utiles</h4>
+      <a href="http://www.univ-parakou.bj" target="_blank" rel="noopener noreferrer" data-i18n="info_up">Université de Parakou</a>
+      <a href="https://paiement.tresorbenin.bj" target="_blank" rel="noopener noreferrer" data-i18n="foot_pay">Paiement droits</a>
+      <button class="footer-link-btn" onclick="window.open('bue.html');return false">Site BUE-ENSPD</button>
+      <button class="footer-link-btn" onclick="window.open('jssed.html');return false">JSSED 2026 →</button>
+      <a href="#" data-p="contact" data-i18n="nav_contact">Contact</a>
+    </div>
+  </div>
+  <div class="footer-legal">
+    <a href="#" onclick="nav('legal');return false" data-i18n="foot_legal">Mentions légales</a>
+    <a href="#" onclick="nav('legal');return false" data-i18n="foot_priv">Politique de confidentialité</a>
+    <a href="#" onclick="nav('legal');return false" data-i18n="foot_cookies">Gestion des cookies</a>
+    <a href="#" onclick="openAuthModal('register')" data-i18n="foot_create">Créer un compte</a>
+  </div>
+  <div class="footer-b">
+    <span data-i18n="foot_copy">© 2026 ENSPD — Université de Parakou, Bénin · Tous droits réservés</span>
+    <span class="footer-credit">Développé par <span>DJOROD_CODING</span></span>
+    <button class="footer-link-btn" onclick="window.open('bue.html');return false">BUE-ENSPD →</button>
+  </div>
+</footer>
+
+<!-- ================================================================
+     LIGHTBOX
+================================================================ -->
+<div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Visionneuse d'images">
+  <div class="lb-inner">
+    <button class="lb-close" onclick="closeLB()" aria-label="Fermer">✕</button>
+    <button class="lb-nav lb-prev" onclick="lbNav(-1)" aria-label="Image précédente">‹</button>
+    <button class="lb-nav lb-next" onclick="lbNav(1)" aria-label="Image suivante">›</button>
+    <img id="lb-img" class="lb-img" src="" alt="">
+    <div class="lb-caption" id="lb-caption"></div>
+    <div style="display:flex;align-items:center;gap:10px;justify-content:center;margin-top:12px">
+      <a id="lb-dl" href="#" download class="btn b-vt b-sm">⬇ Télécharger</a>
+      <span id="lb-cnt" style="color:rgba(255,255,255,.5);font-size:12px" aria-live="polite"></span>
+    </div>
+  </div>
+</div>
+
+<!-- ================================================================
+     MODAL PRINCIPAL
+================================================================ -->
+<div id="modal" class="modal-overlay" role="dialog" aria-modal="true">
+  <div class="modal-box" id="modal-box">
+    <div class="modal-head">
+      <h2 id="m-titre"></h2>
+      <button class="modal-close" onclick="closeModal()" aria-label="Fermer">✕</button>
+    </div>
+    <div class="modal-body" id="m-body"></div>
+  </div>
+</div>
+
+<!-- TOASTS -->
+<div id="toasts" class="toasts" role="status" aria-live="polite" aria-atomic="false"></div>
+
+<!-- BACK TO TOP -->
+<button id="btt" data-i18n-title="btt_title" title="Retour en haut" aria-label="Retour en haut de page">↑</button>
+
+<!-- ================================================================
+     COOKIE CONSENT BANNER
+================================================================ -->
+<div id="cookie-banner" class="cookie-banner" role="region" aria-label="Consentement aux cookies">
+  <p>
+    <strong data-i18n="cookie_t">🍪 Ce site utilise des cookies</strong><span data-i18n="cookie_d"> — Nous utilisons des cookies fonctionnels pour mémoriser vos préférences (thème, langue, connexion). Aucun cookie publicitaire ou de tracking.</span>
+    <a href="#" onclick="nav('legal');closeCookie();return false" data-i18n="cookie_more">En savoir plus</a>
+  </p>
+  <div class="cookie-btns">
+    <button class="btn b-gh b-sm" onclick="rejectCookies()" data-i18n="cookie_reject">Refuser</button>
+    <button class="btn b-vt b-sm" onclick="acceptCookies()" data-i18n="cookie_accept">Accepter</button>
+  </div>
+</div>
+
+<!-- ================================================================
+     WELCOME MODAL — Première visite
+================================================================ -->
+<div id="welcome-overlay" class="welcome-overlay" role="dialog" aria-modal="true" aria-labelledby="wel-title">
+  <div class="welcome-box">
+    <img src="assets/logos/Logo_ENSPD.jpg" alt="Logo ENSPD" class="welcome-logo"
+         width="80" height="80"
+         onerror="this.hidden=true">
+    <h2 id="wel-title" data-i18n="wel_t">Bienvenue sur le site officiel de l'ENSPD</h2>
+    <p data-i18n="wel_sub">École Nationale de Statistique, de Planification et de Démographie — Université de Parakou, Bénin</p>
+    <div class="welcome-choices">
+      <button class="wc-btn" onclick="chooseVisitor()">
+        <div class="ico" aria-hidden="true">👀</div>
+        <strong data-i18n="wel_visitor">Visiteur</strong>
+        <span data-i18n="wel_visitor_d">Parcourir librement le site</span>
+      </button>
+      <button class="wc-btn" onclick="openAuthModal('register');closeWelcome()">
+        <div class="ico" aria-hidden="true">🎓</div>
+        <strong data-i18n="wel_create">Créer un compte</strong>
+        <span data-i18n="wel_create_d">Étudiant, enseignant, partenaire</span>
+      </button>
+    </div>
+    <button class="welcome-skip" onclick="chooseVisitor()" data-i18n="wel_skip">Continuer sans compte →</button>
+  </div>
+</div>
+
+<!-- WHATSAPP FLOAT -->
+<a href="https://wa.me/22997000000" target="_blank" rel="noopener noreferrer"
+   class="wa-float" aria-label="Contacter l'ENSPD sur WhatsApp">
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+  </svg>
+</a>
+
+<script src="enspd.js" defer></script>
+</body>
+</html>

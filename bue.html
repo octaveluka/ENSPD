@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="dark" class="bue-page">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>BUE-ENSPD — Bureau d'Union des Étudiants | Université de Parakou, Bénin</title>
+  <meta name="description" content="Site officiel du BUE-ENSPD. Forum étudiant, galerie, événements, ressources et CRISTAL.">
+  <meta name="theme-color" content="#0D0F40">
+  <link rel="stylesheet" href="shared.css">
+  <link rel="stylesheet" href="bue.css">
+
+</head>
+
+<body>
+
+<!-- ── BARRE ADMIN BUE ─────────────────────────────────────── -->
+<div id="bue-admin-bar" class="admin-bar"></div>
+
+<!-- ── TOP BAR ────────────────────────────────────────────── -->
+<div class="top-bar">
+  <span>🎓 BUE-ENSPD — Bureau d'Union des Étudiants · Année académique 2025-2026</span>
+  <button class="footer-link-btn" onclick="window.open('index.html');return false">Site ENSPD →</button>
+</div>
+
+<!-- ── NAVBAR BUE ──────────────────────────────────────────── -->
+<nav class="nav" id="navbar">
+  <a class="nav-brand" href="#" onclick="nav('accueil');return false">
+    <img src="assets/logos/Logo_BUE.jpg" alt="BUE-ENSPD" class="nav-logo"
+         width="42" height="42"
+         onerror="this.style.display='none';this.nextSibling.style.display='flex'">
+    <div class="nav-logo-ph" style="display:none"><span>BUE</span></div>
+    <div class="nav-brand-txt">
+      <strong>BUE-ENSPD</strong>
+      <small>Bureau d'Union des Étudiants</small>
+    </div>
+  </a>
+
+  <div class="nav-links" id="nav-links">
+    <a href="#" data-p="accueil" class="act">Accueil</a>
+    <a href="#" data-p="bureau">Le Bureau</a>
+    <a href="#" data-p="cristal">CRISTAL</a>
+    <a href="#" data-p="evenements">Événements</a>
+    <a href="#" data-p="forum">Forum</a>
+    <a href="#" data-p="ressources">Ressources</a>
+    <a href="#" data-p="galerie">Galerie</a>
+    <a href="#" data-p="contact">Contact</a>
+    <a href="#" data-p="coding-club"
+   style="position:relative;opacity:.6"
+   title="Bientôt disponible">
+  💻 Coding Club
+  <span style="position:absolute;top:-4px;right:-4px;background:var(--or);
+               color:#fff;font-size:9px;font-weight:700;padding:1px 5px;
+               border-radius:100px;letter-spacing:.3px">BIENTÔT</span> </a>
+  </div>
+<div class="nav-acts">
+  <button class="nav-ib" id="dark-btn" onclick="toggleDark()" title="Thème">☀️</button>
+  <!-- Sélecteur FR/EN -->
+  <div class="lang-selector">
+    <button class="lang-opt on" id="bue-lang-fr" onclick="setBueLang('fr')">FR</button>
+    <button class="lang-opt" id="bue-lang-en" onclick="setBueLang('en')">EN</button>
+  </div>
+  <button class="btn b-sec b-sm" onclick="window.open('index.html');return false" style="font-size:12px" aria-label="Ouvrir le site ENSPD">ENSPD →</button>
+</div>
+  <div class="nav-auth" id="bue-nav-auth">
+    <button class="btn-login" onclick="openBueAuthModal('login')">Connexion</button>
+    <button class="btn-register" onclick="openBueAuthModal('register')">S'inscrire</button>
+  </div>
+
+  <button class="burger" id="burger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- ══════════════════════ PAGE : ACCUEIL ══════════════════════ -->
+<div class="page act" id="p-accueil">
+
+  <!-- HERO SPLIT : texte à gauche / photo à droite -->
+  <section class="bue-hero-split">
+    <!-- Côté gauche -->
+    <div class="bue-hero-left">
+      <div class="bue-eyebrow anim">
+        Bureau d'Union des Étudiants · 1er Bureau élu · ENSPD Parakou
+      </div>
+      <h1 class="bue-hero-title anim d1">
+        Ensemble, bâtissons<br>
+        <em class="bue-accent">l'ENSPD de demain</em>
+      </h1>
+      <p class="bue-hero-desc anim d2">
+        "Le courage, la force, le respect, le travail de groupe et le leadership
+        sont des principes qui vous permettront de réussir ici à l'ENSPD."
+        <span class="bue-hero-author">— DJOSSOU Rodrigue, Président du BUE</span>
+      </p>
+      <div class="bue-hero-ctas anim d3">
+        <a href="#" onclick="nav('evenements');return false"
+           class="btn b-lg bue-btn-primary">Voir les événements</a>
+        <a href="#" onclick="nav('bureau');return false"
+           class="btn b-sec b-lg">Le bureau</a>
+      </div>
+      <div class="bue-hero-stats anim d4">
+        <div class="bue-hs-item">
+          <div class="bue-hs-n">2025</div>
+          <div class="bue-hs-l">1er bureau élu</div>
+        </div>
+        <div class="bue-hs-item">
+          <div class="bue-hs-n">9</div>
+          <div class="bue-hs-l">Membres</div>
+        </div>
+        <div class="bue-hs-item">
+          <div class="bue-hs-n">4</div>
+          <div class="bue-hs-l">Sections CRISTAL</div>
+        </div>
+        <div class="bue-hs-item">
+          <div class="bue-hs-n">113+</div>
+          <div class="bue-hs-l">Membres actifs</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Côté droit : photo + placeholder si image absente -->
+    <div class="bue-hero-right">
+      <div class="bue-hero-img-ph">
+        <span>BUE-ENSPD · Parakou, Bénin</span>
+      </div>
+      <img
+        src="assets/galerie/bue/jssed_1775853364124.jpg"
+        alt="Étudiants ENSPD — JSSED"
+        loading="lazy"
+        onerror="this.style.display='none'"
+      >
+    </div>
+  </section>
+
+  <!-- ÉVÉNEMENTS PHARES -->
+  <section class="sec bg-bg">
+    <div class="wrap">
+      <div class="sh c">
+        <span class="stag or">Événements phares</span>
+        <h2 class="sh-h2">Les grands rendez-vous de l'ENSPD</h2>
+      </div>
+      <div class="g2" style="gap:20px">
+        <!-- JSSED -->
+        <div class="bue-event-card bue-event-primary anim al">
+          <div class="bue-event-badge">2ème édition · Septembre 2026</div>
+          <h3 class="bue-event-title">JSSED</h3>
+          <p class="bue-event-sub">Journée de la Statistique, du Suivi-Évaluation et de la Démographie</p>
+          <p class="bue-event-desc">Événement phare de l'ENSPD — conférences, ateliers, concours inter-étudiants et networking. La 1ère édition (Sept 2025) a réuni plus de 200 participants.</p>
+          <img src="assets/galerie/bue/jssed_1775853366762.jpg" alt="JSSED"
+               class="bue-event-img"
+               onerror="this.outerHTML='<div class=\'ev-card-img-ph\'><span>JSSED 2025</span></div>'">
+          <div class="ev-card-acts mt16">
+            <a href="#" onclick="nav('evenements');return false"
+               class="btn b-sm bue-btn-primary">Voir l'agenda</a>
+            <button class="btn b-sm b-sec"
+                    onclick="toast('Site JSSED bientôt disponible','inf')">Site dédié →</button>
+          </div>
+        </div>
+        <!-- Rentrée Solennelle -->
+        <div class="card bue-event-secondary anim ar">
+          <div class="cp">
+            <span class="stag or mb10" style="display:inline-block">4ème édition · Décembre 2026</span>
+            <h3 class="bue-ev-sec-h3">Rentrée Solennelle ENSPD</h3>
+            <p class="bue-ev-sec-p">
+              La 3ème édition (1er Déc 2025) était sous le thème
+              <em>«L'IA au service de l'enseignement supérieur»</em>.
+            </p>
+            <div class="ev-badges">
+              <span class="badge bv">1ère éd. 2023</span>
+              <span class="badge bv">2ème éd. 2024</span>
+              <span class="badge bv">3ème éd.</span>
+              <span class="badge bor">4ème éd. 2026</span>
+            </div>
+            <img src="assets/galerie/enspd/rentree_1775854492374.jpg"
+                 alt="Rentrée solennelle" class="ev-card-img"
+                 onerror="this.outerHTML='<div class=\'ev-card-img-ph\'><span>Rentrée Solennelle 2025</span></div>'">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ACTUALITÉS BUE -->
+  <section class="sec bg-w">
+    <div class="wrap">
+      <div class="sec-head-row mb24">
+        <div>
+          <span class="stag or">Actualités</span>
+          <h2 class="sh-h2 mt8">Vie étudiante en direct</h2>
+        </div>
+        <a href="#" onclick="nav('evenements');return false" class="btn b-gh">Tous les événements →</a>
+      </div>
+      <div class="g3" id="bue-actus-home"></div>
+    </div>
+  </section>
+
+  <!-- PRÉSENTATION BUE -->
+  <section class="bue-pres-section">
+    <div class="wrap">
+      <div class="bue-pres-grid">
+        <div>
+          <span class="stag w mb14" style="display:inline-block">Le BUE</span>
+          <h2 class="bue-pres-h2">Votre représentation étudiante</h2>
+          <p class="bue-pres-desc">
+            Le Bureau d'Union d'Entité est le premier bureau élu de l'ENSPD. Composé d'un bureau exécutif,
+            d'un cabinet civil et d'une commission de contrôle, il représente tous les étudiants auprès de l'administration.
+          </p>
+          <div class="col-stack mb26">
+            <div class="bue-pres-point">
+              <span class="bue-pres-arrow">→</span>
+              Représenter les étudiants auprès de l'administration
+            </div>
+            <div class="bue-pres-point">
+              <span class="bue-pres-arrow">→</span>
+              Organiser les événements : JSSED, Rentrée solennelle
+            </div>
+            <div class="bue-pres-point">
+              <span class="bue-pres-arrow">→</span>
+              Animer la vie associative : CRISTAL et activités sportives
+            </div>
+          </div>
+          <a href="#" onclick="nav('bureau');return false" class="btn b-or">
+            Rencontrer le bureau →
+          </a>
+        </div>
+        <div class="bue-stat-grid">
+          <div class="bue-stat-box">
+            <div class="bue-stat-n">3</div>
+            <div class="bue-stat-l">Bureau exécutif</div>
+          </div>
+          <div class="bue-stat-box">
+            <div class="bue-stat-n">4</div>
+            <div class="bue-stat-l">Cabinet civil</div>
+          </div>
+          <div class="bue-stat-box">
+            <div class="bue-stat-n">2</div>
+            <div class="bue-stat-l">Commission contrôle</div>
+          </div>
+          <div class="bue-stat-box bue-stat-green">
+            <div class="bue-stat-n">113+</div>
+            <div class="bue-stat-l">Membres CRISTAL</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div><!-- /accueil -->
+
+<!-- ══════════════════════ PAGE : LE BUREAU ══════════════════════ -->
+<div class="page" id="p-bureau">
+  <div class="pg-hero">
+    <div class="wi wrap">
+      <div class="bc">Accueil / Le Bureau</div>
+      <h1>Bureau Exécutif BUE-ENSPD</h1>
+      <p>Année académique 2025-2026 — Premier bureau élu de l'ENSPD.</p>
+    </div>
+  </div>
+  <section class="sec bg-w">
+    <div class="wrap">
+      <div class="alert a-mn mb24">
+        <span>ℹ</span>
+        <div>Le bureau est renouvelé chaque année académique par élection démocratique.</div>
+      </div>
+      <div class="sh c mb28">
+        <span class="stag">Bureau 2025-2026</span>
+        <h2 class="sh-h2">Le Président du BUE-ENSPD</h2>
+      </div>
+
+      <!-- Carte Président -->
+      <div class="bue-pres-wrap">
+        <div class="bue-pres-card anim">
+          <div class="bue-pres-av" id="bue-pres-avatar">DR</div>
+          <div class="bue-pres-txt">
+            <div class="bue-pres-role">Président du BUE-ENSPD</div>
+            <div class="bue-pres-name">DJOSSOU Rodrigue</div>
+            <p class="bue-pres-quote">
+              "Le courage, la force, le respect, le travail de groupe et le leadership
+              sont des principes qui vous permettront de réussir ici à l'ENSPD."
+            </p>
+            <div class="bue-pres-btns">
+              <a href="tel:+22953587895" class="btn b-sm bue-btn-primary">
+                📞 +229 0153581795
+              </a>
+              <a href="mailto:bue.enspd@gmail.com" class="btn b-sec b-sm"
+                 style="border-color:rgba(255,255,255,.35)">
+                ✉️ bue.enspd@gmail.com
+              </a>
+            </div>
+            <!-- Bouton upload photo (admin uniquement) -->
+            <div id="pres-photo-upload" style="display:none;margin-top:12px">
+              <label class="bue-upload-btn">
+                📷 Changer la photo du Président
+                <input type="file" accept="image/*" onchange="uploadPresPhoto(this)" style="display:none">
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <p class="bue-bureau-note">Les autres membres du bureau sont présentés lors des événements officiels.</p>
+    </div>
+  </section>
+</div>
+
+<!-- ══════════════════════ PAGE : CRISTAL ══════════════════════ -->
+<div class="page" id="p-cristal">
+  <div class="pg-hero bue-pg-hero-cristal">
+    <div class="wi wrap">
+      <div class="bc">Accueil / CRISTAL</div>
+      <h1>CRISTAL</h1>
+      <p>Collectif de Recherche et d'Innovation en Statistique · 4 sections actives · 113+ membres</p>
+    </div>
+  </div>
+  <section class="sec bg-w">
+    <div class="wrap">
+      <div class="bue-cristal-intro">
+        <div class="bue-cristal-grow">
+          <span class="stag mb10" style="display:inline-block">Association principale</span>
+          <h2 class="sh-h2">CRISTAL</h2>
+          <p class="bue-cristal-acro">
+            Collectif de Recherche et d'Innovation en Statistique,<br>
+            de Travail et d'Application sur les Logiciels
+          </p>
+          <p class="bue-cristal-desc">
+            Mission : promouvoir l'auto-formation, l'innovation et la recherche en statistique
+            au sein de ses membres, en complément des cours dispensés à l'ENSPD.
+          </p>
+          <p class="bue-cristal-note">
+            Le CRISTAL dispose de <strong>4 sections actives</strong>.
+            La section Études et Travaux Statistiques (ETS) est en cours de démarrage.
+          </p>
+          <button class="btn b-vt" onclick="rejoindreCristal()">Rejoindre le CRISTAL →</button>
+        </div>
+        <div class="bue-cristal-stats">
+          <div>
+            <div class="bue-stat-big" style="color:var(--mn)">113+</div>
+            <div class="bue-stat-sub">membres actifs</div>
+          </div>
+          <div class="divider-line" style="margin:16px 0"></div>
+          <div>
+            <div class="bue-stat-big" style="color:var(--vt)">4</div>
+            <div class="bue-stat-sub">sections actives</div>
+          </div>
+        </div>
+      </div>
+      <div class="sh c mb22">
+        <span class="stag">4 sections actives</span>
+        <h2 class="sh-h2">Les sections du CRISTAL</h2>
+      </div>
+      <div id="cristal-list"></div>
+    </div>
+  </section>
+</div>
+
+<!-- ══════════════════════ PAGE : ÉVÉNEMENTS ══════════════════════ -->
+<div class="page" id="p-evenements">
+  <div class="pg-hero">
+    <div class="wi wrap">
+      <div class="bc">Accueil / Événements</div>
+      <h1>Agenda BUE-ENSPD</h1>
+      <p>JSSED, Rentrée solennelle, matches, gala — toutes les activités du BUE.</p>
+    </div>
+  </div>
+  <section class="sec bg-bg">
+    <div class="wrap">
+      <div class="sec-head-row mb22">
+        <h2 class="page-h2">Agenda 2025-2026</h2>
+        <button class="btn b-vt b-sm" id="btn-add-event" hidden
+                onclick="ajouterEvenementAdmin()">+ Ajouter un événement</button>
+      </div>
+      <div id="bue-events-list"></div>
+    </div>
+  </section>
+</div>
+
+<!-- ══════════════════════ PAGE : FORUM ══════════════════════ -->
+<div class="page" id="p-forum">
+  <div class="pg-hero">
+    <div class="wi wrap">
+      <div class="bc">Accueil / Forum</div>
+      <h1>Forum Étudiant ENSPD</h1>
+      <p>Posez vos questions, partagez vos ressources, discutez avec vos camarades.</p>
+    </div>
+  </div>
+  <section class="sec bg-bg">
+    <div class="wrap">
+      <!-- Bannière connexion requise -->
+      <div id="forum-auth-banner" class="alert a-mn mb24" style="display:none">
+        <span>💬</span>
+        <div>Connectez-vous pour participer au forum.
+          <button class="btn b-mn b-sm" style="margin-left:10px"
+                  onclick="openBueAuthModal('login')">Se connecter</button>
+          <button class="btn b-gh b-sm" style="margin-left:6px"
+                  onclick="openBueAuthModal('register')">S'inscrire</button>
+        </div>
+      </div>
+
+      <h3 class="bue-sub-h3">Catégories</h3>
+      <div class="ga-s mb28" id="forum-cats"></div>
+
+      <div class="sec-head-row mb14">
+        <h3 class="bue-sub-h3" style="margin-bottom:0">Fils récents</h3>
+        <div class="ev-card-acts">
+          <button class="btn b-gh b-sm" onclick="renderFils()">Tout</button>
+          <button class="btn b-vt b-sm" onclick="nouveauSujet()">+ Nouveau sujet</button>
+        </div>
+      </div>
+      <div id="forum-fils"></div>
+    </div>
+  </section>
+</div>
+
+<!-- ══════════════════════ PAGE : RESSOURCES ══════════════════════ -->
+<div class="page" id="p-ressources">
+  <div class="pg-hero bue-pg-hero-ressources">
+    <div class="wi wrap">
+      <div class="bc">Accueil / Ressources</div>
+      <h1>Ressources Étudiantes</h1>
+      <p>Emplois du temps, modèles de demandes, guides pédagogiques et informations pratiques.</p>
+    </div>
+  </div>
+  <section class="sec bg-bg">
+    <div class="wrap">
+      <div class="alert a-mn mb24">
+        <span>🏦</span>
+        <div>
+          <strong>Paiement des droits</strong> — Plateforme :
+          <strong>paiement.tresorbenin.bj</strong> · Compte ENSPD :
+          <strong>01001 000001048692 20</strong>
+          <button class="footer-link-btn" onclick="window.open('index.html');return false"
+                  style="color:var(--mn);font-weight:600;margin-left:6px">Procédure complète →</button>
+        </div>
+      </div>
+
+      <!-- Filtres ressources + bouton admin -->
+      <div class="sec-head-row mb20">
+        <div class="filter-bar" style="margin-bottom:0">
+          <button class="btn b-vt b-sm rf" onclick="filterRes('',this)">Tout</button>
+          <button class="btn b-gh b-sm rf" onclick="filterRes('EDT',this)">Emplois du temps</button>
+          <button class="btn b-gh b-sm rf" onclick="filterRes('Administratif',this)">Administratif</button>
+          <button class="btn b-gh b-sm rf" onclick="filterRes('Pédagogie',this)">Pédagogie</button>
+        </div>
+        <button class="btn b-mn b-sm" id="btn-add-res" hidden
+                onclick="ajouterRessourceAdmin()">+ Ajouter une ressource</button>
+      </div>
+      <div id="res-list"></div>
+    </div>
+  </section>
+</div>
+
+<!-- ══════════════════════ PAGE : GALERIE ══════════════════════ -->
+<div class="page" id="p-galerie">
+  <div class="pg-hero">
+    <div class="wi wrap">
+      <div class="bc">Accueil / Galerie</div>
+      <h1>Galerie BUE-ENSPD</h1>
+      <p>JSSED, rentrée solennelle, matches, picnics — tous les moments en images.</p>
+    </div>
+  </div>
+  <section class="sec bg-w">
+    <div class="wrap">
+      <div class="gal-categories" id="bue-gal-cats"></div>
+      <div class="gal-grid" id="gal-bue"></div>
+    </div>
+  </section>
+</div>
+
+<!-- ══════════════════════ PAGE : CONTACT ══════════════════════ -->
+<div class="page" id="p-contact">
+  <div class="pg-hero">
+    <div class="wi wrap">
+      <div class="bc">Accueil / Contact</div>
+      <h1>Contactez le BUE</h1>
+      <p>Une question, une suggestion ? Le BUE vous répond sous 48h.</p>
+    </div>
+  </div>
+  <section class="sec bg-w">
+    <div class="wrap">
+      <div class="bue-contact-grid">
+        <!-- Formulaire -->
+        <div class="anim al">
+          <h2 class="page-h2 mb24" style="font-size:19px">Envoyer un message</h2>
+          <form id="bue-contact-form" onsubmit="envoyerBueContact(event)">
+            <div class="fg">
+              <label>Nom complet *</label>
+              <input id="bc-nom" type="text" class="fi" placeholder="Votre nom et prénoms" required>
+            </div>
+            <div class="fg">
+              <label>Email *</label>
+              <input id="bc-email" type="email" class="fi" placeholder="votre@email.com" required>
+            </div>
+            <div class="fg">
+              <label>Filière</label>
+              <select class="fs" id="bc-filiere">
+                <option value="">Votre filière</option>
+                <option>Licence SA</option><option>Licence PSE</option>
+                <option>Master SSD</option><option>Master SAAV</option>
+                <option>Master SESA</option><option>Master SE-MP</option><option>Master SILPD</option>
+              </select>
+            </div>
+            <div class="fg">
+              <label>Sujet</label>
+              <select class="fs">
+                <option>Question sur un événement BUE</option>
+                <option>Rejoindre le CRISTAL</option>
+                <option>Problème académique</option>
+                <option>Suggestion pour le BUE</option>
+                <option>Autre</option>
+              </select>
+            </div>
+            <div class="fg">
+              <label>Message *</label>
+              <textarea id="bc-msg" class="ft" placeholder="Votre message…" required></textarea>
+            </div>
+            <button type="submit" class="btn b-vt b-full">Envoyer au BUE</button>
+          </form>
+        </div>
+
+        <!-- Coordonnées -->
+        <div class="anim ar col-stack-sm">
+          <h2 class="page-h2" style="font-size:19px">Nous joindre directement</h2>
+
+          <div class="card cp info-card-row">
+            <div class="info-ico" aria-hidden="true">📞</div>
+            <div class="info-txt">
+              <strong>Téléphone / WhatsApp</strong>
+              <a href="tel:+22953587895">+229 0153581795</a>
+              <p style="font-size:12px;color:var(--txt3);margin-top:2px">Président DJOSSOU Rodrigue</p>
+            </div>
+          </div>
+
+          <div class="card cp info-card-row">
+            <div class="info-ico" aria-hidden="true">📧</div>
+            <div class="info-txt">
+              <strong>Email officiel</strong>
+              <a href="mailto:bue.enspd@gmail.com">bue.enspd@gmail.com</a>
+            </div>
+          </div>
+
+          <div class="card cp info-card-row">
+            <div class="info-ico" aria-hidden="true">📍</div>
+            <div class="info-txt">
+              <strong>Adresse</strong>
+              <p>Campus Université de Parakou<br>ENSPD — Secrétariat BUE<br>Parakou, Bénin</p>
+            </div>
+          </div>
+
+          <!-- Réseaux sociaux avec vrais SVG -->
+          <div class="ev-card-acts">
+            <a href="https://www.facebook.com/BUE.ENSPD" target="_blank" rel="noopener noreferrer"
+               class="btn b-mn b-sm" style="gap:8px">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+              </svg>
+              Facebook BUE
+            </a>
+            <a href="https://wa.me/22953587895" target="_blank" rel="noopener noreferrer"
+               class="btn b-sm" style="background:#25D366;color:#fff;border-color:#25D366;gap:8px">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+              </svg>
+              WhatsApp
+            </a>
+          </div>
+
+          <div class="card cp card-mn">
+            <strong class="bue-perm-h">Permanences BUE</strong>
+            <p class="bue-perm-p">
+              Lun–Ven : 08h–17h<br>
+              Permanence fixe : Mercredi 10h–12h<br>
+              Réponse garantie sous 48h
+            </p>
+          </div>
+
+          <button class="btn b-mn b-lg bue-link-cta" onclick="window.open('index.html');return false">Site officiel ENSPD →</button>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ══════════════════════ PAGE : ADMIN BUE ══════════════════════ -->
+<div class="page" id="p-bue-admin">
+  <!-- Contenu rendu dynamiquement par JS -->
+</div>
+
+<!-- ══════════════════════ FOOTER BUE ══════════════════════ -->
+<footer class="footer">
+  <div class="footer-g">
+    <div class="footer-brand">
+      <div class="bue-footer-logo">
+        <img src="assets/logos/Logo_BUE.jpg" alt="BUE" class="bue-footer-logo-img"
+             width="34" height="34"
+             onerror="this.hidden=true">
+        <div class="bue-footer-name">BUE-ENSPD</div>
+      </div>
+      <p>Bureau d'Union des Étudiants de l'ENSPD — Université de Parakou, Bénin. Premier bureau élu 2025-2026.</p>
+      <div class="social-links bue-social-links">
+        <a class="social-btn"
+           href="https://www.facebook.com/BUE.ENSPD" target="_blank" rel="noopener noreferrer" title="Facebook BUE" aria-label="BUE sur Facebook">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+          </svg>
+        </a>
+        <a class="social-btn"
+           href="https://wa.me/22953587895" target="_blank" rel="noopener noreferrer" title="WhatsApp BUE" aria-label="BUE sur WhatsApp">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+          </svg>
+        </a>
+        <a class="social-btn" href="mailto:bue.enspd@gmail.com" title="Email BUE">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+    <div class="fc-col">
+      <h4>Le BUE</h4>
+      <a href="#" data-p="bureau">Le Bureau</a>
+      <a href="#" data-p="cristal">CRISTAL</a>
+      <a href="#" data-p="evenements">Événements</a>
+    </div>
+    <div class="fc-col">
+      <h4>Étudiants</h4>
+      <a href="#" data-p="evenements">JSSED 2026</a>
+      <a href="#" data-p="evenements">Rentrée solennelle</a>
+      <a href="#" data-p="forum">Forum</a>
+      <a href="#" data-p="ressources">Ressources</a>
+      <a href="#" data-p="galerie">Galerie</a>
+    </div>
+    <div class="fc-col">
+      <h4>Liens</h4>
+      <button class="footer-link-btn" onclick="window.open('index.html');return false">Site officiel ENSPD</button>
+      <a href="http://www.univ-parakou.bj" target="_blank" rel="noopener noreferrer">Université de Parakou</a>
+      <a href="https://paiement.tresorbenin.bj" target="_blank" rel="noopener noreferrer">Paiement droits</a>
+      <a href="#" data-p="contact">Contact BUE</a>
+    </div>
+  </div>
+  <div class="footer-b">
+    <span>© 2026 BUE-ENSPD — Université de Parakou, Bénin · bue.enspd@gmail.com</span>
+    <span class="footer-credit">Développé par <span>DJOROD_CODING</span></span>
+    <span>Président : DJOSSOU Rodrigue · +229 0153581795</span>
+  </div>
+</footer>
+
+<!-- ── LIGHTBOX ────────────────────────────────────────────── -->
+<div id="lightbox" class="lightbox">
+  <div class="lb-inner">
+    <button class="lb-close" onclick="closeLightbox()">✕</button>
+    <button class="lb-nav lb-prev" onclick="lbNav(-1)">‹</button>
+    <button class="lb-nav lb-next" onclick="lbNav(1)">›</button>
+    <img id="lb-img" class="lb-img" src="" alt="">
+    <div class="lb-caption" id="lb-caption"></div>
+    <div style="display:flex;align-items:center;gap:10px;justify-content:center;margin-top:12px">
+      <a id="lb-dl-btn" href="#" download class="btn b-vt b-sm">⬇ Télécharger</a>
+      <span id="lb-counter" style="color:rgba(255,255,255,.5);font-size:12px"></span>
+    </div>
+  </div>
+</div>
+
+<!-- ── MODAL ──────────────────────────────────────────────── -->
+<div id="modal" class="modal-overlay">
+  <div id="modal-box" class="modal-box">
+    <div class="modal-head">
+      <h2 id="m-titre"></h2>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div id="m-body" class="modal-body"></div>
+  </div>
+</div>
+
+<!-- ── TOASTS + BTT ────────────────────────────────────────── -->
+<div id="toasts" class="toasts"></div>
+<button id="btt" title="Retour en haut">↑</button>
+
+<div class="page" id="p-coding-club">
+  <div style="min-height:80vh;display:flex;align-items:center;justify-content:center;
+              background:linear-gradient(145deg,#04060F,#0D0F40)">
+    <div style="text-align:center;padding:48px 24px;max-width:520px">
+      <div style="font-size:64px;margin-bottom:20px">💻</div>
+      <h1 style="font-family:var(--fs);font-size:clamp(26px,4vw,42px);color:#fff;
+                 margin-bottom:14px;font-weight:800">Coding Club ENSPD</h1>
+      <p style="font-size:15px;color:rgba(255,255,255,.65);line-height:1.8;margin-bottom:28px">
+        Un espace de programmation, de challenges et de projets collaboratifs est en cours de développement.
+        Défis de code, hackathons internes et formations pratiques — restez connectés.
+      </p>
+      <div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-bottom:28px">
+        <span style="background:rgba(240,165,0,.12);border:1px solid rgba(240,165,0,.25);
+                     color:#F0A500;font-size:12px;font-weight:700;padding:5px 14px;
+                     border-radius:100px">Python</span>
+        <span style="background:rgba(240,165,0,.12);border:1px solid rgba(240,165,0,.25);
+                     color:#F0A500;font-size:12px;font-weight:700;padding:5px 14px;
+                     border-radius:100px">R / Data Science</span>
+        <span style="background:rgba(240,165,0,.12);border:1px solid rgba(240,165,0,.25);
+                     color:#F0A500;font-size:12px;font-weight:700;padding:5px 14px;
+                     border-radius:100px">Challenges</span>
+        <span style="background:rgba(240,165,0,.12);border:1px solid rgba(240,165,0,.25);
+                     color:#F0A500;font-size:12px;font-weight:700;padding:5px 14px;
+                     border-radius:100px">Hackathon</span>
+      </div>
+      <div style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);
+                  border-radius:12px;padding:18px 24px;margin-bottom:24px">
+        <div style="font-size:12px;color:rgba(255,255,255,.45);margin-bottom:6px;
+                    text-transform:uppercase;letter-spacing:.8px">Lancement prévu</div>
+        <div style="font-size:22px;font-weight:800;color:#F0A500">Bientôt...</div>
+      </div>
+      <button class="btn b-sec" onclick="nav('accueil')">← Retour à l'accueil</button>
+    </div>
+  </div>
+</div>
+<!-- WHATSAPP FLOAT -->
+<a href="https://wa.me/22953587895" target="_blank" rel="noopener noreferrer"
+   class="wa-float" aria-label="Contact WhatsApp BUE">
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+  </svg>
+</a>
+
+<script src="bue.js" defer></script>
+</body>
+</html>

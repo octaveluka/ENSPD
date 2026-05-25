@@ -1,0 +1,1239 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="JSSED 2026 — 2ème Journées Scientifiques de la Statistique, de l'Évaluation et de la Démographie. Soumettez vos communications, consultez le programme.">
+  <title>JSSED 2026 — Journées Scientifiques | ENSPD</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="shared.css">
+  <link rel="stylesheet" href="jssed.css">
+</head>
+<body>
+
+<!-- Stars & Orbs Background -->
+<div class="js-stars" aria-hidden="true"></div>
+<div class="js-orb js-orb-1" aria-hidden="true"></div>
+<div class="js-orb js-orb-2" aria-hidden="true"></div>
+<div class="js-orb js-orb-3" aria-hidden="true"></div>
+
+<!-- ===================== TOP BAR ===================== -->
+<header class="js-topbar" id="js-topbar" role="banner">
+  <div class="js-topbar-brand">
+    <img src="assets/logo.png" alt="Logo ENSPD" class="js-topbar-logo" onerror="this.style.display='none'">
+    <div class="js-topbar-name">
+      JSSED 2026
+      <span>ENSPD — Univ. de Parakou</span>
+    </div>
+  </div>
+
+  <nav class="js-topbar-nav" aria-label="Navigation JSSED">
+    <a href="#editions">Éditions</a>
+    <a href="#aac">Appel à communications</a>
+    <a href="#timeline">Dates clés</a>
+    <a href="#soumission">Soumettre</a>
+    <a href="#tarifs">Inscription</a>
+    <a href="#comite">Comité</a>
+    <a href="#faq">FAQ</a>
+    <a href="#contact">Contact</a>
+  </nav>
+
+  <div class="js-topbar-cta">
+    <button class="js-back-btn" onclick="window.open('index.html')">← ENSPD</button>
+    <button class="js-burger" id="js-burger" aria-label="Menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- Mobile Nav -->
+<nav class="js-mobile-nav" id="js-mobile-nav" aria-label="Menu mobile">
+  <a href="#editions" class="js-mobile-link">🗂️ Éditions</a>
+  <a href="#aac" class="js-mobile-link">📋 Appel à communications</a>
+  <a href="#timeline" class="js-mobile-link">📅 Dates clés</a>
+  <a href="#soumission" class="js-mobile-link">📤 Soumettre</a>
+  <a href="#tarifs" class="js-mobile-link">💳 Inscription</a>
+  <a href="#comite" class="js-mobile-link">🔬 Comité scientifique</a>
+  <a href="#faq" class="js-mobile-link">❓ FAQ</a>
+  <a href="#contact" class="js-mobile-link">📞 Contact</a>
+</nav>
+
+<!-- ===================== HERO ===================== -->
+<section class="js-hero" id="js-hero" aria-label="Présentation JSSED 2026">
+  <div class="js-hero-mesh" aria-hidden="true"></div>
+
+  <div class="js-container" style="position:relative;z-index:2">
+    <div class="js-hero-edition">
+      <span>✦</span> 2ème Édition <span>✦</span>
+    </div>
+
+    <h1 class="js-hero-title">
+      Journées Scientifiques<br>
+      de la <span class="accent">Statistique</span>,<br>
+      de l'Évaluation &amp; de la Démographie
+    </h1>
+
+    <p class="js-hero-acronym">
+      J&nbsp;&nbsp;·&nbsp;&nbsp;S&nbsp;&nbsp;·&nbsp;&nbsp;S&nbsp;&nbsp;·&nbsp;&nbsp;E&nbsp;&nbsp;·&nbsp;&nbsp;D&nbsp;&nbsp;—&nbsp;&nbsp;2026
+    </p>
+
+    <div class="js-hero-meta">
+      <div class="js-hero-meta-item">
+        <span class="ico">📍</span>
+        <span>Parakou, Bénin</span>
+      </div>
+      <div class="js-hero-sep" aria-hidden="true"></div>
+      <div class="js-hero-meta-item">
+        <span class="ico">🏛️</span>
+        <span><strong>ENSPD</strong> — Univ. de Parakou</span>
+      </div>
+      <div class="js-hero-sep" aria-hidden="true"></div>
+      <div class="js-hero-meta-item">
+        <span class="ico">📅</span>
+        <span>Septembre <strong>2026</strong></span>
+      </div>
+    </div>
+
+    <!-- Countdown -->
+    <div class="js-countdown" id="js-countdown" role="timer" aria-label="Compte à rebours">
+      <div class="js-countdown-unit">
+        <div class="js-countdown-num" id="cd-j">000</div>
+        <div class="js-countdown-lbl">Jours</div>
+      </div>
+      <div class="js-countdown-sep" aria-hidden="true">:</div>
+      <div class="js-countdown-unit">
+        <div class="js-countdown-num" id="cd-h">00</div>
+        <div class="js-countdown-lbl">Heures</div>
+      </div>
+      <div class="js-countdown-sep" aria-hidden="true">:</div>
+      <div class="js-countdown-unit">
+        <div class="js-countdown-num" id="cd-m">00</div>
+        <div class="js-countdown-lbl">Minutes</div>
+      </div>
+      <div class="js-countdown-sep" aria-hidden="true">:</div>
+      <div class="js-countdown-unit">
+        <div class="js-countdown-num" id="cd-s">00</div>
+        <div class="js-countdown-lbl">Secondes</div>
+      </div>
+    </div>
+
+    <div class="js-hero-actions">
+      <a href="#soumission" class="js-btn js-btn-primary js-btn-lg">
+        📤 Soumettre un résumé
+      </a>
+      <a href="#aac" class="js-btn js-btn-outline js-btn-lg">
+        📋 Appel à communications
+      </a>
+    </div>
+  </div>
+
+  <div class="js-hero-scroll" aria-hidden="true">
+    <span>Découvrir</span>
+    <div class="js-hero-scroll-line"></div>
+  </div>
+</section>
+
+<!-- ===================== NAVIGATEUR D'ÉDITIONS ===================== -->
+<section class="js-section js-editions-section" id="editions" aria-labelledby="editions-title">
+  <div class="js-container">
+    <div class="js-section-center js-reveal">
+      <div class="js-section-badge">🗂️ Toutes les éditions</div>
+      <h2 class="js-section-title" id="editions-title">Éditions JSSED</h2>
+      <p class="js-section-sub">Retrouvez les archives et l'édition en cours des Journées Scientifiques.</p>
+    </div>
+
+    <div class="js-ed-grid js-reveal" style="margin-top:40px;">
+
+      <!-- Carte JSSED 2025 -->
+      <a href="#archive-2025" class="js-ed-card js-ed-card--archived">
+        <div class="js-ed-card-img-wrap">
+          <img
+            src="assets/galerie/bue/jssed_1775853364124.jpg"
+            alt="JSSED 2025 — 1ère édition"
+            class="js-ed-card-img"
+            onerror="this.style.display='none'"
+          >
+          <div class="js-ed-card-img-placeholder" aria-hidden="true">
+            <span>JSSED</span>
+            <span>2025</span>
+          </div>
+        </div>
+        <div class="js-ed-card-body">
+          <div class="js-ed-card-badge js-ed-badge--archived">✓ Archivé</div>
+          <div class="js-ed-card-year">JSSED 2025</div>
+          <div class="js-ed-card-edition">1ère édition</div>
+          <div class="js-ed-card-stats">
+            <div class="js-ed-kpi"><span class="js-ed-kpi-num">200+</span><span class="js-ed-kpi-lbl">participants</span></div>
+            <div class="js-ed-kpi"><span class="js-ed-kpi-num">3</span><span class="js-ed-kpi-lbl">ateliers</span></div>
+            <div class="js-ed-kpi"><span class="js-ed-kpi-num">15+</span><span class="js-ed-kpi-lbl">communications</span></div>
+          </div>
+          <span class="js-btn js-btn-outline js-btn-sm js-ed-cta">Voir l'archive →</span>
+        </div>
+      </a>
+
+      <!-- Carte JSSED 2026 -->
+      <div class="js-ed-card js-ed-card--current">
+        <div class="js-ed-card-img-wrap">
+          <div class="js-ed-card-img-placeholder js-ed-card-img-placeholder--current" aria-hidden="true">
+            <span>JSSED</span>
+            <span>2026</span>
+          </div>
+        </div>
+        <div class="js-ed-card-body">
+          <div class="js-ed-card-badge js-ed-badge--current">⚡ En cours</div>
+          <div class="js-ed-card-year">JSSED 2026</div>
+          <div class="js-ed-card-edition">2ème édition</div>
+          <div class="js-ed-mini-countdown" aria-label="Compte à rebours JSSED 2026">
+            <div class="js-ed-mini-unit">
+              <span class="js-ed-mini-num" id="ecd-j">—</span>
+              <span class="js-ed-mini-lbl">jours</span>
+            </div>
+            <div class="js-ed-mini-sep" aria-hidden="true">:</div>
+            <div class="js-ed-mini-unit">
+              <span class="js-ed-mini-num" id="ecd-h">—</span>
+              <span class="js-ed-mini-lbl">h</span>
+            </div>
+            <div class="js-ed-mini-sep" aria-hidden="true">:</div>
+            <div class="js-ed-mini-unit">
+              <span class="js-ed-mini-num" id="ecd-m">—</span>
+              <span class="js-ed-mini-lbl">min</span>
+            </div>
+          </div>
+          <a href="#soumission" class="js-btn js-btn-primary js-btn-sm js-ed-cta">Participer →</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="js-divider"></div>
+
+<!-- ===================== STATS ===================== -->
+<div class="js-stats-strip" id="js-stats">
+  <div class="js-container">
+    <div class="js-stats-grid">
+      <div class="js-stat-item js-reveal">
+        <div class="js-stat-num">3</div>
+        <div class="js-stat-lbl">Ateliers thématiques</div>
+      </div>
+      <div class="js-stat-item js-reveal js-reveal-delay-1">
+        <div class="js-stat-num gold">2ème</div>
+        <div class="js-stat-lbl">Édition JSSED</div>
+      </div>
+      <div class="js-stat-item js-reveal js-reveal-delay-2">
+        <div class="js-stat-num teal">300</div>
+        <div class="js-stat-lbl">Mots max. par résumé</div>
+      </div>
+      <div class="js-stat-item js-reveal js-reveal-delay-3">
+        <div class="js-stat-num" style="background:var(--js-grd4);-webkit-background-clip:text;background-clip:text;">4</div>
+        <div class="js-stat-lbl">Types de publication</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="js-divider"></div>
+
+<!-- ===================== ARCHIVE JSSED 2025 ===================== -->
+<section class="js-section" id="archive-2025" aria-labelledby="arch-title">
+  <div class="js-container">
+    <div class="js-section-center js-reveal">
+      <div class="js-section-badge js-section-badge--done">✓ Édition terminée · Septembre 2025</div>
+      <h2 class="js-section-title" id="arch-title">JSSED 2025 — 1ère édition</h2>
+      <p class="js-section-sub">Retour sur la première édition des Journées Scientifiques, un succès pour la communauté scientifique béninoise.</p>
+    </div>
+
+    <!-- KPIs -->
+    <div class="js-arch-kpis js-reveal" style="margin-top:40px;">
+      <div class="js-arch-kpi">
+        <div class="js-arch-kpi-num">200+</div>
+        <div class="js-arch-kpi-lbl">Participants</div>
+      </div>
+      <div class="js-arch-kpi">
+        <div class="js-arch-kpi-num teal">3</div>
+        <div class="js-arch-kpi-lbl">Ateliers thématiques</div>
+      </div>
+      <div class="js-arch-kpi">
+        <div class="js-arch-kpi-num gold">15+</div>
+        <div class="js-arch-kpi-lbl">Communications</div>
+      </div>
+      <div class="js-arch-kpi">
+        <div class="js-arch-kpi-num" style="font-size:22px;">Parakou</div>
+        <div class="js-arch-kpi-lbl">Lieu · Bénin</div>
+      </div>
+    </div>
+
+    <!-- Galerie 6 photos -->
+    <div class="js-arch-gallery js-reveal" style="margin-top:40px;">
+
+      <!-- Photo 1 — réelle -->
+      <div class="js-arch-photo-wrap">
+        <img
+          src="assets/galerie/bue/jssed_1775853364124.jpg"
+          alt="JSSED 2025 — Séance plénière"
+          class="js-arch-photo"
+          onerror="this.style.display='none'"
+        >
+        <div class="js-arch-photo-placeholder" aria-hidden="true">
+          <span class="js-arch-ph-label">Séance plénière</span>
+        </div>
+        <div class="js-arch-photo-caption">Séance plénière</div>
+      </div>
+
+      <!-- Photo 2 — réelle -->
+      <div class="js-arch-photo-wrap">
+        <img
+          src="assets/galerie/bue/jssed_1775853366762.jpg"
+          alt="JSSED 2025 — Atelier scientifique"
+          class="js-arch-photo"
+          onerror="this.style.display='none'"
+        >
+        <div class="js-arch-photo-placeholder" aria-hidden="true">
+          <span class="js-arch-ph-label">Atelier scientifique</span>
+        </div>
+        <div class="js-arch-photo-caption">Atelier scientifique</div>
+      </div>
+
+      <!-- Photo 3 — réelle -->
+      <div class="js-arch-photo-wrap">
+        <img
+          src="assets/galerie/bue/jssed_1775853368864.jpg"
+          alt="JSSED 2025 — Présentations"
+          class="js-arch-photo"
+          onerror="this.style.display='none'"
+        >
+        <div class="js-arch-photo-placeholder" aria-hidden="true">
+          <span class="js-arch-ph-label">Présentations</span>
+        </div>
+        <div class="js-arch-photo-caption">Présentations</div>
+      </div>
+
+      <!-- Photo 4 — placeholder -->
+      <div class="js-arch-photo-wrap js-arch-photo-wrap--empty">
+        <div class="js-arch-photo-placeholder js-arch-photo-placeholder--full" aria-hidden="true">
+          <span class="js-arch-ph-icon">📸</span>
+          <span class="js-arch-ph-label">Networking · À ajouter</span>
+        </div>
+        <div class="js-arch-photo-caption">Networking</div>
+      </div>
+
+      <!-- Photo 5 — placeholder -->
+      <div class="js-arch-photo-wrap js-arch-photo-wrap--empty">
+        <div class="js-arch-photo-placeholder js-arch-photo-placeholder--full" aria-hidden="true">
+          <span class="js-arch-ph-icon">🏆</span>
+          <span class="js-arch-ph-label">Remise de prix · À ajouter</span>
+        </div>
+        <div class="js-arch-photo-caption">Remise de prix</div>
+      </div>
+
+      <!-- Photo 6 — placeholder -->
+      <div class="js-arch-photo-wrap js-arch-photo-wrap--empty">
+        <div class="js-arch-photo-placeholder js-arch-photo-placeholder--full" aria-hidden="true">
+          <span class="js-arch-ph-icon">🎓</span>
+          <span class="js-arch-ph-label">Clôture · À ajouter</span>
+        </div>
+        <div class="js-arch-photo-caption">Cérémonie de clôture</div>
+      </div>
+
+    </div>
+
+    <!-- CTAs -->
+    <div class="js-arch-ctas js-reveal" style="margin-top:36px;">
+      <button class="js-btn js-btn-outline" disabled aria-disabled="true" style="opacity:.6;cursor:not-allowed;">
+        📄 Livre des résumés 2025 — Bientôt
+      </button>
+      <a href="#soumission" class="js-btn js-btn-primary">
+        JSSED 2026 — Participer →
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<div class="js-divider"></div>
+
+<!-- ===================== COMITÉ SCIENTIFIQUE ===================== -->
+<section class="js-section" id="comite" aria-labelledby="sc-title">
+  <div class="js-container">
+    <div class="js-section-center js-reveal">
+      <div class="js-section-badge">🔬 Comité scientifique</div>
+      <h2 class="js-section-title" id="sc-title">Comité Scientifique JSSED 2026</h2>
+      <p class="js-section-sub">Experts issus des universités et institutions partenaires qui évaluent les soumissions.</p>
+    </div>
+    <div class="js-sc-grid js-reveal" style="margin-top:40px;" id="js-sc-grid"></div>
+  </div>
+</section>
+
+<div class="js-divider"></div>
+
+<!-- ===================== PARTENAIRES JSSED ===================== -->
+<section class="js-section" id="partenaires" aria-labelledby="jp-title">
+  <div class="js-container">
+    <div class="js-section-center js-reveal">
+      <div class="js-section-badge">🤝 Partenaires</div>
+      <h2 class="js-section-title" id="jp-title">Partenaires &amp; Soutiens</h2>
+    </div>
+    <div class="js-partners-grid js-reveal" style="margin-top:36px;" id="js-partners-grid"></div>
+  </div>
+</section>
+
+<div class="js-divider"></div>
+
+<!-- ===================== APPEL À COMMUNICATIONS ===================== -->
+<section class="js-section" id="aac" aria-labelledby="aac-title">
+  <div class="js-container">
+    <div class="js-section-center js-reveal">
+      <div class="js-section-badge">📋 Appel à communications</div>
+      <h2 class="js-section-title" id="aac-title">
+        3 Ateliers scientifiques
+      </h2>
+      <p class="js-section-sub">
+        Soumettez vos travaux de recherche dans l'un des trois ateliers thématiques.
+        Communications orales, posters et expositions sont acceptés.
+      </p>
+    </div>
+
+    <!-- Ateliers -->
+    <div class="js-aac-grid">
+      <div class="js-atelier-card a1 js-reveal">
+        <div class="js-atelier-num">Atelier 01</div>
+        <span class="js-atelier-icon">📊</span>
+        <h3 class="js-atelier-title">Statistique &amp; Informatique décisionnelle</h3>
+        <p class="js-atelier-desc">
+          Méthodes quantitatives, data science, intelligence artificielle appliquée aux données statistiques et à la prise de décision.
+        </p>
+        <ul class="js-theme-list">
+          <li>Statistique appliquée &amp; modélisation</li>
+          <li>Machine learning &amp; data science</li>
+          <li>Business intelligence &amp; tableaux de bord</li>
+          <li>Big data &amp; analyse prédictive</li>
+          <li>Statistiques officielles &amp; enquêtes</li>
+        </ul>
+      </div>
+
+      <div class="js-atelier-card a2 js-reveal js-reveal-delay-1">
+        <div class="js-atelier-num">Atelier 02</div>
+        <span class="js-atelier-icon">🔬</span>
+        <h3 class="js-atelier-title">Évaluation, Suivi-évaluation &amp; IA</h3>
+        <p class="js-atelier-desc">
+          Méthodes d'évaluation des politiques publiques, programmes de développement, et apports de l'intelligence artificielle à l'évaluation.
+        </p>
+        <ul class="js-theme-list">
+          <li>Évaluation des politiques publiques</li>
+          <li>Suivi &amp; évaluation des projets de développement</li>
+          <li>IA pour l'évaluation d'impact</li>
+          <li>Méthodes expérimentales &amp; quasi-expérimentales</li>
+          <li>Économétrie des programmes</li>
+        </ul>
+      </div>
+
+      <div class="js-atelier-card a3 js-reveal js-reveal-delay-2">
+        <div class="js-atelier-num">Atelier 03</div>
+        <span class="js-atelier-icon">👥</span>
+        <h3 class="js-atelier-title">Démographie &amp; Intelligence Artificielle</h3>
+        <p class="js-atelier-desc">
+          Dynamiques de population, santé publique, migrations et apports des outils d'intelligence artificielle à l'analyse démographique.
+        </p>
+        <ul class="js-theme-list">
+          <li>Dynamiques de population &amp; projections</li>
+          <li>Santé de la reproduction &amp; mortalité</li>
+          <li>Migrations &amp; urbanisation</li>
+          <li>IA &amp; données censitaires</li>
+          <li>Genre &amp; démographie</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Formats -->
+    <div class="js-section-center js-reveal" style="margin-top:56px;">
+      <div class="js-section-badge">🎤 Formats de participation</div>
+      <h3 class="js-section-title" style="font-size:clamp(22px,3vw,32px);">Modes de contribution</h3>
+    </div>
+
+    <div class="js-formats-grid js-reveal">
+      <div class="js-format-item">
+        <span class="js-format-icon">🎤</span>
+        <div class="js-format-name">Conférence-débat</div>
+        <div class="js-format-desc">Présentations thématiques invitées avec discussion</div>
+      </div>
+      <div class="js-format-item">
+        <span class="js-format-icon">📑</span>
+        <div class="js-format-name">Communication orale</div>
+        <div class="js-format-desc">Présentation de travaux originaux (15–20 min)</div>
+      </div>
+      <div class="js-format-item">
+        <span class="js-format-icon">🖼️</span>
+        <div class="js-format-name">Poster scientifique</div>
+        <div class="js-format-desc">Affichage de résultats commenté en session dédiée</div>
+      </div>
+    </div>
+
+    <!-- AAC Info -->
+    <div class="js-aac-info js-reveal">
+      <div class="js-aac-info-item">
+        <h4>📄 Format du résumé</h4>
+        <p>300 mots maximum · Police Arial 12pt · Interligne 1.5 · Format Word (.docx) · 3 à 5 mots-clés</p>
+      </div>
+      <div class="js-aac-info-item">
+        <h4>📚 Valorisation</h4>
+        <p>Livre de résumés · Actes des journées (Annales de l'UP) · Synthèse finale · Réseautage scientifique</p>
+      </div>
+      <div class="js-aac-info-item">
+        <h4>📧 Contact soumission</h4>
+        <p>
+          <a href="mailto:jssed.enspd.up.2025@gmail.com" style="color:var(--js-accent2);">jssed.enspd.up.2025@gmail.com</a>
+          <br>Objet : <em>JSSED2026 – Résumé – Atelier N°X</em>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="js-divider"></div>
+
+<!-- ===================== TIMELINE ===================== -->
+<section class="js-section" id="timeline" aria-labelledby="tl-title">
+  <div class="js-container">
+    <div class="js-section-center js-reveal" style="margin-bottom:64px;">
+      <div class="js-section-badge gold">📅 Calendrier</div>
+      <h2 class="js-section-title" id="tl-title">Dates clés JSSED 2026</h2>
+      <p class="js-section-sub">
+        Toutes les étapes importantes de la 2ème édition, de l'appel à communications jusqu'à la cérémonie de clôture.
+      </p>
+      <div class="js-tl-notice js-reveal" style="margin-top:16px;">
+        📌 Calendrier détaillé à venir — dates indicatives
+      </div>
+    </div>
+
+    <div class="js-timeline" id="js-timeline">
+
+      <div class="js-tl-item js-reveal">
+        <div class="js-tl-content-left">
+          <div class="js-tl-date">Janvier 2026</div>
+          <div class="js-tl-title">Lancement officiel</div>
+          <div class="js-tl-desc">Ouverture de l'appel à communications et publication du programme préliminaire.</div>
+          <span class="js-tl-badge open">Ouvert</span>
+        </div>
+        <div class="js-tl-dot" style="font-size:20px;">🚀</div>
+        <div class="js-tl-content-right"></div>
+      </div>
+
+      <div class="js-tl-item js-reveal js-reveal-delay-1">
+        <div class="js-tl-content-left"></div>
+        <div class="js-tl-dot" style="font-size:18px;">📋</div>
+        <div class="js-tl-content-right">
+          <div class="js-tl-date">Mars 2026</div>
+          <div class="js-tl-title">Clôture des soumissions</div>
+          <div class="js-tl-desc">Date limite de dépôt des résumés et communications pour tous les ateliers.</div>
+          <span class="js-tl-badge warn">À ne pas manquer</span>
+        </div>
+      </div>
+
+      <div class="js-tl-item js-reveal">
+        <div class="js-tl-content-left">
+          <div class="js-tl-date">Avril 2026</div>
+          <div class="js-tl-title">Évaluation par les pairs</div>
+          <div class="js-tl-desc">Revue scientifique par le comité scientifique et les évaluateurs externes.</div>
+          <span class="js-tl-badge done">En cours</span>
+        </div>
+        <div class="js-tl-dot" style="font-size:18px;">🔬</div>
+        <div class="js-tl-content-right"></div>
+      </div>
+
+      <div class="js-tl-item js-reveal js-reveal-delay-1">
+        <div class="js-tl-content-left"></div>
+        <div class="js-tl-dot" style="font-size:18px;">📬</div>
+        <div class="js-tl-content-right">
+          <div class="js-tl-date">Mai 2026</div>
+          <div class="js-tl-title">Notifications aux auteurs</div>
+          <div class="js-tl-desc">Résultats de l'évaluation et retours aux auteurs. Acceptations et demandes de révision.</div>
+        </div>
+      </div>
+
+      <div class="js-tl-item js-reveal">
+        <div class="js-tl-content-left">
+          <div class="js-tl-date">Juin 2026</div>
+          <div class="js-tl-title">Inscriptions tarif préférentiel</div>
+          <div class="js-tl-desc">Période d'inscription à tarif réduit (Early Bird) pour tous les participants.</div>
+          <span class="js-tl-badge warn">Tarif réduit</span>
+        </div>
+        <div class="js-tl-dot js-tl-dot current" style="font-size:18px;">⭐</div>
+        <div class="js-tl-content-right"></div>
+      </div>
+
+      <div class="js-tl-item js-reveal js-reveal-delay-1">
+        <div class="js-tl-content-left"></div>
+        <div class="js-tl-dot" style="font-size:18px;">📝</div>
+        <div class="js-tl-content-right">
+          <div class="js-tl-date">Juillet 2026</div>
+          <div class="js-tl-title">Soumission des articles complets</div>
+          <div class="js-tl-desc">Envoi des textes intégraux pour publication dans les Actes des journées.</div>
+        </div>
+      </div>
+
+      <div class="js-tl-item js-reveal">
+        <div class="js-tl-content-left">
+          <div class="js-tl-date">Août 2026</div>
+          <div class="js-tl-title">Publication du programme final</div>
+          <div class="js-tl-desc">Programme détaillé, ordre des présentations, informations logistiques.</div>
+        </div>
+        <div class="js-tl-dot" style="font-size:18px;">📅</div>
+        <div class="js-tl-content-right"></div>
+      </div>
+
+      <div class="js-tl-item js-reveal js-reveal-delay-1">
+        <div class="js-tl-content-left"></div>
+        <div class="js-tl-dot" style="font-size:18px;">💳</div>
+        <div class="js-tl-content-right">
+          <div class="js-tl-date">Août 2026</div>
+          <div class="js-tl-title">Clôture des inscriptions</div>
+          <div class="js-tl-desc">Date limite pour les inscriptions à tarif normal. Au-delà, tarif sur place.</div>
+          <span class="js-tl-badge key">Date limite</span>
+        </div>
+      </div>
+
+      <div class="js-tl-item js-reveal">
+        <div class="js-tl-content-left">
+          <div class="js-tl-date">Septembre 2026</div>
+          <div class="js-tl-title">🎉 Journées JSSED 2026</div>
+          <div class="js-tl-desc">Déroulement des journées scientifiques : conférences, ateliers, posters, expositions et réseautage.</div>
+          <span class="js-tl-badge key">Événement principal</span>
+        </div>
+        <div class="js-tl-dot" style="font-size:24px;border-color:var(--js-gold);">🏆</div>
+        <div class="js-tl-content-right"></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="js-divider"></div>
+
+<!-- ===================== SOUMISSION ===================== -->
+<section class="js-section" id="soumission" aria-labelledby="sub-title">
+  <div class="js-container">
+    <div class="js-section-center js-reveal">
+      <div class="js-section-badge teal">📤 Soumission en ligne</div>
+      <h2 class="js-section-title" id="sub-title">Déposez votre communication</h2>
+      <p class="js-section-sub">
+        Formulaire de soumission officiel — Résumés limités à 300 mots.
+        Vos données sont enregistrées localement jusqu'à la confirmation d'envoi.
+      </p>
+    </div>
+
+    <div class="js-sub-wrap">
+
+      <!-- Steps -->
+      <div class="js-steps-header" id="js-steps-header" role="tablist" aria-label="Étapes de soumission">
+        <div class="js-step-dot active" id="sdot-1" role="tab" aria-selected="true">
+          <div class="js-step-num">1</div>
+          <div class="js-step-lbl">Type</div>
+        </div>
+        <div class="js-step-dot" id="sdot-2" role="tab" aria-selected="false">
+          <div class="js-step-num">2</div>
+          <div class="js-step-lbl">Auteur</div>
+        </div>
+        <div class="js-step-dot" id="sdot-3" role="tab" aria-selected="false">
+          <div class="js-step-num">3</div>
+          <div class="js-step-lbl">Co-auteurs</div>
+        </div>
+        <div class="js-step-dot" id="sdot-4" role="tab" aria-selected="false">
+          <div class="js-step-num">4</div>
+          <div class="js-step-lbl">Contenu</div>
+        </div>
+        <div class="js-step-dot" id="sdot-5" role="tab" aria-selected="false">
+          <div class="js-step-num">5</div>
+          <div class="js-step-lbl">Confirmer</div>
+        </div>
+      </div>
+
+      <!-- Form -->
+      <form id="js-form" novalidate>
+
+        <!-- Step 1 — Type & Atelier -->
+        <div class="js-form-step active" id="step-1">
+          <div class="js-form-card">
+            <h3 class="js-form-section-title">Type de contribution</h3>
+            <p class="js-form-section-sub">Choisissez le format de votre participation et l'atelier thématique correspondant.</p>
+
+            <div class="js-field-group">
+              <div class="js-label">Format de contribution <span>*</span></div>
+              <div class="js-radio-grid">
+                <div class="js-radio-card">
+                  <input type="radio" name="format" id="f-oral" value="oral" required>
+                  <label class="js-radio-label" for="f-oral">
+                    <span class="js-radio-label-icon">🎤</span>
+                    <span class="js-radio-label-title">Communication orale</span>
+                    <span class="js-radio-label-sub">Présentation de 15 à 20 minutes</span>
+                  </label>
+                </div>
+                <div class="js-radio-card">
+                  <input type="radio" name="format" id="f-poster" value="poster">
+                  <label class="js-radio-label" for="f-poster">
+                    <span class="js-radio-label-icon">🖼️</span>
+                    <span class="js-radio-label-title">Poster scientifique</span>
+                    <span class="js-radio-label-sub">Présentation affichée commentée</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <div class="js-field-group">
+              <label class="js-label" for="atelier">Atelier thématique <span>*</span></label>
+              <select class="js-select" id="atelier" name="atelier" required>
+                <option value="">— Sélectionnez un atelier —</option>
+                <option value="1">Atelier 1 — Statistique &amp; Informatique décisionnelle</option>
+                <option value="2">Atelier 2 — Évaluation, Suivi-évaluation &amp; IA</option>
+                <option value="3">Atelier 3 — Démographie &amp; Intelligence Artificielle</option>
+              </select>
+            </div>
+
+            <div class="js-field-group">
+              <label class="js-label" for="langue">Langue de présentation <span>*</span></label>
+              <select class="js-select" id="langue" name="langue" required>
+                <option value="">— Sélectionnez —</option>
+                <option value="fr">Français</option>
+                <option value="en">Anglais</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="js-form-nav">
+            <div class="js-form-progress">Étape <span id="step-current">1</span> / 5</div>
+            <button type="button" class="js-btn js-btn-primary" id="btn-next-1" onclick="jsform.next(1)">
+              Suivant →
+            </button>
+          </div>
+        </div>
+
+        <!-- Step 2 — Auteur principal -->
+        <div class="js-form-step" id="step-2">
+          <div class="js-form-card">
+            <h3 class="js-form-section-title">Auteur principal</h3>
+            <p class="js-form-section-sub">Informations sur l'auteur correspondant. Ces coordonnées seront utilisées pour les communications officielles.</p>
+
+            <div class="js-field-row">
+              <div class="js-field-group">
+                <label class="js-label" for="prenom">Prénom <span>*</span></label>
+                <input class="js-input" type="text" id="prenom" name="prenom" placeholder="Jean" required autocomplete="given-name">
+              </div>
+              <div class="js-field-group">
+                <label class="js-label" for="nom">Nom <span>*</span></label>
+                <input class="js-input" type="text" id="nom" name="nom" placeholder="DUPONT" required autocomplete="family-name">
+              </div>
+            </div>
+
+            <div class="js-field-group">
+              <label class="js-label" for="email">Email <span>*</span></label>
+              <input class="js-input" type="email" id="email" name="email" placeholder="j.dupont@universite.bj" required autocomplete="email">
+            </div>
+
+            <div class="js-field-row">
+              <div class="js-field-group">
+                <label class="js-label" for="tel">Téléphone</label>
+                <input class="js-input" type="tel" id="tel" name="tel" placeholder="+229 0X XX XX XX" autocomplete="tel">
+              </div>
+              <div class="js-field-group">
+                <label class="js-label" for="statut">Statut <span>*</span></label>
+                <select class="js-select" id="statut" name="statut" required>
+                  <option value="">— Sélectionnez —</option>
+                  <option value="etudiant-master">Étudiant Master</option>
+                  <option value="etudiant-doctorat">Doctorant</option>
+                  <option value="enseignant-chercheur">Enseignant-chercheur</option>
+                  <option value="chercheur">Chercheur</option>
+                  <option value="professionnel">Professionnel</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="js-field-group">
+              <label class="js-label" for="institution">Institution / Établissement <span>*</span></label>
+              <input class="js-input" type="text" id="institution" name="institution" placeholder="Université de Parakou — ENSPD" required>
+            </div>
+
+            <div class="js-field-group">
+              <label class="js-label" for="pays">Pays <span>*</span></label>
+              <select class="js-select" id="pays" name="pays" required>
+                <option value="">— Pays —</option>
+                <option value="BJ" selected>Bénin</option>
+                <option value="BF">Burkina Faso</option>
+                <option value="CI">Côte d'Ivoire</option>
+                <option value="CM">Cameroun</option>
+                <option value="SN">Sénégal</option>
+                <option value="TG">Togo</option>
+                <option value="ML">Mali</option>
+                <option value="NE">Niger</option>
+                <option value="GN">Guinée</option>
+                <option value="CD">RD Congo</option>
+                <option value="MG">Madagascar</option>
+                <option value="FR">France</option>
+                <option value="CA">Canada</option>
+                <option value="XX">Autre</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="js-form-nav">
+            <button type="button" class="js-btn js-btn-outline" onclick="jsform.prev(2)">← Précédent</button>
+            <div class="js-form-progress">Étape 2 / 5</div>
+            <button type="button" class="js-btn js-btn-primary" onclick="jsform.next(2)">Suivant →</button>
+          </div>
+        </div>
+
+        <!-- Step 3 — Co-auteurs -->
+        <div class="js-form-step" id="step-3">
+          <div class="js-form-card">
+            <h3 class="js-form-section-title">Co-auteurs</h3>
+            <p class="js-form-section-sub">Ajoutez vos co-auteurs si applicable. Cette étape est optionnelle.</p>
+
+            <div class="js-coauth-list" id="js-coauth-list">
+              <!-- dynamically inserted -->
+            </div>
+
+            <button type="button" class="js-btn js-btn-outline js-btn-sm" id="btn-add-coauth" onclick="jsform.addCoauth()">
+              + Ajouter un co-auteur
+            </button>
+          </div>
+
+          <div class="js-form-nav">
+            <button type="button" class="js-btn js-btn-outline" onclick="jsform.prev(3)">← Précédent</button>
+            <div class="js-form-progress">Étape 3 / 5</div>
+            <button type="button" class="js-btn js-btn-primary" onclick="jsform.next(3)">Suivant →</button>
+          </div>
+        </div>
+
+        <!-- Step 4 — Contenu -->
+        <div class="js-form-step" id="step-4">
+          <div class="js-form-card">
+            <h3 class="js-form-section-title">Contenu de la communication</h3>
+            <p class="js-form-section-sub">Titre complet et résumé structuré (300 mots maximum). Indiquez également vos mots-clés.</p>
+
+            <div class="js-field-group">
+              <label class="js-label" for="titre">Titre de la communication <span>*</span></label>
+              <input class="js-input" type="text" id="titre" name="titre" placeholder="Titre complet de votre communication scientifique" required>
+            </div>
+
+            <div class="js-field-group">
+              <label class="js-label" for="resume">Résumé structuré <span>*</span> <small style="color:var(--js-txt3);font-weight:400;">(max. 300 mots)</small></label>
+              <textarea class="js-textarea" id="resume" name="resume" rows="10"
+                placeholder="Contexte et justification&#10;&#10;Objectifs&#10;&#10;Méthodologie&#10;&#10;Résultats attendus / obtenus&#10;&#10;Conclusions et implications"
+                required maxlength="2400" oninput="jsform.countWords(this)"></textarea>
+              <div class="js-char-counter" id="resume-counter">0 / 300 mots</div>
+            </div>
+
+            <div class="js-field-group">
+              <label class="js-label" for="keywords">Mots-clés <span>*</span> <small style="color:var(--js-txt3);font-weight:400;">(3 à 5, séparés par des virgules)</small></label>
+              <input class="js-input" type="text" id="keywords" name="keywords" placeholder="statistique, évaluation, IA, démographie, Bénin" required>
+            </div>
+
+            <div class="js-field-group">
+              <label class="js-label" for="financement">Source de financement / affiliation de recherche</label>
+              <input class="js-input" type="text" id="financement" name="financement" placeholder="Ex. : Projet ANR, Bourse DAAD, Recherche propre...">
+            </div>
+          </div>
+
+          <div class="js-form-nav">
+            <button type="button" class="js-btn js-btn-outline" onclick="jsform.prev(4)">← Précédent</button>
+            <div class="js-form-progress">Étape 4 / 5</div>
+            <button type="button" class="js-btn js-btn-primary" onclick="jsform.next(4)">Réviser &amp; confirmer →</button>
+          </div>
+        </div>
+
+        <!-- Step 5 — Confirmation -->
+        <div class="js-form-step" id="step-5">
+          <div class="js-form-card" id="js-summary-card">
+            <!-- Summary filled by JS -->
+          </div>
+
+          <div class="js-form-card" style="margin-top:16px;">
+            <div class="js-field-group" style="margin-bottom:0;">
+              <label style="display:flex;align-items:flex-start;gap:12px;cursor:pointer;font-size:14px;color:var(--js-txt2);">
+                <input type="checkbox" id="cgu" name="cgu" required style="margin-top:3px;accent-color:var(--js-accent);width:16px;height:16px;">
+                <span>Je certifie que ce travail est original, n'a pas été publié et n'est pas en cours d'examen dans une autre revue ou conférence. J'accepte les conditions de participation aux JSSED 2026.</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="js-form-nav">
+            <button type="button" class="js-btn js-btn-outline" onclick="jsform.prev(5)">← Modifier</button>
+            <div class="js-form-progress">Étape 5 / 5</div>
+            <button type="submit" class="js-btn js-btn-gold" id="btn-submit">
+              ✉️ Envoyer la soumission
+            </button>
+          </div>
+        </div>
+
+      </form>
+
+      <!-- Confirmation screen -->
+      <div class="js-form-card js-confirm-check" id="js-success" style="display:none;">
+        <div class="js-confirm-icon">✓</div>
+        <h3 class="js-confirm-title">Soumission enregistrée !</h3>
+        <p class="js-confirm-sub">
+          Votre résumé a été soumis avec succès. Un email de confirmation sera envoyé à votre adresse. Le comité scientifique vous contactera avec les résultats d'évaluation.
+        </p>
+        <div class="js-confirm-ref" id="js-ref-code"></div>
+        <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+          <button class="js-btn js-btn-outline" onclick="jsform.goToDashboard()">📋 Mes soumissions</button>
+          <a href="#soumission" class="js-btn js-btn-primary" onclick="jsform.reset()">+ Nouvelle soumission</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="js-divider"></div>
+
+<!-- ===================== DASHBOARD ===================== -->
+<section class="js-section" id="dashboard" aria-labelledby="dash-title">
+  <div class="js-container">
+    <div class="js-section-center js-reveal">
+      <div class="js-section-badge">📋 Espace participant</div>
+      <h2 class="js-section-title" id="dash-title">Mes soumissions</h2>
+      <p class="js-section-sub">Retrouvez l'état de toutes vos soumissions. Les données sont conservées dans votre navigateur.</p>
+    </div>
+
+    <div class="js-dash-wrap" id="js-dash-wrap">
+      <!-- Rendered by JS -->
+      <div class="js-dash-empty" id="js-dash-empty">
+        <div class="js-dash-empty-icon">📭</div>
+        <div class="js-dash-empty-title">Aucune soumission enregistrée</div>
+        <div class="js-dash-empty-sub">Votre tableau de bord s'activera après votre première soumission.</div>
+        <a href="#soumission" class="js-btn js-btn-primary">Soumettre maintenant</a>
+      </div>
+      <div id="js-submissions-list"></div>
+    </div>
+  </div>
+</section>
+
+<div class="js-divider"></div>
+
+<!-- ===================== TARIFS & INSCRIPTIONS ===================== -->
+<section class="js-section" id="tarifs" aria-labelledby="tarifs-title">
+  <div class="js-container">
+    <div class="js-section-center js-reveal">
+      <div class="js-section-badge gold">💳 Frais de participation</div>
+      <h2 class="js-section-title" id="tarifs-title">Tarifs d'inscription</h2>
+      <p class="js-section-sub">
+        Tarifs préférentiels pour les inscriptions anticipées. Tous les participants doivent s'acquitter des frais avant la date limite.
+      </p>
+    </div>
+
+    <div class="js-tarifs-grid">
+
+      <div class="js-tarif-card etudiant js-reveal">
+        <span class="js-tarif-icon">🎓</span>
+        <div class="js-tarif-type">Étudiant</div>
+        <div class="js-tarif-price">10 000</div>
+        <div class="js-tarif-currency">FCFA — Tarif préférentiel</div>
+        <div class="js-tarif-early">Après la date limite : <strong>15 000 FCFA</strong></div>
+        <ul class="js-tarif-features">
+          <li>Accès à tous les ateliers</li>
+          <li>Livre de résumés</li>
+          <li>Certificat de participation</li>
+          <li>Réseautage &amp; networking</li>
+        </ul>
+        <a href="#contact" class="js-btn js-btn-teal js-btn-full">S'inscrire →</a>
+      </div>
+
+      <div class="js-tarif-card chercheur js-tarif-featured js-reveal js-reveal-delay-1">
+        <div class="js-tarif-badge">Recommandé</div>
+        <span class="js-tarif-icon">🔬</span>
+        <div class="js-tarif-type">Chercheur / Enseignant</div>
+        <div class="js-tarif-price">20 000</div>
+        <div class="js-tarif-currency">FCFA — Tarif préférentiel</div>
+        <div class="js-tarif-early">Après la date limite : <strong>25 000 FCFA</strong></div>
+        <ul class="js-tarif-features">
+          <li>Accès à tous les ateliers</li>
+          <li>Livre de résumés &amp; Actes</li>
+          <li>Certificat de participation</li>
+          <li>Présentation prioritaire</li>
+          <li>Réseautage &amp; networking</li>
+        </ul>
+        <a href="#contact" class="js-btn js-btn-primary js-btn-full">S'inscrire →</a>
+      </div>
+
+      <div class="js-tarif-card exposant js-reveal js-reveal-delay-2">
+        <span class="js-tarif-icon">🏢</span>
+        <div class="js-tarif-type">Stand / Exposition</div>
+        <div class="js-tarif-price">60 000</div>
+        <div class="js-tarif-currency">FCFA — Tarif préférentiel</div>
+        <div class="js-tarif-early">Après la date limite : <strong>70 000 FCFA</strong></div>
+        <ul class="js-tarif-features">
+          <li>Espace d'exposition dédié</li>
+          <li>Visibilité auprès des participants</li>
+          <li>2 badges participant inclus</li>
+          <li>Mention dans le programme</li>
+          <li>Accès au réseautage</li>
+        </ul>
+        <a href="#contact" class="js-btn js-btn-gold js-btn-full">Réserver →</a>
+      </div>
+
+    </div>
+
+    <!-- Payment Info -->
+    <div class="js-payment-info js-reveal" style="margin-top:40px;">
+      <div>
+        <h4>🏦 Coordonnées bancaires</h4>
+        <ul>
+          <li>Trésor Public du Bénin — <strong>tresorbenin.bj</strong></li>
+          <li>Numéro de compte : <strong>000001048692</strong></li>
+          <li>Clé RIB : <strong>20</strong></li>
+          <li>Intitulé : ENSPD — JSSED 2026</li>
+        </ul>
+      </div>
+      <div>
+        <h4>📋 Procédure de paiement</h4>
+        <ul>
+          <li>Effectuer le virement bancaire</li>
+          <li>Conserver le reçu de paiement</li>
+          <li>Envoyer copie du reçu + formulaire à <a href="mailto:jssed.enspd.up.2025@gmail.com" style="color:var(--js-accent2);">jssed.enspd.up.2025@gmail.com</a></li>
+          <li>Confirmation sous 48h ouvrables</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="js-divider"></div>
+
+<!-- ===================== FAQ ===================== -->
+<section class="js-section" id="faq" aria-labelledby="faq-title">
+  <div class="js-container">
+    <div class="js-section-center js-reveal" style="margin-bottom:8px;">
+      <div class="js-section-badge">❓ Questions fréquentes</div>
+      <h2 class="js-section-title" id="faq-title">FAQ — JSSED 2026</h2>
+    </div>
+
+    <div class="js-faq-list" role="list">
+
+      <div class="js-faq-item" role="listitem">
+        <button class="js-faq-q" aria-expanded="false" onclick="jsfaq.toggle(this)">
+          Qui peut soumettre une communication ?
+          <span class="js-faq-icon" aria-hidden="true">+</span>
+        </button>
+        <div class="js-faq-a">
+          Tout chercheur, enseignant-chercheur, étudiant en Master ou Doctorat, et professionnel travaillant dans les domaines de la statistique, de l'évaluation ou de la démographie peut soumettre. Les communications interdisciplinaires sont bienvenues.
+        </div>
+      </div>
+
+      <div class="js-faq-item" role="listitem">
+        <button class="js-faq-q" aria-expanded="false" onclick="jsfaq.toggle(this)">
+          Quelle est la langue de présentation acceptée ?
+          <span class="js-faq-icon" aria-hidden="true">+</span>
+        </button>
+        <div class="js-faq-a">
+          Les communications peuvent être soumises et présentées en français ou en anglais. Les résumés doivent cependant inclure un abstract en anglais si la présentation est en français.
+        </div>
+      </div>
+
+      <div class="js-faq-item" role="listitem">
+        <button class="js-faq-q" aria-expanded="false" onclick="jsfaq.toggle(this)">
+          Combien de communications peut-on soumettre ?
+          <span class="js-faq-icon" aria-hidden="true">+</span>
+        </button>
+        <div class="js-faq-a">
+          Un auteur peut soumettre au maximum 2 communications, dont 1 seul en tant qu'auteur principal. Les co-auteurs ne sont pas limités dans le nombre de communications auxquelles ils participent.
+        </div>
+      </div>
+
+      <div class="js-faq-item" role="listitem">
+        <button class="js-faq-q" aria-expanded="false" onclick="jsfaq.toggle(this)">
+          Comment les communications sont-elles évaluées ?
+          <span class="js-faq-icon" aria-hidden="true">+</span>
+        </button>
+        <div class="js-faq-a">
+          Chaque résumé est évalué en double aveugle par au moins deux membres du comité scientifique. Les critères incluent : originalité, rigueur méthodologique, pertinence thématique et qualité de la rédaction.
+        </div>
+      </div>
+
+      <div class="js-faq-item" role="listitem">
+        <button class="js-faq-q" aria-expanded="false" onclick="jsfaq.toggle(this)">
+          Les actes sont-ils publiés dans une revue indexée ?
+          <span class="js-faq-icon" aria-hidden="true">+</span>
+        </button>
+        <div class="js-faq-a">
+          Les actes sont publiés dans les Annales de l'Université de Parakou. Un comité éditorial sélectionne les meilleures communications pour une publication extended dans des revues partenaires. Un livre de résumés est également distribué à tous les participants.
+        </div>
+      </div>
+
+      <div class="js-faq-item" role="listitem">
+        <button class="js-faq-q" aria-expanded="false" onclick="jsfaq.toggle(this)">
+          Est-il possible d'assister sans présenter de communication ?
+          <span class="js-faq-icon" aria-hidden="true">+</span>
+        </button>
+        <div class="js-faq-a">
+          Oui, une participation en tant qu'auditeur est possible au tarif correspondant à votre statut. Vous bénéficiez d'un accès complet à tous les ateliers, conférences et activités de réseautage.
+        </div>
+      </div>
+
+      <div class="js-faq-item" role="listitem">
+        <button class="js-faq-q" aria-expanded="false" onclick="jsfaq.toggle(this)">
+          Comment obtenir un certificat de participation ?
+          <span class="js-faq-icon" aria-hidden="true">+</span>
+        </button>
+        <div class="js-faq-a">
+          Les certificats de participation sont délivrés à tous les participants inscrits en bonne et due forme. Les présentateurs reçoivent un certificat de présentation distinct mentionnant le titre de leur communication.
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="js-divider"></div>
+
+<!-- ===================== CONTACT & COMITÉ ===================== -->
+<section class="js-section" id="contact" aria-labelledby="contact-title">
+  <div class="js-container">
+    <div class="js-section-center js-reveal">
+      <div class="js-section-badge rose">📞 Contact &amp; Comité</div>
+      <h2 class="js-section-title" id="contact-title">Nous contacter</h2>
+      <p class="js-section-sub">Pour toute question relative aux soumissions, aux inscriptions ou à la logistique.</p>
+    </div>
+
+    <div class="js-contact-grid">
+
+      <div class="js-reveal">
+        <h3 style="font-family:var(--fs);font-size:20px;margin-bottom:20px;color:var(--js-txt);">Comité d'organisation</h3>
+        <div class="js-committee-grid">
+          <div class="js-member-card">
+            <div class="js-member-avatar">D</div>
+            <div>
+              <div class="js-member-name">Direction ENSPD</div>
+              <div class="js-member-role">Présidence d'honneur</div>
+            </div>
+          </div>
+          <div class="js-member-card">
+            <div class="js-member-avatar" style="background:var(--js-grd3);">S</div>
+            <div>
+              <div class="js-member-name">Comité scientifique</div>
+              <div class="js-member-role">Évaluation des résumés</div>
+            </div>
+          </div>
+          <div class="js-member-card">
+            <div class="js-member-avatar" style="background:var(--js-grd2);color:#1a1400;">O</div>
+            <div>
+              <div class="js-member-name">Comité organisateur</div>
+              <div class="js-member-role">Logistique &amp; programme</div>
+            </div>
+          </div>
+          <div class="js-member-card">
+            <div class="js-member-avatar" style="background:var(--js-grd4);">C</div>
+            <div>
+              <div class="js-member-name">Comité communication</div>
+              <div class="js-member-role">Promotion &amp; médias</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="js-reveal js-reveal-delay-1">
+        <h3 style="font-family:var(--fs);font-size:20px;margin-bottom:20px;color:var(--js-txt);">Coordonnées</h3>
+        <div class="js-contact-methods">
+          <a href="mailto:jssed.enspd.up.2025@gmail.com" class="js-contact-method" rel="noopener">
+            <div class="js-contact-ico email">📧</div>
+            <div>
+              <div class="js-contact-type">Email officiel</div>
+              <div class="js-contact-val">jssed.enspd.up.2025@gmail.com</div>
+            </div>
+          </a>
+          <a href="tel:+22901953411165" class="js-contact-method">
+            <div class="js-contact-ico phone">📞</div>
+            <div>
+              <div class="js-contact-type">Téléphone</div>
+              <div class="js-contact-val">+229 01 95 34 11 65</div>
+            </div>
+          </a>
+          <a href="tel:+22901964192230" class="js-contact-method">
+            <div class="js-contact-ico phone">📞</div>
+            <div>
+              <div class="js-contact-type">Téléphone</div>
+              <div class="js-contact-val">+229 01 96 41 92 30</div>
+            </div>
+          </a>
+          <div class="js-contact-method" style="cursor:default;">
+            <div class="js-contact-ico" style="background:rgba(167,139,250,.15);">📍</div>
+            <div>
+              <div class="js-contact-type">Adresse</div>
+              <div class="js-contact-val">ENSPD — Université de Parakou, Bénin</div>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top:20px;padding:16px;background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.2);border-radius:12px;">
+          <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--js-gold2);margin-bottom:8px;">📧 Objet email requis</div>
+          <div style="font-family:var(--fm);font-size:12.5px;color:var(--js-txt2);line-height:1.6;">JSSED2026 – [Type] – Atelier N°X – [Nom auteur]</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FOOTER ===================== -->
+<footer class="js-footer" role="contentinfo">
+  <div class="js-container">
+    <div class="js-footer-inner">
+
+      <div>
+        <div class="js-footer-brand">
+          <img src="assets/logo.png" alt="Logo ENSPD" class="js-footer-logo" onerror="this.style.display='none'">
+          <div class="js-footer-name">
+            JSSED 2026
+            <span>École Nationale Supérieure de Statistique et Démographie</span>
+          </div>
+        </div>
+        <p class="js-footer-desc">
+          2ème édition des Journées Scientifiques de la Statistique, de l'Évaluation et de la Démographie. Un événement scientifique international organisé par l'ENSPD — Université de Parakou, Bénin.
+        </p>
+      </div>
+
+      <div>
+        <div class="js-footer-col-title">Navigation</div>
+        <ul class="js-footer-links">
+          <li><a href="#aac">Appel à communications</a></li>
+          <li><a href="#timeline">Dates clés</a></li>
+          <li><a href="#soumission">Soumettre</a></li>
+          <li><a href="#dashboard">Mes soumissions</a></li>
+          <li><a href="#tarifs">Tarifs &amp; inscriptions</a></li>
+          <li><a href="#faq">FAQ</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <div class="js-footer-col-title">Liens utiles</div>
+        <ul class="js-footer-links">
+          <li><button class="footer-link-btn" onclick="window.open('index.html')">Site ENSPD</button></li>
+          <li><button class="footer-link-btn" onclick="window.open('bue.html')">Bureau des Étudiants (BUE)</button></li>
+          <li>
+            <a href="mailto:jssed.enspd.up.2025@gmail.com">Email JSSED</a>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="js-footer-bottom">
+      <span>© 2026 JSSED — ENSPD, Université de Parakou. Tous droits réservés.</span>
+      <span>Fait avec ♥ par l'ENSPD</span>
+    </div>
+  </div>
+</footer>
+
+<!-- WHATSAPP FLOAT -->
+<a href="https://wa.me/22997000000" target="_blank" rel="noopener noreferrer"
+   class="wa-float" aria-label="Contacter l'ENSPD sur WhatsApp">
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+  </svg>
+</a>
+
+<script src="jssed.js" defer></script>
+</body>
+</html>
