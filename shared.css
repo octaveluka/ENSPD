@@ -461,6 +461,23 @@ button,input,select,textarea { font-family:var(--f); }
   line-height:1;
   text-decoration:none;
 }
+
+.btn2 {
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:6px;
+  padding:9px 20px;
+  border-radius:var(--r);
+  font-size:14px;
+  font-weight:600;
+  cursor:pointer;
+  border:2px solid transparent;
+  font-family:var(--f);
+  transition:var(--e);
+  white-space:nowrap;
+  line-height:1;
+}
 .btn:focus-visible { outline:3px solid var(--or); outline-offset:2px; }
 
 .b-vt  { background:var(--vt);    color:#fff; border-color:var(--vt); }
@@ -475,22 +492,22 @@ button,input,select,textarea { font-family:var(--f); }
 .b-er  { background:var(--er);    color:#fff; border-color:var(--er); }
 .b-er:hover  { background:#c62828; border-color:#c62828; }
 
-.b-sec { background:transparent;  color:#fff; border-color:rgba(255,255,255,.5); }
+.b-sec { background:transparent;  color: #fff; border-color:rgba(255,255,255,.5); }
 .b-sec:hover { background:rgba(255,255,255,.12); border-color:rgba(255,255,255,.7); }
+.b-sec2 {background:var(--vt-l); color:var(--vt-dd);}
 
 .b-ovt { background:transparent;  color:var(--vt-d); border-color:var(--vt); }
 .b-ovt:hover { background:var(--vt); color:#fff; }
 
-.b-omn { background:transparent;  color:var(--mn);    border-color:var(--mn); }
+.b-omn { background:transparent;  color:var(--mn);    border-color:var(--mn); margin-left: auto; display: block;}
 .b-omn:hover { background:var(--mn); color:#fff; }
+.b-omn2 { background:transparent;  color:var(--mn);    border-color:var(--mn); }
 
 .b-gh  { background:transparent;  color:var(--txt2);  border-color:var(--brd); }
 .b-gh:hover  { background:var(--bg2); border-color:var(--brd2); }
 
-.b-sm  { padding:5px 14px; font-size:12.5px; }
 .b-lg  { padding:13px 28px; font-size:15px; border-radius:10px; }
 .b-full { width:100%; }
-.btn + .btn { /* spacing when side by side is managed by flexbox gap */ }
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
    11. SPA — PAGES
@@ -656,7 +673,7 @@ button,input,select,textarea { font-family:var(--f); }
 
 .bg-w  { background:var(--wh); }
 .bg-bg { background:var(--bg); }
-.bg-dk { background:#080A18; }
+.bg-dk { background:#080a18ba; }
 .bg-vt { background:var(--vt-p); }
 .bg-mn { background:var(--mn-p); }
 
@@ -704,7 +721,7 @@ button,input,select,textarea { font-family:var(--f); }
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
    16. STATS BAND
    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-.stats-band { background:#080A18; padding:clamp(32px,5vw,52px) clamp(16px,5vw,60px); }
+.stats-band { background:#080a18e9; padding:clamp(32px,5vw,52px) clamp(16px,5vw,60px); }
 .stats-in   {
   max-width:var(--mw);
   margin:0 auto;
@@ -809,7 +826,24 @@ button,input,select,textarea { font-family:var(--f); }
   margin-top:auto;
 }
 .fil-dur { font-size:12px; color:var(--txt3); }
-.fil-cta { font-size:12.5px; font-weight:600; color:var(--vt-d); }
+.fil-cta { 
+  font-size:12.5px; 
+  font-weight:600; 
+  color:var(--vt-d); 
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:6px;
+  padding:9px 20px;
+  border-radius:var(--r);
+  font-size:14px;
+  font-weight:600;
+  cursor:pointer;
+  border:2px solid ;
+  font-family:var(--f);
+  transition:var(--e);
+  line-height:1;
+  }
 .fil-card:hover .fil-cta { color:var(--mn); }
 
 /* POURQUOI — why-item */
@@ -1241,7 +1275,7 @@ button,input,select,textarea { font-family:var(--f); }
   box-shadow:var(--sh);
 }
 .dir-ph {
-  width:100px; height:100px;
+  width:150px; height:150px;
   border-radius:50%;
   flex-shrink:0;
   border:2.5px solid var(--vt);
@@ -1922,6 +1956,82 @@ button,input,select,textarea { font-family:var(--f); }
   box-shadow:var(--sh);
 }
 
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   WHY-SLIDER (carrousel d'images "Pourquoi l'ENSPD")
+   - Défilement automatique toutes les 2 secondes
+   - Transition douce entre images
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.why-slider {
+  position: relative;
+  width: 100%;
+  height: 380px;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: var(--sh-l);
+  background: var(--bg2);
+}
+.why-slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .8s ease-in-out, visibility .8s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.why-slide.active {
+  opacity: 1;
+  visibility: visible;
+  z-index: 1;
+}
+.why-slide img,
+.why-slide .why-img-main {
+  width: 100%;
+  height: 100%;
+  max-height: 100%;
+  object-fit: cover;
+  border-radius: 0;
+  box-shadow: none;
+  display: block;
+}
+.why-slider-dots {
+  position: absolute;
+  bottom: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+  z-index: 5;
+  background: rgba(0,0,0,.28);
+  padding: 6px 12px;
+  border-radius: 100px;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+.why-slider-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 100px;
+  background: rgba(255,255,255,.45);
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: all .3s ease;
+}
+.why-slider-dot.active {
+  background: var(--vt-m);
+  width: 24px;
+}
+.why-slider-dot:hover { background: rgba(255,255,255,.75); }
+
+@media (max-width: 768px) {
+  .why-slider { height: 280px; }
+}
+@media (max-width: 480px) {
+  .why-slider { height: 220px; }
+}
+
 /* Event cards */
 .ev-card {
   border-radius:16px;
@@ -2199,7 +2309,7 @@ button,input,select,textarea { font-family:var(--f); }
 .tl-item { display:flex; flex-direction:column; }
 
 /* School page: color-accented mission/vision cards */
-.card-vt { background:var(--vt-p); border-left:4px solid var(--vt); }
+.card-vt { background:var(--vt-p); border-left:4px solid var(--vt); margin-top: 50px;}
 .card-mn { background:var(--mn-p); border-left:4px solid var(--mn); }
 .card-p  { font-size:14px; color:var(--txt2); line-height:1.8; margin-top:4px; }
 
@@ -2239,7 +2349,7 @@ button,input,select,textarea { font-family:var(--f); }
 .btn-full { width:100%; }
 
 /* Utility margins (not yet in section 29) */
-.mt4  { margin-top:4px; }
+.mt4  { margin-top:4px; padding-left: 20px;}
 .mb10 { margin-bottom:10px; }
 .mb14 { margin-bottom:14px; }
 .mb20 { margin-bottom:20px; }
