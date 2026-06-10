@@ -8,12 +8,12 @@ const LANG = {
   fr:{
     topbar_txt:'📢 Concours ENSPD 2026-2027 — <strong>MESRS/DEC</strong> — Bac C ou D · Mention assez-bien requis',
     topbar_link:'Informations →', nav_univ:'Université de Parakou — Bénin',
-    nav_home:'Accueil', nav_school:"L'École", nav_prog:'Formations', nav_adm:'Admissions',
-    nav_research:'Recherche', nav_news:'Actualités', nav_events:'Agenda',
+    nav_home:'Accueil', nav_school:"A propos", nav_prog:'Formations', nav_adm:'Admissions',
+    nav_research:'Recherche', nav_news:'Actualités', nav_events:' Vie Etudiante',
     nav_gallery:'Galerie', nav_contact:'Contact',
     btn_login:'Connexion', btn_register:"S'inscrire", btn_send:'Envoyer',
     hero_l1:'Former les experts', hero_l2:'qui pilotent', hero_l3:'le développement',
-    hero_desc:"L'ENSPD est la seule école supérieure spécialisée en statistique, planification et démographie au Bénin. Nous formons des cadres capables de relever les défis du développement national et africain.",
+    hero_desc:"L'ENSPD est l'une des plus grandes écoles supérieures spécialisées en statistique, planification et démographie au Bénin. Nous formons des cadres capables de relever les défis du développement national et africain.",
     btn_adm:'Infos Concours 2026', btn_prog:'Nos formations →',
     ss1:'Étudiants 2024-25', ss2:'Formations LMD', ss3:'Laboratoires actifs', ss4:'Masters spécialisés',
     badge_t:'Excellence académique', badge_s:'Licence · Master · Doctorat',
@@ -21,11 +21,10 @@ const LANG = {
     w1t:'Formation terrain', w1d:'Enquêtes réelles, stages INSAE, ministères et communes.',
     w2t:'Outils numériques', w2d:'R, Python, STATA, SPSS dans tous les cursus.',
     w3t:'Partenariats internationaux', w3d:'INSAE, Université Laval, Pan African University.',
-    w4t:'Seule au Bénin', w4d:"L'ENSPD est la seule école spécialisée en statistique et démographie au Bénin.",
+    w4t:'Référence au Bénin', w4d:"L'ENSPD est l'une des plus grandes écoles spécialisées en statistique, planification et démographie au Bénin.",
     w5t:'Accès aux grandes écoles', w5d:'Nos diplômés intègrent ENSAE, ENSEA, ISSEA.',
     w6t:'Débouchés assurés', w6d:'Ministères, ONG, banques, agences ONU.',
     prog_tag:'Offres de formation', prog_t:'Choisissez votre parcours',
-    prog_sub:'2 Licences · 5 Masters · 1 Doctorat — cliquez pour voir le programme complet.',
     prog_all:'Voir toutes les formations →',
     dir_tag:'Mot du Directeur',
     dir_q:"\"Chers étudiants, chers visiteurs, bienvenue sur le site officiel de l'ENSPD. Notre école forme des cadres compétents capables de piloter les projets de développement par la donnée et l'analyse. Ensemble, faisons de l'ENSPD un lieu d'excellence, d'éthique et d'impact pour le développement durable de notre continent.\"",
@@ -53,7 +52,7 @@ const LANG = {
     sch_vision:'Vision', sch_vision_d:"Devenir une école de référence nationale et sous-régionale en statistique, démographie et planification du développement.",
     sch_boys:'Garçons 2024-25', sch_girls:'Filles 2024-25',
     sch_org:'Organisation', sch_org_t:'Administration &amp; Services', sch_org_sub:"Structure organisée autour de la Direction et de 4 services opérationnels.",
-    dir_role_long:"Directeur de l'ENSPD · Maître de Conférences · Ph.D. Économie Agricole, Université de Copenhague",
+    dir_role_long:"Directeur de l'ENSPD · Professeur · Ph.D. Économie Agricole, Université de Copenhague",
     dir_quote_long:"\"C'est avec une vive satisfaction que je vous présente l'ENSPD. Conçue pour accompagner chaque étudiant dans son parcours académique, l'ENSPD a pour mission de former des cadres compétents en statistique, planification, suivi-évaluation et démographie. Notre engagement : la rigueur, l'intégrité intellectuelle et la solidarité entre pairs. Ensemble, faisons de l'ENSPD un lieu d'excellence et d'impact pour le développement durable de notre pays.\"",
     rentree_t:'Rentrée Solennelle ENSPD',
     rentree_desc:"La 3ème édition (1er Déc 2025) était placée sous le thème <em>«L'IA au service de l'enseignement supérieur»</em>. La 4ème édition est prévue en décembre 2026.",
@@ -89,7 +88,7 @@ const LANG = {
     wel_visitor:'Visiteur', wel_visitor_d:'Parcourir librement le site',
     wel_create:'Créer un compte', wel_create_d:'Étudiant, enseignant, partenaire',
     wel_skip:'Continuer sans compte →',
-    cookie_t:'🍪 Ce site utilise des cookies',
+    cookie_t:'Ce site utilise des cookies',
     cookie_d:' — Nous utilisons des cookies fonctionnels pour mémoriser vos préférences (thème, langue, connexion). Aucun cookie publicitaire ou de tracking.',
     cookie_more:'En savoir plus', cookie_reject:'Refuser', cookie_accept:'Accepter',
     btt_title:'Retour en haut',
@@ -185,7 +184,7 @@ const LANG = {
     wel_visitor:'Visitor', wel_visitor_d:'Browse the site freely',
     wel_create:'Create account', wel_create_d:'Student, teacher, partner',
     wel_skip:'Continue without account →',
-    cookie_t:'🍪 This site uses cookies',
+    cookie_t:'This site uses cookies',
     cookie_d:' — We use functional cookies to remember your preferences (theme, language, session). No advertising or tracking cookies.',
     cookie_more:'Learn more', cookie_reject:'Decline', cookie_accept:'Accept',
     btt_title:'Back to top',
@@ -335,38 +334,6 @@ Au programme :
 
 L'événement a mobilisé plus de 200 participants. La 2ème édition est prévue pour septembre 2026.`},
 
-    {id:4,cat:'Partenariat',date:'Mar 2026',img:'',
-     titre:"Convention ENSPD-INSAE — renforcement des stages terrain",
-     texte:`L'ENSPD a signé une convention de partenariat avec l'Institut National de la Statistique et de l'Analyse Économique (INSAE) pour renforcer les stages de terrain.
-
-Cette convention prévoit :
-• L'accueil prioritaire des étudiants de l'ENSPD en stage à l'INSAE
-• Des enquêtes conjointes avec participation des étudiants
-• Des conférences d'experts INSAE à l'ENSPD
-• L'accès aux bases de données statistiques pour les projets de recherche`},
-
-    {id:5,cat:'Recherche',date:'Mar 2026',img:'',
-     titre:"LaReSPD — Enquête démographique commune de Tchaourou 2025",
-     texte:`Le Laboratoire de Recherche en Sciences de la Population et du Développement (LaReSPD) de l'ENSPD publie les résultats de son enquête sur les dynamiques démographiques de la commune de Tchaourou.
-
-Points clés :
-• Population totale estimée et pyramide des âges
-• Taux de scolarisation par niveau et genre
-• Indicateurs de santé reproductive
-• Dynamiques migratoires
-
-La publication est disponible en accès libre via le réseau APSOHA et le site de l'Université de Parakou.`},
-
-    {id:6,cat:'Innovation',date:'Fév 2026',img:'',
-     titre:"Programme EPI 2026 — 3ème édition : 53 projets en compétition",
-     texte:`La 1ère édition du programme «Un Étudiant, Un Projet, Une Innovation» (EPI) a été lancée en février 2026. 53 projets de la L1 au M2 sont en compétition.
-
-Thématiques phares :
-• Applications de la statistique aux problèmes locaux
-• Outils numériques pour la collecte de données
-• Solutions d'aide à la décision pour les communes
-
-Les 5 meilleurs projets seront primés lors d'une cérémonie en juin 2026.`},
   ],
 
   temos:[
@@ -381,15 +348,15 @@ Les 5 meilleurs projets seront primés lors d'une cérémonie en juin 2026.`},
   ],
 
   admin:[
-    {ico:'🏛️',titre:'Direction',nom:'Prof. Épiphane SODJINOU',isDir:true,role:"Directeur de l'ENSPD",
-     desc:'Maître de Conférences. Ph.D. Économie Agricole, Université de Copenhague. Directeur de l\'ENSPD depuis 2024.'},
-    {ico:'📋',titre:'Secrétariat Général',nom:'',role:'Secrétaire Général(e)',
+    {ico:'',titre:'Direction',nom:'Prof. Épiphane SODJINOU',isDir:true,role:"Directeur de l\'ENSPD depuis 2024.",
+     desc:'Ph.D. Économie Agricole, Université de Copenhague. '},
+    {ico:'',titre:'Secrétariat Général',nom:'',role:'Secrétaire Général(e)',
      desc:'Organisation des activités administratives, coordination des services.'},
-    {ico:'📬',titre:'Secrétariat Administratif',nom:'',role:'Cheffe Division',
+    {ico:'',titre:'Secrétariat Administratif',nom:'',role:'Cheffe Division',
      desc:'Réception des courriers, rédaction, gestion documentaire.'},
-    {ico:'📚',titre:'Scolarité & Examens',nom:'',role:'Cheffe Division Scolarité',
+    {ico:'',titre:'Scolarité & Examens',nom:'',role:'Cheffe Division Scolarité',
      desc:'Organisation des examens, inscriptions, rapports de stages.'},
-    {ico:'💰',titre:'Service Comptable',nom:'',role:'Chef Service Comptable',
+    {ico:'',titre:'Service Comptable',nom:'',role:'Chef Service Comptable',
      desc:'Comptabilité générale, gestion budgétaire de l\'entité.'},
   ],
 
@@ -415,8 +382,7 @@ Les 5 meilleurs projets seront primés lors d'une cérémonie en juin 2026.`},
 
   cond:[
     {titre:'Licence 1ère année',desc:"Concours MESRS/DEC — Baccalauréat séries <strong>C ou D</strong> requis. Mention Assez-Bien minimum. Inscriptions sur apresmonbac.bj.",col:'#2EAA38'},
-    {titre:'Licence 3ème année',desc:"Étude de dossier — Licence en Maths, Physique, Chimie, Informatique, DUT ou DEUG scientifique.",col:'#1B1E6E'},
-    {titre:'Master (sur dossier)',desc:"Licence Professionnelle ou Maîtrise en Sciences Économiques. Frais : 415 000 FCFA (réguliers) · 450 000 FCFA (fonctionnaires) · 425 000 FCFA (sponsoring).",col:'#E8960A'},
+    {titre:'Master (sur dossier)',desc:"Licence Professionnelle en Statistique, en Planification, en Science Economiques ou de Gestion, en Agronomie, en Mathématiques, en Démographie, en Finance, Maîtrise en Sciences Économiques ou tout autre diplôme reconnu équivalent.",col:'#E8960A'},
     {titre:'Doctorat (sur dossier)',desc:"Master en domaine connexe. École Doctorale «Agronomie et Eau» de l'UP. Direction : Prof. Épiphane SODJINOU.",col:'#1B1E6E'},
   ],
 
@@ -430,22 +396,11 @@ Les 5 meilleurs projets seront primés lors d'une cérémonie en juin 2026.`},
   ],
 
   events:[
-    {j:'15',m:'Avr',titre:'AG BUE — Bilan mi-mandat',type:'BUE',heure:'09h00',
-     lieu:'Amphi principal ENSPD, Parakou',
-     desc:'Assemblée Générale du Bureau d\'Union des Étudiants. Présentation du bilan à mi-mandat, projets réalisés et à venir.',
-     detail:'Présence recommandée pour tous les étudiants. Obligatoire pour les délégués de promotion.'},
-    {j:'Sep',m:'2026',titre:'JSSED — 2ème édition',type:'Signature',heure:'08h00',
-     lieu:'Campus ENSPD, Amphithéâtre principal',
-     desc:'2ème édition de la Journée de la Statistique, du Suivi-Évaluation et de la Démographie. Conférences, ateliers, concours inter-étudiants et networking.',
-     detail:"Organisée par le BUE-ENSPD avec le soutien de l'administration. Ouvert aux étudiants, professionnels et partenaires. Site dédié disponible prochainement."},
-    {j:'01',m:'Déc',titre:'4ème Rentrée Solennelle ENSPD',type:'Académique',heure:'09h00',
-     lieu:'Amphi B, Université de Parakou',
-     desc:"4ème édition de la rentrée solennelle. Cérémonie officielle de lancement des activités pédagogiques 2026-2027.",
-     detail:"Allocutions du Recteur, du Directeur de l'ENSPD et des représentants étudiants. Présence obligatoire pour tous les étudiants."},
-    {j:'20',m:'Avr',titre:'Journée Portes Ouvertes ENSPD',type:'Ouvert',heure:'09h00',
-     lieu:'Campus ENSPD, Université de Parakou',
-     desc:'Lycéens, bacheliers et parents invités à découvrir les formations, rencontrer les enseignants et visiter le campus.',
-     detail:"Entrée libre. Présentation de toutes les filières, témoignages d'étudiants et mini-concours de connaissances. Une occasion unique de découvrir l'ENSPD."},
+    {j:'',m:'',titre:'',type:'',heure:'',
+     lieu:'',
+     desc:'',
+     detail:''},
+    
   ],
 
   /* Galerie organisée par catégories */
@@ -485,7 +440,7 @@ Les 5 meilleurs projets seront primés lors d'une cérémonie en juin 2026.`},
       {src:'assets/galerie/enspd/jbe3.jpg',titre:'JBE 2025',ev:'Cohésion étudiante'},
     ],
     'JSSED':[
-      {src:'assets/galerie/bue/jssed_1775853364124.jpg',titre:'JSSED 1ère édition',ev:'Septembre 2025'},
+      {src:'assets/campus/JSSED_2.jpeg',titre:'JSSED 1ère édition',ev:'Septembre 2025'},
       {src:'assets/galerie/bue/jssed_1775853366762.jpg',titre:'JSSED — Ateliers',ev:'Septembre 2025'},
       {src:'assets/galerie/bue/jssed_1775853368864.jpg',titre:'JSSED — Conférences',ev:'Septembre 2025'},
     ],
@@ -503,7 +458,7 @@ Les 5 meilleurs projets seront primés lors d'une cérémonie en juin 2026.`},
     { q: "Peut-on déposer une demande de document (attestation, relevé) par email ?",
       r: "Non. Toutes les demandes de documents officiels (attestation d'inscription, relevé de notes, mise en stage) doivent être adressées manuscritement au Directeur de l'ENSPD, accompagnées des pièces justificatives requises, et déposées à la scolarité." },
     { q: "L'ENSPD propose-t-il des bourses ou aides financières ?",
-      r: "L'ENSPD dispose d'un internat pour certains étudiants. Des bourses nationales sont accessibles via le MESRS. Des opportunités de bourses internationales (FAO, UNFPA, BAD) sont régulièrement partagées via le BUE et la section Actualités." },
+      r: "Des bourses nationales sont accessibles via le MESRS. Des opportunités de bourses internationales (FAO, UNFPA, BAD) sont régulièrement partagées via le BUE et la section Actualités." },
     { q: "Peut-on travailler après une Licence à l'ENSPD ?",
       r: "Oui. Les diplômés de Licence SA ou PSE peuvent intégrer la fonction publique (INSAE, MAEP, collectivités) ou le secteur privé. La poursuite en Master est fortement conseillée pour évoluer vers des postes de cadre supérieur." },
     { q: "Comment rejoindre le BUE ou le CRISTAL ?",
@@ -519,24 +474,65 @@ Les 5 meilleurs projets seront primés lors d'une cérémonie en juin 2026.`},
   ],
 
   partnerLogos: [
-    { nom: "INSAE", full: "Institut National de la Statistique et de l'Analyse Économique", icon: "📊", color: "#1B1E6E" },
-    { nom: "MAEP", full: "Ministère de l'Agriculture, de l'Élevage et de la Pêche", icon: "🌾", color: "#2E7D32" },
-    { nom: "FAO", full: "Organisation des Nations Unies pour l'Alimentation et l'Agriculture", icon: "🌍", color: "#3CB944" },
-    { nom: "UNFPA", full: "Fonds des Nations Unies pour la Population", icon: "👥", color: "#00BCD4" },
-    { nom: "Univ. Parakou", full: "Université de Parakou", icon: "🏛️", color: "#1B1E6E" },
-    { nom: "BAD", full: "Banque Africaine de Développement", icon: "🏦", color: "#F0A500" },
-    { nom: "PNUD", full: "Programme des Nations Unies pour le Développement", icon: "🌐", color: "#0066CC" },
-    { nom: "MESRS", full: "Ministère de l'Enseignement Supérieur et de la Recherche Scientifique", icon: "📚", color: "#C0392B" },
+    { nom: "INSAE", full: "Institut National de la Statistique et de l'Analyse Économique", icon: "", color: "#1B1E6E" },
+    { nom: "MAEP", full: "Ministère de l'Agriculture, de l'Élevage et de la Pêche", icon: "", color: "#2E7D32" },
+    { nom: "FAO", full: "Organisation des Nations Unies pour l'Alimentation et l'Agriculture", icon: "", color: "#3CB944" },
+    { nom: "UNFPA", full: "Fonds des Nations Unies pour la Population", icon: "", color: "#00BCD4" },
+    { nom: "Univ. Parakou", full: "Université de Parakou", icon: "", color: "#1B1E6E" },
+    { nom: "BAD", full: "Banque Africaine de Développement", icon: "", color: "#F0A500" },
+    { nom: "PNUD", full: "Programme des Nations Unies pour le Développement", icon: "", color: "#0066CC" },
+    { nom: "MESRS", full: "Ministère de l'Enseignement Supérieur et de la Recherche Scientifique", icon: "", color: "#C0392B" },
   ],
 
   debouches:['Instituts Nationaux de Statistique','Ministères & Directions','Banques & Assurances',
     'ONG & Agences ONU','Universités & Recherche','Cabinets de conseil','Communes & Mairies','Organisations humanitaires'],
 
   why:[
-    {k:'w1t',d:'w1d',ico:'📊'},{k:'w2t',d:'w2d',ico:'💻'},
-    {k:'w3t',d:'w3d',ico:'🌍'},{k:'w4t',d:'w4d',ico:'🏆'},
-    {k:'w5t',d:'w5d',ico:'🎓'},{k:'w6t',d:'w6d',ico:'💼'},
+    {k:'w1t',d:'w1d',ico:''},{k:'w2t',d:'w2d',ico:''},
+    {k:'w3t',d:'w3d',ico:''},{k:'w4t',d:'w4d',ico:''},
+    {k:'w5t',d:'w5d',ico:''},{k:'w6t',d:'w6d',ico:''},
   ],
+};
+
+/* ── ADMIN DATA PERSISTENCE & LOGGING ────────────────────── */
+const _adminDataKey = 'enspd_admin_data_v1';
+const _adminLogsKey = 'enspd_admin_logs_v1';
+
+function loadAdminData() {
+  try {
+    const storedData = JSON.parse(localStorage.getItem(_adminDataKey));
+    if (storedData) {
+      if (storedData.actualites) D.actualites = storedData.actualites;
+      if (storedData.events) D.events = storedData.events;
+      // Ajoutez d'autres propriétés de D ici si elles deviennent éditables par l'admin et nécessitent une persistance
+    }
+  } catch (e) {
+    console.error("Échec du chargement des données admin depuis localStorage :", e);
+  }
+}
+
+function saveAdminData() {
+  try {
+    const dataToStore = {
+      actualites: D.actualites,
+      events: D.events,
+      // Ajoutez d'autres propriétés de D ici
+    };
+    localStorage.setItem(_adminDataKey, JSON.stringify(dataToStore));
+  } catch (e) {
+    console.error("Échec de la sauvegarde des données admin dans localStorage :", e);
+    toast("Erreur : Espace de stockage local insuffisant pour sauvegarder les données.", "err");
+  }
+}
+
+const Log = {
+  get() { try { return JSON.parse(localStorage.getItem(_adminLogsKey) || '[]'); } catch { return []; } },
+  add(action, detail = '') {
+    const logs = this.get();
+    logs.unshift({ at: Date.now(), action, detail });
+    // Gardez seulement les 50 derniers logs pour éviter une utilisation excessive du stockage
+    localStorage.setItem(_adminLogsKey, JSON.stringify(logs.slice(0, 50)));
+  }
 };
 
 /* ── HELPERS : sanitisation & i18n champ ──────────────────── */
@@ -580,12 +576,14 @@ const AUTH={
       if(hashP('enspd::'+pass)===localStorage.getItem(this._ADMIN_KEY)){
         return{ok:true,user:{nom:'Administrateur',email:'admin@enspd.bj',role:'admin',init:'A'}};
       }
+      Log.add('Tentative de connexion admin échouée', email);
       recTry(email);
       return{err:'Mot de passe admin incorrect.'};
     }
     recTry(email);
     const u=this.getUsers().find(u=>u.email===email&&u.hash===hashP(pass));
     if(!u)return{err:'Email ou mot de passe incorrect.'};
+    Log.add('Connexion utilisateur', email);
     return{ok:true,user:{nom:u.nom,email:u.email,role:u.role,init:u.nom[0]?.toUpperCase()||'U',filiere:u.filiere||''}};
   },
   register(data){
@@ -596,9 +594,12 @@ const AUTH={
       hash:hashP(data.pass),role:data.role||'visiteur',filiere:data.filiere||'',createdAt:new Date().toISOString()};
     users.push(nu);
     localStorage.setItem('enspd_users7',JSON.stringify(users));
+    localStorage.setItem('enspd_users7', JSON.stringify(users));
+    Log.add('Nouvelle inscription', nu.email + ' (' + nu.role + ')');
     return{ok:true};
   },
   logout(){this.user=null;updateNavAuth();const ab=document.getElementById('admin-bar');if(ab)ab.className='admin-bar';toast('Déconnecté.','inf');},
+  logout(){this.user=null;updateNavAuth();const ab=document.getElementById('admin-bar');if(ab)ab.className='admin-bar';toast('Déconnecté.','inf'); Log.add('Déconnexion');},
   isAdmin(){return this.user?.role==='admin';},
 };
 
@@ -763,6 +764,7 @@ function doRegister(){
   if(!cgu){e("Acceptez les conditions d'utilisation.");return;}
   const res=AUTH.register({nom,email,pass,role,filiere:document.getElementById('r-fil')?.value||''});
   if(res.err){e(res.err);return;}
+  Log.add('Nouvel utilisateur enregistré', email);
   const lr=AUTH.login(email,pass);if(lr.ok)AUTH.user=lr.user;
   closeModal();updateNavAuth();
   toast('Compte créé ! Bienvenue, '+nom.split(' ')[0]+' !','ok');
@@ -800,8 +802,8 @@ function renderAdminBar(){
     <button class="admin-action" onclick="nav('admin')">Dashboard</button>
     <button class="admin-action" onclick="openPubModal()">+ Actualité</button>
     <button class="admin-action" onclick="openPubEvModal()">+ Événement</button>
-    <button class="admin-action" onclick="openPhotoModal()">📷 Photos</button>
-    <button class="admin-action" onclick="openUsersModal()">👥 Utilisateurs</button>
+    <button class="admin-action" onclick="openPhotoModal()"> Photos</button>
+    <button class="admin-action" onclick="openUsersModal()"> Utilisateurs</button>
     <button class="admin-action" onclick="openTopBarModal()">📢 Annonce</button>
     <button class="admin-action" style="margin-left:auto" onclick="AUTH.logout()">Déconnexion</button>`;
     document.getElementById('btn-add-ev')?.classList.remove('hidden');
@@ -838,16 +840,22 @@ function renderAdminPage(){
       <div style="display:flex;gap:10px;flex-wrap:wrap">
         <button class="btn b-vt b-sm" onclick="openPubModal()">+ Publier une actualité</button>
         <button class="btn b-mn b-sm" onclick="openPubEvModal()">+ Ajouter un événement</button>
-        <button class="btn b-or b-sm" onclick="openPhotoModal()">📷 Gérer les photos</button>
-        <button class="btn b-gh b-sm" onclick="openUsersModal()">👥 Gérer les utilisateurs</button>
-        <button class="btn b-gh b-sm" onclick="openTopBarModal()">📢 Modifier l'annonce</button>
-        <button class="btn b-gh b-sm" onclick="openGalAdminModal()">🖼️ Galerie</button>
+        <button class="btn b-or b-sm" onclick="openPhotoModal()"> Gérer les photos</button>
+        <button class="btn b-gh b-sm" onclick="openUsersModal()"> Gérer les utilisateurs</button>
+        <button class="btn b-gh b-sm" onclick="openTopBarModal()"> Modifier l'annonce</button>
+        <button class="btn b-gh b-sm" onclick="openGalAdminModal()"> Galerie</button>
+        <button class="adm-qa" onclick="openChangePassModal()"><div class="adm-qa-ico"></div><div class="adm-qa-lbl">Changer mdp</div></button>
+        <button class="adm-qa" onclick="openLogsModal()"><div class="adm-qa-ico"></div><div class="adm-qa-lbl">Journal logs</div></button>
       </div>
     </div>
     <div class="g2">
+    <!-- Deux colonnes -->
+    <div class="adm-two-col">
       <div>
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
           <h3 style="font-size:15px;font-weight:700;color:var(--txt)">Actualités publiées</h3>
+        <div class="adm-col-head">
+          <span class="adm-col-title">Actualités (${D.actualites.length})</span>
           <button class="btn b-vt b-sm" onclick="openPubModal()">+ Ajouter</button>
         </div>
         ${D.actualites.slice(0,6).map(a=>`
@@ -858,17 +866,68 @@ function renderAdminPage(){
               <button class="btn b-er b-sm" style="padding:3px 8px;font-size:11px" onclick="delActu(${a.id})">✕</button>
             </div>
           </div>`).join('')}
+        <div class="adm-panel">
+          ${D.actualites.length
+            ? D.actualites.slice(0,6).map(a => `
+                <div class="adm-row">
+                  <div class="adm-row-left">
+                    <div class="adm-row-title">
+                      ${S.esc(a.titre.substring(0,42))}
+                      ${a.titre.length>42?'…':''}
+                    </div>
+                  </div>
+                  <span class="badge bv" style="font-size:10px;flex-shrink:0">
+                    ${S.esc(a.cat)}
+                  </span>
+                  <button class="btn b-er b-sm"
+                          style="padding:2px 7px;font-size:11px;flex-shrink:0"
+                          onclick="delActu(${a.id})">✕</button>
+                </div>`).join('')
+            : '<p class="f13 c3 mt8">Aucune actualité publiée.</p>'}
+        </div>
       </div>
+      <!-- Logs + Utilisateurs -->
       <div>
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
           <h3 style="font-size:15px;font-weight:700;color:var(--txt)">Comptes inscrits (${users.length})</h3>
           <button class="btn b-gh b-sm" onclick="openUsersModal()">Tout voir</button>
+        <div class="adm-col-head">
+          <span class="adm-col-title">Activité récente</span>
+          <button class="btn b-gh b-sm" onclick="openLogsModal()">Tout voir</button>
         </div>
         ${users.length?users.slice(0,6).map(u=>`
           <div style="display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid var(--brd)">
             <div><div class="f13 fw6">${u.nom}</div><div class="f12 c3">${u.email}</div></div>
             <span class="badge ${u.role==='etudiant'?'bv':'bgr'}">${u.role}</span>
           </div>`).join(''):'<p class="f13 c3 mt16">Aucun compte inscrit.</p>'}
+        <div class="adm-panel">
+          ${logs.length
+            ? logs.map(l => `
+                <div class="adm-row">
+                  <div class="adm-row-left">
+                    <div class="adm-row-title">${S.esc(l.action)}</div>
+                    ${l.detail
+                      ? `<div class="adm-row-sub">${S.esc(l.detail.substring(0,32))}</div>`
+                      : ''}
+                  </div>
+                  <span style="font-size:11px;color:var(--txt3);white-space:nowrap;margin-left:8px">
+                    ${new Date(l.at).toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'})}
+                  </span>
+                </div>`).join('')
+            : '<p class="f13 c3 mt8">Aucun log enregistré.</p>'}
+          <!-- Résumé utilisateurs -->
+          <div class="adm-row" style="border-top:1px solid var(--brd);margin-top:6px;padding-top:10px">
+            <span style="font-size:12px;color:var(--txt3)">
+              ${users.length
+                ? users.length + ' compte(s) inscrit(s)'
+                : 'Aucun compte utilisateur inscrit'}
+            </span>
+            ${users.length
+              ? `<button class="btn b-gh b-sm" style="font-size:11px;margin-left:auto"
+                         onclick="openUsersModal()">Voir →</button>`
+              : ''}
+          </div>
+        </div>
       </div>
     </div>
   </div></section>`;
@@ -900,6 +959,8 @@ function publishActu(){
   if(!t||!x){toast('Remplissez le titre et le contenu.','err');return;}
   const m=['Jan','Fév','Mar','Avr','Mai','Jun','Jul','Aoû','Sep','Oct','Nov','Déc'][new Date().getMonth()];
   D.actualites.unshift({id:Date.now(),cat,date:m+' '+new Date().getFullYear(),img,titre:t,texte:x});
+  saveAdminData(); // Sauvegarde les actualités
+  Log.add('Actualité publiée', t);
   closeModal();renderActusHome();renderActus();if(AUTH.isAdmin())renderAdminPage();
   toast('Actualité publiée !','ok');
 }
@@ -907,6 +968,13 @@ function delActu(id){
   if(!confirm('Supprimer cette actualité ?'))return;
   const i=D.actualites.findIndex(a=>a.id===id);
   if(i>=0){D.actualites.splice(i,1);renderActusHome();renderActus();renderAdminPage();toast('Supprimée.','ok');}
+  if(i>=0){
+    const title = D.actualites[i].titre;
+    D.actualites.splice(i,1);
+    saveAdminData(); // Sauvegarde les actualités
+    Log.add('Actualité supprimée', title);
+    renderActusHome();renderActus();renderAdminPage();toast('Supprimée.','ok');
+  }
 }
 
 /* ADMIN — Ajouter événement */
@@ -940,6 +1008,8 @@ function addEvent(){
     titre:t,type:document.getElementById('ev-type')?.value||'Académique',
     heure:document.getElementById('ev-h')?.value||'09h00',lieu:l,desc:d,
     detail:document.getElementById('ev-dt')?.value.trim()||''});
+  saveAdminData(); // Sauvegarde les événements
+  Log.add('Événement ajouté', t);
   closeModal();renderEvents();renderAdminPage();toast('Événement ajouté !','ok');
 }
 
@@ -948,7 +1018,7 @@ function openPhotoModal(){
   const dp=localStorage.getItem('enspd_photo_dir');
   openModal('Gestion des photos',`
     <div class="m-sec">
-      <div class="m-sec-h">📷 Photo du Directeur</div>
+      <div class="m-sec-h">Photo du Directeur</div>
       <div style="display:flex;align-items:center;gap:16px;margin-bottom:14px">
         <div style="width:80px;height:80px;border-radius:50%;overflow:hidden;border:2px solid var(--brd);flex-shrink:0;display:flex;align-items:center;justify-content:center;background:var(--bg2)">
           ${dp?`<img src="${dp}" style="width:100%;height:100%;object-fit:cover">`:'<span style="font-size:28px">🏛️</span>'}
@@ -956,7 +1026,7 @@ function openPhotoModal(){
         <div>
           <p class="f13 c3 mb8">Formats : JPG, PNG. Taille recommandée : 300×300px minimum.</p>
           <label style="display:inline-block">
-            <span class="btn b-vt b-sm" style="cursor:pointer">📤 Choisir une photo</span>
+            <span class="btn b-vt b-sm" style="cursor:pointer"> Choisir une photo</span>
             <input type="file" accept="image/*" style="display:none" onchange="uploadDirPhoto(this)">
           </label>
           ${dp?'<button class="btn b-er b-sm" style="margin-left:8px" onclick="localStorage.removeItem(\'enspd_photo_dir\');closeModal();renderAdmin();toast(\'Photo supprimée.\',\'ok\')">✕ Supprimer</button>':''}
@@ -964,7 +1034,7 @@ function openPhotoModal(){
       </div>
     </div>
     <div class="m-sec">
-      <div class="m-sec-h">🖼️ Ajouter des photos à la galerie</div>
+      <div class="m-sec-h">Ajouter des photos à la galerie</div>
       <div class="fg"><label>Catégorie</label>
         <select class="fs" id="gc-sel" onchange="document.getElementById('new-gc-fg').style.display=this.value==='new'?'flex':'none'">
           ${Object.keys(D.galerie).map(c=>`<option>${c}</option>`).join('')}
@@ -1258,27 +1328,27 @@ function showFil(id){
       <p style="font-size:15.5px;line-height:1.85;color:var(--txt2)">${f.objectif}</p>
     </div>
     <div class="m-sec">
-      <div class="m-sec-h">📋 Conditions d'accès</div>
+      <div class="m-sec-h">Conditions d'accès</div>
       <div class="alert a-mn" style="margin:0;font-size:14px">${f.admission}</div>
     </div>
     <div class="m-sec">
-      <div class="m-sec-h">💡 Compétences développées</div>
+      <div class="m-sec-h">Compétences développées</div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
         ${f.competences.map(c=>`<div style="padding:9px 12px;border-radius:8px;background:var(--bg2);border-left:3px solid var(--vt);font-size:13px;color:var(--txt2)">✓ ${c}</div>`).join('')}
       </div>
     </div>
     <div class="m-sec">
-      <div class="m-sec-h">📚 Programme de formation</div>
+      <div class="m-sec-h">Programme de formation</div>
       ${prog}
     </div>
     <div class="m-sec">
-      <div class="m-sec-h">🎯 Débouchés professionnels</div>
+      <div class="m-sec-h"> Débouchés professionnels</div>
       <div style="display:flex;flex-wrap:wrap;gap:8px">
         ${f.debouches.map(d=>`<span class="badge bmn" style="padding:5px 12px;font-size:12.5px">${d}</span>`).join('')}
       </div>
     </div>
     <div class="m-sec">
-      <div class="m-sec-h">🚀 Perspectives</div>
+      <div class="m-sec-h"> Perspectives</div>
       <div style="display:flex;flex-wrap:wrap;gap:8px">
         ${f.persp.map(p=>`<span class="badge bor" style="padding:5px 12px;font-size:12.5px">${p}</span>`).join('')}
       </div>
@@ -1341,7 +1411,7 @@ function renderAdmin(){
   if(small){small.innerHTML=dp?`<img src="${dp}" alt="Directeur" style="width:100%;height:100%;object-fit:cover;border-radius:50%">`:'ES';}
   if(de)de.innerHTML=`
     <div class="adm-dir anim">
-      <div class="adm-dir-ico">${dp?`<img src="${dp}" alt="${dir.nom}">`:'🏛️'}</div>
+      <div class="adm-dir-ico">${dp?`<img src="${dp}" alt="${dir.nom}">`:''}</div>
       <div>
         <h3>${dir.titre}</h3>
         <p class="n">${dir.nom}</p>
@@ -1405,35 +1475,35 @@ function renderAdminPage() {
     <h3 class="adm-section-title">Actions rapides</h3>
     <div class="adm-quick-grid">
       <div class="adm-qa" onclick="openPubModal()">
-        <div class="adm-qa-ico">📝</div>
+        <div class="adm-qa-ico"></div>
         <div class="adm-qa-lbl">Publier actualité</div>
       </div>
       <div class="adm-qa" onclick="openPubEvModal()">
-        <div class="adm-qa-ico">📅</div>
+        <div class="adm-qa-ico"></div>
         <div class="adm-qa-lbl">Ajouter événement</div>
       </div>
       <div class="adm-qa" onclick="openPhotoAdminModal()">
-        <div class="adm-qa-ico">📷</div>
+        <div class="adm-qa-ico"></div>
         <div class="adm-qa-lbl">Photo Directeur</div>
       </div>
       <div class="adm-qa" onclick="openGalAdminModal()">
-        <div class="adm-qa-ico">🖼</div>
+        <div class="adm-qa-ico"></div>
         <div class="adm-qa-lbl">Gérer galerie</div>
       </div>
       <div class="adm-qa" onclick="openUsersModal()">
-        <div class="adm-qa-ico">👥</div>
+        <div class="adm-qa-ico"></div>
         <div class="adm-qa-lbl">Utilisateurs</div>
       </div>
       <div class="adm-qa" onclick="openTopBarModal()">
-        <div class="adm-qa-ico">📢</div>
+        <div class="adm-qa-ico"></div>
         <div class="adm-qa-lbl">Bandeau annonce</div>
       </div>
       <div class="adm-qa" onclick="openChangePassModal()">
-        <div class="adm-qa-ico">🔑</div>
+        <div class="adm-qa-ico"></div>
         <div class="adm-qa-lbl">Changer mdp</div>
       </div>
       <div class="adm-qa" onclick="openLogsModal()">
-        <div class="adm-qa-ico">📋</div>
+        <div class="adm-qa-ico"></div>
         <div class="adm-qa-lbl">Journal logs</div>
       </div>
     </div>
@@ -1516,10 +1586,7 @@ function renderAdmin() {
   /* Photo directeur sur la page accueil */
   const dirAv = document.getElementById('dir-avatar');
   if (dirAv) {
-    dirAv.innerHTML = dp
-      ? `<img src="${dp}" alt="Directeur"
-             style="width:100%;height:100%;object-fit:cover;border-radius:50%">`
-      : '<span style="font-size:9px;line-height:1.4;text-align:center;color:rgba(255,255,255,.6)">📷<br>Photo<br>Dir.</span>';
+    dirAv.innerHTML = `<img src="assets/galerie/Photo du directeur.jpeg" alt="Directeur" style="width:100%;height:100%;object-fit:cover;border-radius:50%">`
   }
 
   /* Carte directeur sur la page L'École */
@@ -1551,7 +1618,6 @@ function renderAdmin() {
   const se = document.getElementById('adm-svcs');
   if (se) se.innerHTML = D.admin.slice(1).map((a,i) => `
     <div class="adm-card anim d${i+1}">
-      <div class="adm-ico">${a.ico}</div>
       <h3>${a.titre}</h3>
       <p>${a.desc}</p>
     </div>`).join('');
@@ -1622,32 +1688,32 @@ function renderAdminPage() {
     <h3 class="adm-section-title">Actions rapides</h3>
     <div class="adm-quick-grid">
       <div class="adm-qa" onclick="if(typeof openPubModal!=='undefined')openPubModal()">
-        <div class="adm-qa-ico">📝</div><div class="adm-qa-lbl">Publier actualité</div>
+        <div class="adm-qa-ico"></div><div class="adm-qa-lbl">Publier actualité</div>
       </div>
       <div class="adm-qa" onclick="if(typeof openPubEvModal!=='undefined')openPubEvModal()">
-        <div class="adm-qa-ico">📅</div><div class="adm-qa-lbl">Ajouter événement</div>
+        <div class="adm-qa-ico"></div><div class="adm-qa-lbl">Ajouter événement</div>
       </div>
       <div class="adm-qa" onclick="
         if(typeof openPhotoAdminModal!=='undefined')openPhotoAdminModal();
         else if(typeof openPhotoModal!=='undefined')openPhotoModal()">
-        <div class="adm-qa-ico">📷</div><div class="adm-qa-lbl">Photo Directeur</div>
+        <div class="adm-qa-ico"></div><div class="adm-qa-lbl">Photo Directeur</div>
       </div>
       <div class="adm-qa" onclick="
         if(typeof openGalAdminModal!=='undefined')openGalAdminModal();
         else if(typeof openGalModal!=='undefined')openGalModal()">
-        <div class="adm-qa-ico">🖼</div><div class="adm-qa-lbl">Gérer galerie</div>
+        <div class="adm-qa-ico"></div><div class="adm-qa-lbl">Gérer galerie</div>
       </div>
       <div class="adm-qa" onclick="if(typeof openUsersModal!=='undefined')openUsersModal()">
-        <div class="adm-qa-ico">👥</div><div class="adm-qa-lbl">Utilisateurs</div>
+        <div class="adm-qa-ico"></div><div class="adm-qa-lbl">Utilisateurs</div>
       </div>
       <div class="adm-qa" onclick="if(typeof openTopBarModal!=='undefined')openTopBarModal()">
-        <div class="adm-qa-ico">📢</div><div class="adm-qa-lbl">Bandeau annonce</div>
+        <div class="adm-qa-ico"></div><div class="adm-qa-lbl">Bandeau annonce</div>
       </div>
       <div class="adm-qa" onclick="if(typeof openChangePassModal!=='undefined')openChangePassModal()">
-        <div class="adm-qa-ico">🔑</div><div class="adm-qa-lbl">Changer mdp</div>
+        <div class="adm-qa-ico"></div><div class="adm-qa-lbl">Changer mdp</div>
       </div>
       <div class="adm-qa" onclick="if(typeof openLogsModal!=='undefined')openLogsModal()">
-        <div class="adm-qa-ico">📋</div><div class="adm-qa-lbl">Journal logs</div>
+        <div class="adm-qa-ico"></div><div class="adm-qa-lbl">Journal logs</div>
       </div>
     </div>
 
@@ -1760,7 +1826,7 @@ function renderDocs(){
 function renderEvents(){
   const el=document.getElementById('events-list');if(!el)return;
   const cols={BUE:'#1B1E6E',Signature:'#E8960A',Académique:'#2EAA38',Ouvert:'#1B5FA0'};
-  el.innerHTML=D.events.map((e,i)=>`
+  /* el.innerHTML=D.events.map((e,i)=>`
     <div class="ev-item anim" onclick="showEvent(${i})">
       <div class="ev-dt" style="background:${cols[e.type]||'#1B1E6E'}">
         <div class="dd">${S.esc(e.j)}</div><div class="dm">${S.esc(e.m)}</div>
@@ -1773,7 +1839,7 @@ function renderEvents(){
           <span class="badge" style="background:${cols[e.type]||'#1B1E6E'}22;color:${cols[e.type]||'#1B1E6E'}">${S.esc(e.type)}</span>
         </div>
       </div>
-    </div>`).join('');
+    </div>`).join(''); */
   initAnim();
 }
 function showEvent(i){
@@ -2007,6 +2073,37 @@ function openLogsModal(){
 /* ── ADMIN — Photo directeur (alias) ─────────────────────── */
 function openPhotoAdminModal(){openPhotoModal();}
 
+/* ── WHY-SLIDER (carrousel auto 2s — section Pourquoi l'ENSPD) ─ */
+function initWhySlider(){
+  const slider=document.getElementById('why-slider');
+  if(!slider)return;
+  const slides=slider.querySelectorAll('.why-slide');
+  const dots  =slider.querySelectorAll('.why-slider-dot');
+  if(slides.length<2)return;
+  let i=0;
+  let timer=null;
+  const INTERVAL=2000; // 2 secondes
+  const show=(n)=>{
+    slides.forEach((s,k)=>s.classList.toggle('active',k===n));
+    dots  .forEach((d,k)=>d.classList.toggle('active',k===n));
+    i=n;
+  };
+  const next=()=>show((i+1)%slides.length);
+  const start=()=>{ if(!timer) timer=setInterval(next,INTERVAL); };
+  const stop =()=>{ if(timer){clearInterval(timer);timer=null;} };
+  // Clic sur les dots
+  dots.forEach((d,k)=>d.addEventListener('click',()=>{stop();show(k);start();}));
+  // Pause au survol pour faciliter la lecture
+  slider.addEventListener('mouseenter',stop);
+  slider.addEventListener('mouseleave',start);
+  // Pause quand l'onglet est caché (économie CPU)
+  document.addEventListener('visibilitychange',()=>{ if(document.hidden) stop(); else start(); });
+  // Respect du paramètre système "réduire les animations"
+  if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches) start();
+  // Sécurité : si une seule slide réellement visible, on coupe le timer
+  if(slides.length<2 && timer){clearInterval(timer);timer=null;}
+}
+
 /* ── INIT ─────────────────────────────────────────────────── */
 document.addEventListener('DOMContentLoaded',()=>{
   /* Routing — tous les [data-p] clickables */
@@ -2072,5 +2169,9 @@ document.addEventListener('DOMContentLoaded',()=>{
   renderPartnersWall();
   renderFaq();
   renderPublications();
+
+  /* Slider d'images "Pourquoi l'ENSPD" — défilement auto 2s */
+  initWhySlider();
+
   nav('accueil');
 });
