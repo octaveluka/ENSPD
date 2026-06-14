@@ -14,8 +14,7 @@
   <script>
     (function () {
       try {
-        var t = localStorage.getItem('jssed-theme');
-        if (!t) t = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        var t = localStorage.getItem('jssed-theme') || 'light';
         document.documentElement.setAttribute('data-theme', t);
       } catch (e) { document.documentElement.setAttribute('data-theme', 'light'); }
     })();
@@ -78,6 +77,7 @@
 
 <!-- ===================== HERO ===================== -->
 <section class="js-hero" id="js-hero" aria-label="Présentation JSSED 2026">
+  <div class="js-hero-bg" aria-hidden="true"><img src="assets/jssed/hero.jpg" alt="" onerror="this.parentElement.remove()"></div>
   <div class="js-container">
     <div class="js-hero-edition">
       <span class="dot"></span> 2ᵉ Édition · 2026
@@ -128,6 +128,7 @@
     <div class="js-hero-actions">
       <a href="#soumission" class="js-btn js-btn-primary js-btn-lg">Soumettre un résumé</a>
       <a href="#aac" class="js-btn js-btn-outline js-btn-lg">Appel à communications</a>
+      <a href="#documents" class="js-btn js-btn-ghost js-btn-lg">Guide de participation</a>
     </div>
   </div>
 </section>
@@ -224,9 +225,11 @@
       <div class="js-section-badge js-section-badge--done">Édition terminée · Juillet 2025</div>
       <h2 class="js-section-title" id="arch-title">JSSED 2025 — 1ʳᵉ édition</h2>
       <p class="js-section-sub">Retour sur la première édition des Journées Scientifiques, tenue à l'Université de Parakou.</p>
+      <button id="js-archive-reveal" class="js-btn js-btn-primary" style="margin-top:22px;">Découvrir l'archive 2025 →</button>
     </div>
 
-    <div class="js-arch-kpis js-reveal" style="margin-top:44px;">
+    <div id="js-archive-body" hidden>
+    <div class="js-arch-kpis js-reveal" style="margin-top:32px;">
       <div class="js-arch-kpi"><div class="js-arch-kpi-num">200+</div><div class="js-arch-kpi-lbl">Participants</div></div>
       <div class="js-arch-kpi"><div class="js-arch-kpi-num teal">3</div><div class="js-arch-kpi-lbl">Ateliers thématiques</div></div>
       <div class="js-arch-kpi"><div class="js-arch-kpi-num gold">15+</div><div class="js-arch-kpi-lbl">Communications</div></div>
@@ -240,6 +243,7 @@
       <button class="js-btn js-btn-outline" disabled aria-disabled="true">Livre des résumés 2025 — Bientôt</button>
       <a href="#soumission" class="js-btn js-btn-primary">JSSED 2026 — Participer →</a>
     </div>
+    </div><!-- /js-archive-body -->
   </div>
 </section>
 
@@ -406,6 +410,10 @@
     </div>
 
     <div class="js-sub-wrap">
+      <div class="js-reg-closed" id="js-reg-closed" style="display:none;">
+        <h3>Les soumissions sont actuellement closes</h3>
+        <p>La période de soumission n'est pas ouverte pour le moment. Consultez les <a href="#timeline">dates clés</a> ou écrivez-nous à <a href="mailto:jssed.enspd.up.2025@gmail.com">jssed.enspd.up.2025@gmail.com</a>.</p>
+      </div>
       <div class="js-steps-header" id="js-steps-header" role="tablist" aria-label="Étapes de soumission">
         <div class="js-step-dot active" id="sdot-1" role="tab" aria-selected="true"><div class="js-step-num">1</div><div class="js-step-lbl">Type</div></div>
         <div class="js-step-dot" id="sdot-2" role="tab" aria-selected="false"><div class="js-step-num">2</div><div class="js-step-lbl">Auteur</div></div>
@@ -873,7 +881,9 @@
         <div class="js-footer-col-title">Liens utiles</div>
         <ul class="js-footer-links">
           <li><button class="footer-link-btn" onclick="window.open('index.html','_self')">Site ENSPD</button></li>
+          <!-- Lien BUE masqué sur demande
           <li><button class="footer-link-btn" onclick="window.open('bue.html','_self')">Bureau des Étudiants (BUE)</button></li>
+          -->
           <li><a href="mailto:jssed.enspd.up.2025@gmail.com">Email JSSED</a></li>
         </ul>
       </div>
@@ -886,6 +896,12 @@
 </footer>
 
 <!-- WhatsApp -->
+<!-- Chat — placeholder « bientôt disponible » -->
+<div class="js-chat-fab" role="note" aria-label="Chat bientôt disponible" title="Chat — bientôt disponible">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-8.5 8.5 8.5 8.5 0 0 1-3.8-.9L3 21l1.9-5.7A8.5 8.5 0 0 1 12.5 3 8.38 8.38 0 0 1 21 11.5z"/></svg>
+  <span>Chat · bientôt</span>
+</div>
+
 <a href="https://wa.me/2290195341165" target="_blank" rel="noopener noreferrer" class="wa-float" aria-label="Contacter les JSSED sur WhatsApp">
   <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
 </a>

@@ -18,7 +18,8 @@
    ========================================================= */
 const JSSED_CONFIG = {
   apiBase: '',                 // ex. 'backend/api'
-  eventDate: null,             // ex. '2026-09-08T08:00:00'
+  eventDate: '2026-09-08T08:00:00', // provisoire (septembre) — à corriger dès la date officielle connue
+  registrationOpen: true,      // passer à false pour fermer les soumissions/inscriptions
   email: 'jssed.enspd.up.2025@gmail.com'
 };
 
@@ -655,9 +656,40 @@ const jsCookie = {
 };
 
 /* =========================================================
+   ARCHIVE 2025 — déverrouillage au clic
+   ========================================================= */
+const jssedArchive = {
+  init() {
+    const body = $('#js-archive-body');
+    const btn = $('#js-archive-reveal');
+    if (!body || !btn) return;
+    btn.addEventListener('click', () => {
+      body.hidden = false;
+      btn.style.display = 'none';
+      body.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  }
+};
+
+/* =========================================================
+   ÉTAT DES INSCRIPTIONS (ouvertes / fermées)
+   ========================================================= */
+function applyRegistrationState() {
+  if (JSSED_CONFIG.registrationOpen) return;
+  // Fermé : on désactive la soumission et on informe
+  const form = $('#js-form');
+  const closed = $('#js-reg-closed');
+  if (closed) closed.style.display = '';
+  if (form) form.style.display = 'none';
+  $$('.js-steps-header').forEach(el => el.style.display = 'none');
+}
+
+/* =========================================================
    INITIALISATION
    ========================================================= */
 document.addEventListener('DOMContentLoaded', () => {
+  jssedArchive.init();
+  applyRegistrationState();
   jsTheme.init();
   renderNews();
   renderDocs();

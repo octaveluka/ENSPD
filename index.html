@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr" data-theme="dark">
+<html lang="fr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
@@ -7,7 +7,7 @@
 <title>ENSPD — École Nationale de Statistique, de Planification et de Démographie | Université de Parakou</title>
 <meta name="description" content="Site officiel de l'ENSPD — Formation en Statistique, Planification et Démographie. Licences, Masters, Doctorat LMD. Université de Parakou, Bénin.">
 <meta name="robots" content="index,follow">
-<meta name="theme-color" content="#0C0E1A">
+<meta name="theme-color" content="#1B1E6E">
 <meta name="author" content="ENSPD — Université de Parakou">
 <meta name="keywords" content="ENSPD, statistique, planification, démographie, Bénin, Université de Parakou, LMD, concours, master, licence">
 <!-- Open Graph -->
@@ -80,10 +80,12 @@
       <svg class="ico-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
       <svg class="ico-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
     </button>
+    <!-- Sélecteur FR/EN retiré : la traduction est laissée au navigateur (standard sites pro)
     <div class="lang-selector" role="group" aria-label="Sélection de langue">
       <button class="lang-opt on" id="lang-fr" onclick="setLang('fr')" aria-pressed="true">FR</button>
       <button class="lang-opt" id="lang-en" onclick="setLang('en')" aria-pressed="false">EN</button>
     </div>
+    -->
     <!-- <button class="btn b-sec b-sm" onclick="window.open('bue.html');return false"
             style="font-size:11.5px" aria-label="Ouvrir le site BUE-ENSPD">BUE</button> -->
   </div>
@@ -565,6 +567,37 @@
       <div id="events-list">Bientôt disponible</div>
     </div>
   </section>
+
+  <!-- VIE ÉTUDIANTE : organisations -->
+  <section class="sec bg-w">
+    <div class="wrap">
+      <div class="sec-head-row mb28">
+        <h2 class="page-h2">Organisations étudiantes</h2>
+      </div>
+      <div class="vie-grid">
+        <article class="card cp vie-card">
+          <span class="vie-tag">Représentation</span>
+          <h3>BUE — Bureau d'Union des Étudiants</h3>
+          <p>Instance représentative des étudiants de l'ENSPD, élue démocratiquement. Le BUE anime la vie associative, défend les intérêts des étudiants et organise des activités tout au long de l'année.</p>
+          <!-- Lien vers le site du BUE — prévu, masqué pour le moment
+          <button class="btn b-sec b-sm" onclick="window.open('bue.html');return false">Découvrir le site du BUE →</button>
+          -->
+          <span class="vie-soon">Espace dédié bientôt disponible</span>
+        </article>
+        <article class="card cp vie-card">
+          <span class="vie-tag">Association scientifique</span>
+          <h3>CRISTAL</h3>
+          <p>L'association scientifique des étudiants de l'ENSPD, organisée en quatre sections :</p>
+          <ul class="vie-sections">
+            <li>Informatique</li>
+            <li>Anglais</li>
+            <li>Art &amp; Développement personnel</li>
+            <li>Science fondamentale</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
 </div>
 
 <!-- ================================================================
@@ -784,6 +817,13 @@
          width="80" height="80"
          onerror="this.hidden=true">
     <h2 id="wel-title" data-i18n="wel_t">Bienvenue sur le site officiel de l'ENSPD</h2>
+    <div class="enspd-acro" aria-label="ENSPD — École Nationale de Statistique, de Planification et de Démographie">
+      <div class="acro-row" style="--i:0"><b>E</b><span>cole</span></div>
+      <div class="acro-row" style="--i:1"><b>N</b><span>ationale</span></div>
+      <div class="acro-row" style="--i:2"><b>S</b><span>tatistique</span></div>
+      <div class="acro-row" style="--i:3"><b>P</b><span>lanification</span></div>
+      <div class="acro-row" style="--i:4"><b>D</b><span>émographie</span></div>
+    </div>
     <p data-i18n="wel_sub">École Nationale de Statistique, de Planification et de Démographie — Université de Parakou, Bénin</p>
     <div class="welcome-choices">
       <button class="wc-btn" onclick="chooseVisitor()">
@@ -801,7 +841,11 @@
   </div>
 </div>
 
-<!-- (Sticker WhatsApp flottant supprimé sur demande) -->
+<!-- Chat — placeholder « bientôt disponible » -->
+<button id="chat-fab" class="chat-fab" onclick="toast('Chat — bientôt disponible.','inf')" aria-label="Chat (bientôt disponible)" title="Chat — bientôt disponible">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-8.5 8.5 8.5 8.5 0 0 1-3.8-.9L3 21l1.9-5.7A8.5 8.5 0 0 1 12.5 3 8.38 8.38 0 0 1 21 11.5z"/></svg>
+  <span class="chat-fab-soon">Bientôt</span>
+</button>
 <button id="btt" data-i18n-title="btt_title" title="Retour en haut" aria-label="Retour en haut de page">↑</button>
 <script src="enspd.js" defer></script>
 </body>

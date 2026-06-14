@@ -1,4 +1,19 @@
 'use strict';
+/* ── Configuration backend ENSPD (optionnel) ───────────────────────────
+   Laisser apiBase='' = fonctionnement actuel (contenu géré en local).
+   Renseigner l'URL du backend pour lire le contenu en base, ex :
+   ENSPD_CONFIG.apiBase = 'backend-enspd/api';
+   Les fonctions ENSPD_API.* sont fournies et prêtes à l'emploi (voir
+   backend-enspd/README.md). Branchement laissé opt-in pour la stabilité. */
+const ENSPD_CONFIG = { apiBase: '' };
+const ENSPD_API = {
+  async get(path){ if(!ENSPD_CONFIG.apiBase) return null; try{ const r=await fetch(ENSPD_CONFIG.apiBase+'/'+path); if(!r.ok) return null; return await r.json(); }catch(e){ return null; } },
+  actualites(){ return this.get('actualites.php'); },
+  evenements(){ return this.get('evenements.php'); },
+  galerie(){ return this.get('galerie.php'); },
+  settings(){ return this.get('settings.php'); },
+  async contact(data){ if(!ENSPD_CONFIG.apiBase) return null; try{ const r=await fetch(ENSPD_CONFIG.apiBase+'/contact.php',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)}); return await r.json(); }catch(e){ return null; } }
+};
 /* ================================================================
    ENSPD — JS v7 · DJOROD_CODING
    ================================================================ */
@@ -358,6 +373,12 @@ L'événement a mobilisé plus de 200 participants. La 2ème édition est prévu
      desc:'Organisation des examens, inscriptions, rapports de stages.'},
     {ico:'',titre:'Service Comptable',nom:'',role:'Chef Service Comptable',
      desc:'Comptabilité générale, gestion budgétaire de l\'entité.'},
+    {ico:'',titre:'Département de la Statistique Appliquée',nom:'Dr François KOLADJO',role:'Chef de Département',
+     desc:"Pilotage pédagogique et scientifique de la filière Statistique Appliquée."},
+    {ico:'',titre:'Planification et Suivi-Évaluation',nom:'Dr Georges DJOHY',role:'Chef de Département',
+     desc:"Pilotage pédagogique de la filière Planification et Suivi-Évaluation."},
+    {ico:'',titre:'Coordination des Masters',nom:'Dr Justin DANSOU',role:'Coordinateur Master',
+     desc:"Coordination des programmes de Master de l'ENSPD."},
   ],
 
   labos:[
@@ -458,11 +479,11 @@ L'événement a mobilisé plus de 200 participants. La 2ème édition est prévu
     { q: "Peut-on déposer une demande de document (attestation, relevé) par email ?",
       r: "Non. Toutes les demandes de documents officiels (attestation d'inscription, relevé de notes, mise en stage) doivent être adressées manuscritement au Directeur de l'ENSPD, accompagnées des pièces justificatives requises, et déposées à la scolarité." },
     { q: "L'ENSPD propose-t-il des bourses ou aides financières ?",
-      r: "Des bourses nationales sont accessibles via le MESRS. Des opportunités de bourses internationales (FAO, UNFPA, BAD) sont régulièrement partagées via le BUE et la section Actualités." },
+      r: "Des bourses nationales sont accessibles via le MESRS. Des opportunités de bourses internationales (FAO, UNFPA, BAD) sont régulièrement partagées dans la section Actualités du site." },
     { q: "Peut-on travailler après une Licence à l'ENSPD ?",
       r: "Oui. Les diplômés de Licence SA ou PSE peuvent intégrer la fonction publique (INSAE, MAEP, collectivités) ou le secteur privé. La poursuite en Master est fortement conseillée pour évoluer vers des postes de cadre supérieur." },
     { q: "Comment rejoindre le BUE ou le CRISTAL ?",
-      r: "Le BUE est le bureau d'union des étudiants, élu démocratiquement. Le CRISTAL est l'association scientifique avec 4 sections (Informatique, Anglais, Art & Dev Personnel, Science Fondamentale). Contactez directement le Président BUE ou visitez bue.enspd-up.bj." },
+      r: "Le BUE est le bureau d'union des étudiants, élu démocratiquement. Le CRISTAL est l'association scientifique avec 4 sections (Informatique, Anglais, Art & Dev Personnel, Science Fondamentale). Contactez directement le Bureau d'Union des Étudiants (BUE) ou la coordination de l'association CRISTAL." },
   ],
 
   publications: [
@@ -606,7 +627,7 @@ const AUTH={
 /* ── DARK MODE ────────────────────────────────────────────── */
 let _dark=false;
 function toggleDark(){_dark=!_dark;document.documentElement.dataset.theme=_dark?'dark':'';localStorage.setItem('enspd-theme',_dark?'dark':'');}
-function initTheme(){const s=localStorage.getItem('enspd-theme');_dark=s!==null?s==='dark':true;document.documentElement.dataset.theme=_dark?'dark':'';}
+function initTheme(){const s=localStorage.getItem('enspd-theme');_dark=s!==null?s==='dark':false;document.documentElement.dataset.theme=_dark?'dark':'';}
 
 /* ── LANGUE ──────────────────────────────────────────────── */
 let _lang='fr';
@@ -806,10 +827,10 @@ function renderAdminBar(){
     <button class="admin-action" onclick="openUsersModal()"> Utilisateurs</button>
     <button class="admin-action" onclick="openTopBarModal()">Annonce</button>
     <button class="admin-action" style="margin-left:auto" onclick="AUTH.logout()">Déconnexion</button>`;
-    document.getElementById('btn-add-ev')?.classList.remove('hidden');
+    var _bae=document.getElementById('btn-add-ev'); if(_bae)_bae.hidden=false;
   }else{
     ab.className='admin-bar';
-    document.getElementById('btn-add-ev')?.classList.add('hidden');
+    var _bae=document.getElementById('btn-add-ev'); if(_bae)_bae.hidden=true;
   }
 }
 
@@ -1329,7 +1350,7 @@ function showFil(id){
     <div style="margin-bottom:14px">
       <div style="font-size:12px;font-weight:700;color:var(--navy-ink);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px;padding-bottom:5px;border-bottom:1px solid var(--brd)">${p.s}</div>
       <div style="display:flex;flex-wrap:wrap;gap:6px">
-        ${p.ues.map((u,i)=>`<span style="font-size:12.5px;padding:4px 11px;border-radius:100px;background:${i<3?'var(--mn-l)':'var(--bg2)'};color:${i<3?'var(--mn-d)':'var(--txt2)'};border:1px solid var(--brd)">${u}</span>`).join('')}
+        ${p.ues.map((u,i)=>`<span style="font-size:12.5px;padding:4px 11px;border-radius:100px;background:${i<3?'var(--mn-l)':'var(--bg2)'};color:${i<3?'var(--navy-ink-d)':'var(--txt2)'};border:1px solid var(--brd)">${u}</span>`).join('')}
       </div>
     </div>`).join('');
   openModal(f.nom,`
@@ -1477,9 +1498,9 @@ function renderAdminPage() {
         <div class="adm-kpi-n" style="color:#F0A500">${D.events.length}</div>
         <div class="adm-kpi-l">Événements</div>
       </div>
-      <div class="adm-kpi" style="--accent:#8B5CF6">
+      <div class="adm-kpi" style="--accent:#0E7490">
         <div class="adm-kpi-bar"></div>
-        <div class="adm-kpi-n" style="color:#8B5CF6">${Object.values(D.galerie).reduce((s,a)=>s+a.length,0)}</div>
+        <div class="adm-kpi-n" style="color:#0E7490">${Object.values(D.galerie).reduce((s,a)=>s+a.length,0)}</div>
         <div class="adm-kpi-l">Photos galerie</div>
       </div>
     </div>
@@ -1691,8 +1712,8 @@ function renderAdminPage() {
         <div class="adm-kpi-l">Événements</div>
       </div>
       <div class="adm-kpi">
-        <div class="adm-kpi-bar" style="background:#8B5CF6"></div>
-        <div class="adm-kpi-n" style="color:#8B5CF6">${Object.values(D.galerie).reduce((s,a)=>s+a.length,0)}</div>
+        <div class="adm-kpi-bar" style="background:#0E7490"></div>
+        <div class="adm-kpi-n" style="color:#0E7490">${Object.values(D.galerie).reduce((s,a)=>s+a.length,0)}</div>
         <div class="adm-kpi-l">Photos galerie</div>
       </div>
     </div>
