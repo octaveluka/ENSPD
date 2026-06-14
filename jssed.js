@@ -1,495 +1,678 @@
 /* =========================================================
-   JSSED 2026 — Event Platform JavaScript
-   Countdown · Multi-step form · Dashboard · FAQ · Reveal
+   JSSED — Plateforme scientifique ENSPD / Univ. de Parakou
+   Thème clair/sombre · Compte à rebours · Formulaire sécurisé
+   Tableau de bord · FAQ · Sections dynamiques
    ========================================================= */
-
 'use strict';
 
-/* ---- Countdown ---- */
-(function initCountdown() {
-  const TARGET = new Date('2026-09-01T08:00:00');
-  const elJ = document.getElementById('cd-j');
-  const elH = document.getElementById('cd-h');
-  const elM = document.getElementById('cd-m');
-  const elS = document.getElementById('cd-s');
-  if (!elJ) return;
+/* =========================================================
+   CONFIGURATION  (à ajuster lors du déploiement)
+   ---------------------------------------------------------
+   - apiBase : URL du backend PHP. Laisser '' pour le mode
+     « hors-ligne » (le formulaire bascule alors sur l'envoi
+     par email + sauvegarde locale).
+     Exemple en production : 'backend/api' ou '/backend/api'.
+   - eventDate : date officielle des journées au format ISO
+     ('2026-09-08T08:00:00'). Laisser null tant qu'elle n'est
+     pas connue : le compte à rebours reste en attente.
+   ========================================================= */
+const JSSED_CONFIG = {
+  apiBase: '',                 // ex. 'backend/api'
+  eventDate: null,             // ex. '2026-09-08T08:00:00'
+  email: 'jssed.enspd.up.2025@gmail.com'
+};
 
-  function pad(n) { return String(n).padStart(2, '0'); }
+/* ---------- Utilitaires ---------- */
+const $  = (sel, ctx = document) => ctx.querySelector(sel);
+const $$ = (sel, ctx = document) => Array.from(ctx.querySelectorAll(sel));
+const pad = (n, l = 2) => String(n).padStart(l, '0');
+const escapeHtml = (s) => String(s == null ? '' : s).replace(/[&<>"']/g, c =>
+  ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
-  function tick() {
-    const diff = TARGET - Date.now();
-    if (diff <= 0) {
-      elJ.textContent = '000';
-      elH.textContent = '00';
-      elM.textContent = '00';
-      elS.textContent = '00';
+/* =========================================================
+   THÈME CLAIR / SOMBRE
+   ========================================================= */
+const jsTheme = {
+  KEY: 'jssed-theme',
+  set(t) {
+    document.documentElement.setAttribute('data-theme', t);
+    try { localStorage.setItem(this.KEY, t); } catch (e) {}
+    const meta = $('meta[name="theme-color"]');
+    if (meta) meta.setAttribute('content', t === 'dark' ? '#0E1726' : '#16294D');
+  },
+  toggle() {
+    const cur = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+    this.set(cur === 'dark' ? 'light' : 'dark');
+  },
+  init() {
+    const btn = $('#js-theme-toggle');
+    if (btn) btn.addEventListener('click', () => this.toggle());
+  }
+};
+
+/* =========================================================
+   COMPTE À REBOURS  (édition en cours)
+   ========================================================= */
+const jsCountdown = {
+  init() {
+    const target = JSSED_CONFIG.eventDate ? new Date(JSSED_CONFIG.eventDate) : null;
+    const valid = target && !isNaN(target) && target.getTime() > Date.now();
+
+    const main = $('#js-countdown');
+    const tba  = $('#js-countdown-tba');
+    const mini = $('#js-ed-mini');
+    const miniTba = $('#js-ed-tba');
+    const heroDate = $('#js-hero-date');
+
+    if (!valid) {
+      // Date inconnue : on garde l'état « à venir »
+      if (main) main.hidden = true;
+      if (tba) tba.style.display = '';
+      if (mini) mini.hidden = true;
+      if (miniTba) miniTba.style.display = '';
       return;
     }
-    const d = Math.floor(diff / 86400000);
-    const h = Math.floor((diff % 86400000) / 3600000);
-    const m = Math.floor((diff % 3600000) / 60000);
-    const s = Math.floor((diff % 60000) / 1000);
-    elJ.textContent = String(d).padStart(3, '0');
-    elH.textContent = pad(h);
-    elM.textContent = pad(m);
-    elS.textContent = pad(s);
+
+    if (main) main.hidden = false;
+    if (tba) tba.style.display = 'none';
+    if (mini) mini.hidden = false;
+    if (miniTba) miniTba.style.display = 'none';
+    if (heroDate) {
+      heroDate.textContent = target.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
+    }
+
+    const els = {
+      j: $('#cd-j'), h: $('#cd-h'), m: $('#cd-m'), s: $('#cd-s'),
+      ej: $('#ecd-j'), eh: $('#ecd-h'), em: $('#ecd-m')
+    };
+
+    const tick = () => {
+      const diff = target.getTime() - Date.now();
+      if (diff <= 0) { this.zero(els); return; }
+      const d = Math.floor(diff / 86400000);
+      const h = Math.floor((diff % 86400000) / 3600000);
+      const m = Math.floor((diff % 3600000) / 60000);
+      const s = Math.floor((diff % 60000) / 1000);
+      if (els.j) els.j.textContent = pad(d, 3);
+      if (els.h) els.h.textContent = pad(h);
+      if (els.m) els.m.textContent = pad(m);
+      if (els.s) els.s.textContent = pad(s);
+      if (els.ej) els.ej.textContent = d;
+      if (els.eh) els.eh.textContent = pad(h);
+      if (els.em) els.em.textContent = pad(m);
+    };
+    tick();
+    setInterval(tick, 1000);
+  },
+  zero(els) {
+    ['j', 'h', 'm', 's'].forEach(k => { if (els[k]) els[k].textContent = els[k].id === 'cd-j' ? '000' : '00'; });
+    if (els.ej) els.ej.textContent = '0';
+    if (els.eh) els.eh.textContent = '00';
+    if (els.em) els.em.textContent = '00';
   }
+};
 
-  tick();
-  setInterval(tick, 1000);
-})();
-
-/* ---- Burger Menu ---- */
-(function initBurger() {
-  const btn = document.getElementById('js-burger');
-  const nav = document.getElementById('js-mobile-nav');
+/* =========================================================
+   MENU MOBILE + TOPBAR + REVEAL
+   ========================================================= */
+function initBurger() {
+  const btn = $('#js-burger');
+  const nav = $('#js-mobile-nav');
   if (!btn || !nav) return;
-
   btn.addEventListener('click', () => {
     const open = nav.classList.toggle('open');
     btn.setAttribute('aria-expanded', String(open));
   });
+  $$('.js-mobile-link', nav).forEach(a => a.addEventListener('click', () => {
+    nav.classList.remove('open');
+    btn.setAttribute('aria-expanded', 'false');
+  }));
+}
 
-  nav.querySelectorAll('.js-mobile-link').forEach(a => {
-    a.addEventListener('click', () => {
-      nav.classList.remove('open');
-      btn.setAttribute('aria-expanded', 'false');
-    });
-  });
-})();
-
-/* ---- Scroll Reveal ---- */
-(function initReveal() {
-  const els = document.querySelectorAll('.js-reveal');
-  if (!els.length) return;
-  if (!window.IntersectionObserver) {
-    els.forEach(el => el.classList.add('visible'));
-    return;
-  }
-  const obs = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add('visible');
-        obs.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-  els.forEach(el => obs.observe(el));
-})();
-
-/* ---- Topbar Scroll Effect ---- */
-(function initTopbarScroll() {
-  const bar = document.getElementById('js-topbar');
+function initTopbarScroll() {
+  const bar = $('#js-topbar');
   if (!bar) return;
   let ticking = false;
   window.addEventListener('scroll', () => {
-    if (!ticking) {
-      requestAnimationFrame(() => {
-        if (window.scrollY > 60) {
-          bar.style.background = 'rgba(4,5,15,.96)';
-        } else {
-          bar.style.background = 'rgba(4,5,15,.82)';
-        }
-        ticking = false;
-      });
-      ticking = true;
-    }
+    if (ticking) return;
+    requestAnimationFrame(() => {
+      bar.classList.toggle('scrolled', window.scrollY > 40);
+      ticking = false;
+    });
+    ticking = true;
   }, { passive: true });
-})();
+}
 
-/* ---- FAQ Accordion ---- */
-const jsfaq = {
-  toggle(btn) {
+function initReveal() {
+  const els = $$('.js-reveal');
+  if (!els.length) return;
+  if (!window.IntersectionObserver) { els.forEach(el => el.classList.add('visible')); return; }
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  els.forEach(el => obs.observe(el));
+}
+
+/* =========================================================
+   DONNÉES DYNAMIQUES
+   ========================================================= */
+const JSSED_DATA = {
+  comite: [
+    { nom: 'Direction scientifique', role: 'Présidence', affil: 'ENSPD — Univ. de Parakou', ini: 'DS' },
+    { nom: 'Atelier Statistique', role: 'Coordination', affil: 'ENSPD — Univ. de Parakou', ini: 'A1' },
+    { nom: 'Atelier Évaluation', role: 'Coordination', affil: 'ENSPD — Univ. de Parakou', ini: 'A2' },
+    { nom: 'Atelier Démographie', role: 'Coordination', affil: 'ENSPD — Univ. de Parakou', ini: 'A3' },
+    { nom: 'Comité de lecture', role: 'Évaluation', affil: 'Institutions partenaires', ini: 'CL' },
+    { nom: 'Secrétariat scientifique', role: 'Secrétariat', affil: 'ENSPD — Univ. de Parakou', ini: 'SS' }
+  ],
+  // Actualités / annonces — modifiable ici (les plus récentes en premier)
+  news: [
+    { date: '2026', tag: 'Annonce', title: 'Lancement prochain de l\'appel à communications', text: 'La 2ᵉ édition des JSSED est en préparation. L\'appel à communications et le calendrier détaillé seront publiés très prochainement.' },
+    { date: '2026', tag: 'Inscription', title: 'Modalités d\'inscription et de paiement', text: 'Le paiement des frais de participation se fait en ligne via la plateforme du Trésor Public du Bénin (eQuittance). Détails dans la section Inscription.' },
+    { date: '2026', tag: 'Programme', title: 'Trois ateliers thématiques reconduits', text: 'Statistique & informatique décisionnelle, évaluation & IA, démographie & IA : les trois axes structurent à nouveau les soumissions.' }
+  ],
+  // Documents téléchargeables — mettre status:'available' + href réel quand disponible
+  docs: [
+    { name: 'Appel à communications', desc: 'Document officiel de l\'appel (PDF)', status: 'soon', href: '' },
+    { name: 'Gabarit de résumé', desc: 'Modèle Word — Arial 12 pt, interligne 1,5', status: 'soon', href: '' },
+    { name: 'Livre des résumés 2025', desc: 'Actes de la 1ʳᵉ édition', status: 'soon', href: '' },
+    { name: 'Programme 2026', desc: 'Programme détaillé des journées', status: 'soon', href: '' }
+  ],
+  partners: [
+    { nom: 'ENSPD', sub: 'École Nationale de Statistique' },
+    { nom: 'Université de Parakou', sub: 'UP — Bénin' },
+    { nom: 'INStaD', sub: 'Institut National de la Statistique' },
+    { nom: 'BUE-ENSPD', sub: 'Bureau des Étudiants' },
+    { nom: 'Annales de l\'UP', sub: 'Publication scientifique' },
+    { nom: 'Partenaires institutionnels', sub: 'Soutiens de l\'événement' }
+  ],
+  gallery: [
+    { caption: 'Séance plénière', img: 'assets/galerie/bue/jssed_1775853364124.jpg' },
+    { caption: 'Atelier scientifique', img: 'assets/galerie/bue/jssed_1775853366762.jpg' },
+    { caption: 'Présentations', img: 'assets/galerie/bue/jssed_1775853368864.jpg' },
+    { caption: 'Réseautage', img: null },
+    { caption: 'Remise de distinctions', img: null },
+    { caption: 'Cérémonie de clôture', img: null }
+  ],
+  timeline: [
+    { date: 'Lancement', title: 'Ouverture de l\'appel à communications', desc: 'Publication de l\'appel et du programme préliminaire.', badge: { t: 'À venir', c: 'open' }, cls: '' },
+    { date: 'Soumission des résumés', title: 'Dépôt des résumés', desc: 'Envoi des résumés structurés (300 mots) pour les trois ateliers.', badge: { t: 'À ne pas manquer', c: 'warn' }, cls: '' },
+    { date: 'Évaluation', title: 'Examen par le comité scientifique', desc: 'Évaluation en double aveugle des soumissions.', badge: null, cls: '' },
+    { date: 'Notifications', title: 'Réponses aux auteurs', desc: 'Acceptations, demandes de révision et instructions de présentation.', badge: null, cls: '' },
+    { date: 'Inscriptions', title: 'Ouverture des inscriptions', desc: 'Période d\'inscription à tarif préférentiel (early bird).', badge: { t: 'Tarif réduit', c: 'warn' }, cls: 'current' },
+    { date: 'Articles complets', title: 'Soumission des textes intégraux', desc: 'Pour publication dans les Actes des journées.', badge: null, cls: '' },
+    { date: 'Tenue des JSSED', title: 'Journées scientifiques 2026', desc: 'Conférences, ateliers, posters, expositions et réseautage.', badge: { t: 'Événement principal', c: 'key' }, cls: 'key' }
+  ],
+  faq: [
+    { q: 'Qui peut soumettre une communication ?', a: 'Tout chercheur, enseignant-chercheur, étudiant en Master ou Doctorat, et professionnel des domaines de la statistique, de l\'évaluation ou de la démographie. Les communications interdisciplinaires sont les bienvenues.' },
+    { q: 'Quelles langues sont acceptées ?', a: 'Les communications peuvent être soumises et présentées en français ou en anglais.' },
+    { q: 'Combien de communications peut-on soumettre ?', a: 'Un auteur peut soumettre au maximum deux communications, dont une seule en tant qu\'auteur principal. Les co-auteurs ne sont pas limités.' },
+    { q: 'Comment les communications sont-elles évaluées ?', a: 'Chaque résumé est évalué en double aveugle par au moins deux membres du comité scientifique : originalité, rigueur méthodologique, pertinence thématique et qualité de rédaction.' },
+    { q: 'Où sont publiés les actes ?', a: 'Les meilleures communications sont publiées dans les séries spécialisées des Annales de l\'Université de Parakou. Un livre des résumés est distribué à tous les participants.' },
+    { q: 'Peut-on assister sans présenter ?', a: 'Oui, la participation comme auditeur est possible au tarif correspondant à votre statut, avec accès à tous les ateliers et activités de réseautage.' },
+    { q: 'Comment mes données sont-elles protégées ?', a: 'Vos données ne servent qu\'à l\'organisation de l\'événement, sont transmises de façon sécurisée et ne sont jamais cédées à des tiers. Vous pouvez demander leur suppression à tout moment.' }
+  ]
+};
+
+const SVG = {
+  building: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M5 21V5a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v16M15 21V9h3a1 1 0 0 1 1 1v11M8 8h2M8 12h2M8 16h2"/></svg>',
+  camera: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8a2 2 0 0 1 2-2h2l1.5-2h7L19 6h0a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><circle cx="12" cy="12.5" r="3.2"/></svg>',
+  doc: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></svg>'
+};
+
+function renderNews() {
+  const el = $('#js-news-grid'); if (!el) return;
+  el.innerHTML = JSSED_DATA.news.map(n => `
+    <article class="js-news-card">
+      <div class="js-news-head">
+        <span class="js-news-tag">${escapeHtml(n.tag)}</span>
+        <span class="js-news-date">${escapeHtml(n.date)}</span>
+      </div>
+      <h3 class="js-news-title">${escapeHtml(n.title)}</h3>
+      <p class="js-news-text">${escapeHtml(n.text)}</p>
+    </article>`).join('');
+}
+
+function renderDocs() {
+  const el = $('#js-docs-list'); if (!el) return;
+  el.innerHTML = JSSED_DATA.docs.map(d => {
+    const isLink = d.status === 'available' && d.href;
+    const tag = isLink ? 'a' : 'div';
+    const attrs = isLink ? ` href="${escapeHtml(d.href)}" download` : '';
+    const status = isLink
+      ? '<span class="js-doc-status available">Disponible</span>'
+      : '<span class="js-doc-status soon">Bientôt</span>';
+    return `<${tag} class="js-doc-item"${attrs}>
+      <span class="js-doc-icon" aria-hidden="true">${SVG.doc}</span>
+      <span class="js-doc-body">
+        <span class="js-doc-name">${escapeHtml(d.name)}</span>
+        <span class="js-doc-desc">${escapeHtml(d.desc)}</span>
+      </span>
+      ${status}
+    </${tag}>`;
+  }).join('');
+}
+
+function renderComite() {
+  const el = $('#js-sc-grid'); if (!el) return;
+  el.innerHTML = JSSED_DATA.comite.map(m => `
+    <div class="js-sc-card js-reveal" role="listitem">
+      <div class="js-sc-avatar">${escapeHtml(m.ini)}</div>
+      <div class="js-sc-body">
+        <div class="js-sc-nom">${escapeHtml(m.nom)}</div>
+        <div class="js-sc-role">${escapeHtml(m.role)}</div>
+        <div class="js-sc-affil">${escapeHtml(m.affil)}</div>
+      </div>
+    </div>`).join('');
+}
+
+function renderPartners() {
+  const el = $('#js-partners-grid'); if (!el) return;
+  el.innerHTML = JSSED_DATA.partners.map(p => `
+    <div class="js-partner-chip" role="listitem">
+      <span class="js-pc-icon" aria-hidden="true">${SVG.building}</span>
+      <div>
+        <div class="js-pc-nom">${escapeHtml(p.nom)}</div>
+        <div class="js-pc-sub">${escapeHtml(p.sub)}</div>
+      </div>
+    </div>`).join('');
+}
+
+function renderGallery() {
+  const el = $('#js-arch-gallery'); if (!el) return;
+  el.innerHTML = JSSED_DATA.gallery.map(g => {
+    if (g.img) {
+      return `<div class="js-arch-photo-wrap">
+        <img src="${escapeHtml(g.img)}" alt="JSSED 2025 — ${escapeHtml(g.caption)}" class="js-arch-photo" loading="lazy"
+             onerror="this.style.display='none'">
+        <div class="js-arch-photo-placeholder" aria-hidden="true">${SVG.camera}<span class="js-arch-ph-label">${escapeHtml(g.caption)}</span></div>
+        <div class="js-arch-photo-caption">${escapeHtml(g.caption)}</div>
+      </div>`;
+    }
+    return `<div class="js-arch-photo-wrap js-arch-photo-wrap--empty">
+      <div class="js-arch-photo-placeholder" aria-hidden="true">${SVG.camera}<span class="js-arch-ph-label">${escapeHtml(g.caption)} · à ajouter</span></div>
+      <div class="js-arch-photo-caption">${escapeHtml(g.caption)}</div>
+    </div>`;
+  }).join('');
+}
+
+function renderTimeline() {
+  const el = $('#js-timeline'); if (!el) return;
+  el.innerHTML = JSSED_DATA.timeline.map((t, i) => `
+    <div class="js-tl-item js-reveal ${t.cls}">
+      <div class="js-tl-date">${escapeHtml(t.date)}</div>
+      <div class="js-tl-title">${escapeHtml(t.title)}</div>
+      <div class="js-tl-desc">${escapeHtml(t.desc)}</div>
+      ${t.badge ? `<span class="js-tl-badge ${t.badge.c}">${escapeHtml(t.badge.t)}</span>` : ''}
+    </div>`).join('');
+}
+
+function renderFaq() {
+  const el = $('#js-faq-list'); if (!el) return;
+  el.innerHTML = JSSED_DATA.faq.map(f => `
+    <div class="js-faq-item" role="listitem">
+      <button class="js-faq-q" aria-expanded="false">${escapeHtml(f.q)}<span class="js-faq-icon" aria-hidden="true"></span></button>
+      <div class="js-faq-a"><div>${escapeHtml(f.a)}</div></div>
+    </div>`).join('');
+  $$('.js-faq-q', el).forEach(btn => btn.addEventListener('click', () => {
     const item = btn.closest('.js-faq-item');
-    const isOpen = item.classList.toggle('open');
-    btn.setAttribute('aria-expanded', String(isOpen));
-  }
-};
+    const open = item.classList.toggle('open');
+    btn.setAttribute('aria-expanded', String(open));
+  }));
+}
 
-/* ---- LocalStorage Helpers ---- */
+/* =========================================================
+   STOCKAGE LOCAL (suivi des soumissions sur l'appareil)
+   ========================================================= */
 const store = {
-  KEY: 'jssed2026_submissions',
-  get() {
-    try { return JSON.parse(localStorage.getItem(this.KEY) || '[]'); }
-    catch { return []; }
-  },
-  set(data) {
-    try { localStorage.setItem(this.KEY, JSON.stringify(data)); }
-    catch { /* storage full */ }
-  },
-  add(submission) {
-    const list = this.get();
-    list.unshift(submission);
-    this.set(list);
-    return submission;
-  }
+  KEY: 'jssed_submissions_v2',
+  get() { try { return JSON.parse(localStorage.getItem(this.KEY) || '[]'); } catch { return []; } },
+  set(d) { try { localStorage.setItem(this.KEY, JSON.stringify(d)); } catch {} },
+  add(s) { const l = this.get(); l.unshift(s); this.set(l); return s; }
 };
 
-/* ---- Multi-step Form ---- */
+/* =========================================================
+   FORMULAIRE DE SOUMISSION (multi-étapes, validation)
+   ========================================================= */
 const jsform = {
-  current: 1,
-  total: 5,
-  data: {},
+  current: 1, total: 5, data: {}, submitting: false,
 
-  next(fromStep) {
-    if (!this.validate(fromStep)) return;
-    this.collectStep(fromStep);
-    this.saveProgress();
-    if (fromStep === 4) this.renderSummary();
-    this.goTo(fromStep + 1);
+  next(from) {
+    if (!this.validateStep(from)) return;
+    this.collect(from);
+    this.saveDraft();
+    if (from === 4) this.renderSummary();
+    this.goTo(from + 1);
   },
-
-  prev(fromStep) {
-    this.collectStep(fromStep);
-    this.saveProgress();
-    this.goTo(fromStep - 1);
-  },
+  prev(from) { this.collect(from); this.saveDraft(); this.goTo(from - 1); },
 
   goTo(step) {
     if (step < 1 || step > this.total) return;
-    document.querySelectorAll('.js-form-step').forEach(el => el.classList.remove('active'));
-    const target = document.getElementById('step-' + step);
-    if (target) target.classList.add('active');
-
-    document.querySelectorAll('.js-step-dot').forEach((dot, i) => {
+    $$('.js-form-step').forEach(el => el.classList.remove('active'));
+    const t = $('#step-' + step);
+    if (t) t.classList.add('active');
+    $$('.js-step-dot').forEach((dot, i) => {
       dot.classList.remove('active', 'done');
       dot.setAttribute('aria-selected', 'false');
       if (i + 1 < step) dot.classList.add('done');
       if (i + 1 === step) { dot.classList.add('active'); dot.setAttribute('aria-selected', 'true'); }
     });
-
+    const cur = $('#step-current'); if (cur) cur.textContent = step;
     this.current = step;
-    target && target.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    this.hideAlert();
+    if (t) t.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   },
 
-  validate(step) {
-    const step_el = document.getElementById('step-' + step);
-    if (!step_el) return true;
-    const required = step_el.querySelectorAll('[required]');
-    let valid = true;
-    required.forEach(field => {
-      field.style.borderColor = '';
+  showError(name, msg) {
+    const box = document.querySelector(`.js-field-error[data-for="${name}"]`);
+    if (box) { if (msg) box.textContent = msg; box.classList.add('show'); }
+    const field = document.querySelector(`[name="${name}"]`);
+    if (field && field.classList) field.classList.add('is-invalid');
+  },
+  clearErrors(stepEl) {
+    $$('.js-field-error', stepEl).forEach(b => b.classList.remove('show'));
+    $$('.is-invalid', stepEl).forEach(f => f.classList.remove('is-invalid'));
+  },
+
+  validateStep(step) {
+    const stepEl = $('#step-' + step);
+    if (!stepEl) return true;
+    this.clearErrors(stepEl);
+    let valid = true, firstBad = null;
+
+    stepEl.querySelectorAll('[required]').forEach(field => {
+      let bad = false;
       if (field.type === 'radio') {
-        const group = step_el.querySelectorAll(`[name="${field.name}"]`);
-        const checked = Array.from(group).some(r => r.checked);
-        if (!checked) {
-          valid = false;
-          group.forEach(r => { if (r.nextElementSibling) r.nextElementSibling.style.borderColor = '#F43F5E'; });
-        }
+        const group = stepEl.querySelectorAll(`[name="${field.name}"]`);
+        if (!Array.from(group).some(r => r.checked)) bad = true;
       } else if (!field.value.trim()) {
-        valid = false;
-        field.style.borderColor = '#F43F5E';
-      } else if (field.type === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(field.value)) {
-        valid = false;
-        field.style.borderColor = '#F43F5E';
+        bad = true;
+      } else if (field.type === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(field.value.trim())) {
+        bad = true; this.showError(field.name, 'Adresse email invalide.');
       }
+      if (bad) { valid = false; this.showError(field.name); if (!firstBad) firstBad = field; }
     });
+
+    // Règle spécifique : résumé ≤ 300 mots
+    if (step === 4) {
+      const r = $('#resume');
+      if (r && this.wordCount(r.value) > 300) {
+        valid = false; this.showError('resume', 'Le résumé dépasse 300 mots.');
+        if (!firstBad) firstBad = r;
+      }
+      const kw = $('#keywords');
+      if (kw && kw.value.trim()) {
+        const n = kw.value.split(',').map(s => s.trim()).filter(Boolean).length;
+        if (n < 3 || n > 5) { valid = false; this.showError('keywords', 'Indiquez entre 3 et 5 mots-clés séparés par des virgules.'); if (!firstBad) firstBad = kw; }
+      }
+    }
+
     if (!valid) {
-      const firstInvalid = step_el.querySelector('[required][style*="#F43F5E"]');
-      if (firstInvalid) firstInvalid.focus();
+      this.showAlert('Veuillez corriger les champs indiqués avant de continuer.');
+      if (firstBad && firstBad.focus) firstBad.focus();
     }
     return valid;
   },
 
-  collectStep(step) {
-    const step_el = document.getElementById('step-' + step);
-    if (!step_el) return;
-    step_el.querySelectorAll('input, select, textarea').forEach(field => {
-      if (!field.name) return;
-      if (field.type === 'radio') {
-        if (field.checked) this.data[field.name] = field.value;
-      } else if (field.type === 'checkbox') {
-        this.data[field.name] = field.checked;
-      } else {
-        this.data[field.name] = field.value;
-      }
+  collect(step) {
+    const stepEl = $('#step-' + step);
+    if (!stepEl) return;
+    stepEl.querySelectorAll('input, select, textarea').forEach(f => {
+      if (!f.name || f.name === 'website') return;
+      if (f.type === 'radio') { if (f.checked) this.data[f.name] = f.value; }
+      else if (f.type === 'checkbox') { this.data[f.name] = f.checked; }
+      else { this.data[f.name] = f.value.trim(); }
     });
     if (step === 3) this.data.coauthors = this.collectCoauthors();
   },
 
   collectCoauthors() {
-    const items = document.querySelectorAll('.js-coauth-item');
-    return Array.from(items).map(item => ({
-      prenom:      item.querySelector('[data-field="coauth-prenom"]')?.value || '',
-      nom:         item.querySelector('[data-field="coauth-nom"]')?.value || '',
-      institution: item.querySelector('[data-field="coauth-inst"]')?.value || ''
+    return $$('.js-coauth-item').map(item => ({
+      prenom: item.querySelector('[data-field="coauth-prenom"]')?.value.trim() || '',
+      nom: item.querySelector('[data-field="coauth-nom"]')?.value.trim() || '',
+      institution: item.querySelector('[data-field="coauth-inst"]')?.value.trim() || ''
     })).filter(c => c.prenom || c.nom);
   },
 
   addCoauth() {
-    const list = document.getElementById('js-coauth-list');
-    if (!list) return;
-    const idx = list.children.length;
+    const list = $('#js-coauth-list'); if (!list) return;
+    const idx = list.children.length + 1;
     const item = document.createElement('div');
     item.className = 'js-coauth-item';
     item.innerHTML = `
-      <div class="js-field-group" style="grid-column:1/-1;margin-bottom:0;">
-        <label class="js-label" style="margin-bottom:6px;">Co-auteur ${idx + 1}</label>
-      </div>
-      <input class="js-input" type="text" placeholder="Prénom" data-field="coauth-prenom">
-      <input class="js-input" type="text" placeholder="Nom" data-field="coauth-nom">
-      <input class="js-input" type="text" placeholder="Institution" data-field="coauth-inst">
-      <button type="button" class="js-coauth-remove" onclick="jsform.removeCoauth(this)" aria-label="Supprimer">✕</button>
-    `;
+      <input class="js-input" type="text" placeholder="Prénom" data-field="coauth-prenom" maxlength="80" aria-label="Prénom co-auteur ${idx}">
+      <input class="js-input" type="text" placeholder="Nom" data-field="coauth-nom" maxlength="80" aria-label="Nom co-auteur ${idx}">
+      <input class="js-input" type="text" placeholder="Institution" data-field="coauth-inst" maxlength="120" aria-label="Institution co-auteur ${idx}">
+      <button type="button" class="js-coauth-remove" onclick="jsform.removeCoauth(this)" aria-label="Supprimer le co-auteur">×</button>`;
     list.appendChild(item);
   },
+  removeCoauth(btn) { btn.closest('.js-coauth-item')?.remove(); },
 
-  removeCoauth(btn) {
-    btn.closest('.js-coauth-item').remove();
-  },
-
+  wordCount(v) { return v.trim() ? v.trim().split(/\s+/).length : 0; },
   countWords(el) {
-    const words = el.value.trim() ? el.value.trim().split(/\s+/).length : 0;
-    const counter = document.getElementById('resume-counter');
-    if (!counter) return;
-    counter.textContent = `${words} / 300 mots`;
-    counter.className = 'js-char-counter';
-    if (words > 300) counter.classList.add('over');
-    else if (words > 270) counter.classList.add('warn');
+    const w = this.wordCount(el.value);
+    const c = $('#resume-counter'); if (!c) return;
+    c.textContent = `${w} / 300 mots`;
+    c.className = 'js-char-counter' + (w > 300 ? ' over' : w > 270 ? ' warn' : '');
   },
 
-  saveProgress() {
-    try {
-      sessionStorage.setItem('jssed_draft', JSON.stringify(this.data));
-    } catch { /* ignore */ }
+  saveDraft() { try { sessionStorage.setItem('jssed_draft', JSON.stringify(this.data)); } catch {} },
+
+  showAlert(msg, type = 'err') {
+    const a = $('#js-form-alert'); if (!a) return;
+    a.textContent = msg; a.className = `js-form-alert ${type} show`;
   },
+  hideAlert() { const a = $('#js-form-alert'); if (a) a.classList.remove('show'); },
 
   renderSummary() {
-    const card = document.getElementById('js-summary-card');
-    if (!card) return;
-    const atelierNames = { '1': 'Statistique & Informatique décisionnelle', '2': 'Évaluation, Suivi-évaluation & IA', '3': 'Démographie & Intelligence Artificielle' };
-    const formatNames  = { oral: 'Communication orale', poster: 'Poster scientifique' };
+    const card = $('#js-summary-card'); if (!card) return;
+    const ateliers = { '1': 'Statistique & Informatique décisionnelle', '2': 'Évaluation, Suivi-évaluation & IA', '3': 'Démographie & Intelligence Artificielle' };
+    const formats = { oral: 'Communication orale', poster: 'Poster scientifique' };
     const d = this.data;
+    const row = (l, v) => `<div><div class="js-label" style="margin-bottom:2px;">${l}</div><div style="font-size:14px;color:var(--text);">${escapeHtml(v) || '—'}</div></div>`;
     card.innerHTML = `
-      <h3 class="js-form-section-title" style="margin-bottom:20px;">Récapitulatif de votre soumission</h3>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px 24px;">
-        <div><div class="js-label" style="margin-bottom:2px;">Format</div><div style="font-size:14px;color:var(--js-txt);">${formatNames[d.format] || d.format || '—'}</div></div>
-        <div><div class="js-label" style="margin-bottom:2px;">Atelier</div><div style="font-size:14px;color:var(--js-txt);">Atelier ${d.atelier} — ${atelierNames[d.atelier] || '—'}</div></div>
-        <div><div class="js-label" style="margin-bottom:2px;">Auteur principal</div><div style="font-size:14px;color:var(--js-txt);">${d.prenom || ''} ${d.nom || ''}</div></div>
-        <div><div class="js-label" style="margin-bottom:2px;">Institution</div><div style="font-size:14px;color:var(--js-txt);">${d.institution || '—'}</div></div>
-        <div><div class="js-label" style="margin-bottom:2px;">Email</div><div style="font-size:14px;color:var(--js-txt);">${d.email || '—'}</div></div>
-        <div><div class="js-label" style="margin-bottom:2px;">Statut</div><div style="font-size:14px;color:var(--js-txt);">${d.statut || '—'}</div></div>
+      <h3 class="js-form-section-title" style="margin-bottom:18px;">Récapitulatif</h3>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px 24px;">
+        ${row('Format', formats[d.format] || d.format)}
+        ${row('Atelier', d.atelier ? `Atelier ${d.atelier} — ${ateliers[d.atelier] || ''}` : '')}
+        ${row('Auteur principal', `${d.prenom || ''} ${d.nom || ''}`.trim())}
+        ${row('Institution', d.institution)}
+        ${row('Email', d.email)}
+        ${row('Statut', d.statut)}
       </div>
-      <div style="margin-top:16px;padding-top:16px;border-top:1px solid var(--js-brd);">
+      <div style="margin-top:16px;padding-top:16px;border-top:1px solid var(--border);">
         <div class="js-label" style="margin-bottom:6px;">Titre</div>
-        <div style="font-size:15px;font-weight:700;color:var(--js-txt);line-height:1.4;">${d.titre || '—'}</div>
+        <div style="font-size:15px;font-weight:600;color:var(--text);line-height:1.4;">${escapeHtml(d.titre) || '—'}</div>
       </div>
-      <div style="margin-top:12px;">
-        <div class="js-label" style="margin-bottom:6px;">Mots-clés</div>
-        <div style="font-size:13px;color:var(--js-txt2);">${d.keywords || '—'}</div>
-      </div>
-      ${(d.coauthors && d.coauthors.length) ? `
-      <div style="margin-top:12px;">
-        <div class="js-label" style="margin-bottom:6px;">Co-auteurs</div>
-        <div style="font-size:13px;color:var(--js-txt2);">${d.coauthors.map(c => `${c.prenom} ${c.nom}${c.institution ? ' ('+c.institution+')' : ''}`).join(', ')}</div>
-      </div>` : ''}
+      <div style="margin-top:12px;"><div class="js-label" style="margin-bottom:6px;">Mots-clés</div><div style="font-size:13px;color:var(--text-2);">${escapeHtml(d.keywords) || '—'}</div></div>
+      ${(d.coauthors && d.coauthors.length) ? `<div style="margin-top:12px;"><div class="js-label" style="margin-bottom:6px;">Co-auteurs</div><div style="font-size:13px;color:var(--text-2);">${d.coauthors.map(c => escapeHtml(`${c.prenom} ${c.nom}${c.institution ? ' (' + c.institution + ')' : ''}`)).join(', ')}</div></div>` : ''}
     `;
   },
 
-  generateRef() {
-    const ts = Date.now().toString(36).toUpperCase();
-    const rnd = Math.random().toString(36).slice(2, 5).toUpperCase();
-    return `JSSED2026-${ts}-${rnd}`;
+  genRef() {
+    return `JSSED2026-${Date.now().toString(36).toUpperCase()}-${Math.random().toString(36).slice(2, 5).toUpperCase()}`;
   },
 
-  goToDashboard() {
-    document.getElementById('dashboard')?.scrollIntoView({ behavior: 'smooth' });
+  async submit() {
+    if (this.submitting) return;
+    // Anti-spam : honeypot
+    const hp = $('#js-hp');
+    if (hp && hp.value) { this.showSuccess(this.genRef()); return; }
+
+    const cgu = $('#cgu');
+    if (!cgu || !cgu.checked) { this.showAlert('Veuillez accepter les conditions et la politique de confidentialité.'); cgu?.focus(); return; }
+
+    this.collect(5);
+    this.data.consent = true;
+    this.submitting = true;
+    const btn = $('#btn-submit');
+    if (btn) { btn.disabled = true; btn.textContent = 'Envoi en cours…'; }
+
+    let ref = null, sent = false;
+    if (JSSED_CONFIG.apiBase) {
+      try {
+        const res = await fetch(`${JSSED_CONFIG.apiBase}/submit.php`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(this.data)
+        });
+        const out = await res.json().catch(() => ({}));
+        if (res.ok && out.ok) { ref = out.ref; sent = true; }
+        else if (res.status === 422 && out.fields) {
+          this.handleServerErrors(out.fields);
+          this.resetBtn(btn); this.submitting = false; return;
+        } else if (res.status === 429) {
+          this.showAlert('Trop de tentatives. Merci de réessayer dans quelques minutes.');
+          this.resetBtn(btn); this.submitting = false; return;
+        }
+      } catch (e) { /* réseau indisponible → bascule hors-ligne */ }
+    }
+
+    if (!sent) {
+      // Mode hors-ligne : envoi par email + sauvegarde locale
+      ref = this.genRef();
+      this.openMailto(ref);
+    }
+
+    this.data.ref = ref;
+    this.data.submittedAt = new Date().toISOString();
+    store.add({ ...this.data });
+    try { sessionStorage.removeItem('jssed_draft'); } catch {}
+    this.showSuccess(ref);
     renderDashboard();
+    this.submitting = false;
   },
+
+  handleServerErrors(fields) {
+    this.goTo(this.firstStepWithError(fields));
+    Object.entries(fields).forEach(([k, msg]) => this.showError(k, msg));
+    this.showAlert('Veuillez corriger les champs signalés.');
+  },
+  firstStepWithError(fields) {
+    const map = { format: 1, atelier: 1, langue: 1, prenom: 2, nom: 2, email: 2, statut: 2, institution: 2, pays: 2, titre: 4, resume: 4, keywords: 4 };
+    let min = 5;
+    Object.keys(fields).forEach(k => { if (map[k] && map[k] < min) min = map[k]; });
+    return min;
+  },
+  resetBtn(btn) { if (btn) { btn.disabled = false; btn.textContent = 'Envoyer la soumission'; } },
+
+  openMailto(ref) {
+    const d = this.data;
+    const subject = encodeURIComponent(`JSSED – ${d.format === 'poster' ? 'Poster' : 'Communication orale'} – Atelier N°${d.atelier} – ${d.nom || ''}`);
+    const body = encodeURIComponent(
+      `Réf : ${ref}\n\nAuteur : ${d.prenom || ''} ${d.nom || ''}\nEmail : ${d.email || ''}\nTéléphone : ${d.tel || ''}\nStatut : ${d.statut || ''}\nInstitution : ${d.institution || ''}\nPays : ${d.pays || ''}\n\nAtelier : ${d.atelier}\nFormat : ${d.format}\nLangue : ${d.langue}\nTitre : ${d.titre || ''}\nMots-clés : ${d.keywords || ''}\nFinancement : ${d.financement || ''}\n\nRésumé :\n${d.resume || ''}\n\nCo-auteurs :\n${(d.coauthors || []).map(c => `- ${c.prenom} ${c.nom} (${c.institution})`).join('\n')}`
+    );
+    window.location.href = `mailto:${JSSED_CONFIG.email}?subject=${subject}&body=${body}`;
+  },
+
+  showSuccess(ref) {
+    const form = $('#js-form'); if (form) form.style.display = 'none';
+    const ok = $('#js-success');
+    if (ok) {
+      ok.style.display = '';
+      const code = $('#js-ref-code'); if (code) code.textContent = ref;
+      ok.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  },
+
+  goToDashboard() { $('#dashboard')?.scrollIntoView({ behavior: 'smooth' }); renderDashboard(); },
 
   reset() {
-    this.data = {};
-    this.current = 1;
-    document.getElementById('js-form')?.reset();
-    document.getElementById('js-coauth-list').innerHTML = '';
-    document.getElementById('js-success').style.display = 'none';
-    document.getElementById('js-form').style.display = '';
+    this.data = {}; this.current = 1; this.submitting = false;
+    const form = $('#js-form'); if (form) { form.reset(); form.style.display = ''; }
+    const list = $('#js-coauth-list'); if (list) list.innerHTML = '';
+    const ok = $('#js-success'); if (ok) ok.style.display = 'none';
+    this.resetBtn($('#btn-submit'));
+    this.countWords($('#resume') || { value: '' });
     this.goTo(1);
   }
 };
 
-/* ---- Form Submit ---- */
-(function initFormSubmit() {
-  const form = document.getElementById('js-form');
-  if (!form) return;
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
+function initFormSubmit() {
+  const form = $('#js-form'); if (!form) return;
+  form.addEventListener('submit', (e) => { e.preventDefault(); jsform.submit(); });
+}
 
-    const cgu = document.getElementById('cgu');
-    if (!cgu || !cgu.checked) {
-      cgu.style.outline = '2px solid #F43F5E';
-      cgu.focus();
-      return;
-    }
-
-    jsform.collectStep(5);
-    const ref = jsform.generateRef();
-    jsform.data.ref = ref;
-    jsform.data.submittedAt = new Date().toISOString();
-
-    store.add({ ...jsform.data });
-
-    const subject = encodeURIComponent(`JSSED2026 – ${jsform.data.format === 'poster' ? 'Poster' : 'Communication orale'} – Atelier N°${jsform.data.atelier} – ${jsform.data.nom || ''}`);
-    const body = encodeURIComponent(
-      `Réf: ${ref}\n\nAuteur: ${jsform.data.prenom || ''} ${jsform.data.nom || ''}\nEmail: ${jsform.data.email || ''}\nInstitution: ${jsform.data.institution || ''}\nStatut: ${jsform.data.statut || ''}\n\nAtelier: ${jsform.data.atelier}\nFormat: ${jsform.data.format}\nTitre: ${jsform.data.titre || ''}\n\nMots-clés: ${jsform.data.keywords || ''}\n\nRésumé:\n${jsform.data.resume || ''}`
-    );
-
-    window.location.href = `mailto:jssed.enspd.up.2025@gmail.com?subject=${subject}&body=${body}`;
-
-    form.style.display = 'none';
-    const success = document.getElementById('js-success');
-    if (success) {
-      success.style.display = '';
-      document.getElementById('js-ref-code').textContent = ref;
-      success.scrollIntoView({ behavior: 'smooth' });
-    }
-
-    sessionStorage.removeItem('jssed_draft');
-    renderDashboard();
-  });
-})();
-
-/* ---- Dashboard Render ---- */
+/* =========================================================
+   TABLEAU DE BORD PARTICIPANT
+   ========================================================= */
 function renderDashboard() {
-  const list = document.getElementById('js-submissions-list');
-  const empty = document.getElementById('js-dash-empty');
+  const list = $('#js-submissions-list');
+  const empty = $('#js-dash-empty');
   if (!list || !empty) return;
-
-  const submissions = store.get();
-
-  if (!submissions.length) {
-    empty.style.display = '';
-    list.innerHTML = '';
-    return;
-  }
-
+  const subs = store.get();
+  if (!subs.length) { empty.style.display = ''; list.innerHTML = ''; return; }
   empty.style.display = 'none';
-  const atelierNames = { '1': 'Atelier 1 — Statistique', '2': 'Atelier 2 — Évaluation', '3': 'Atelier 3 — Démographie' };
-  const formatNames  = { oral: '🎤 Oral', poster: '🖼️ Poster' };
-
-  list.innerHTML = submissions.map(sub => {
-    const date = sub.submittedAt ? new Date(sub.submittedAt).toLocaleDateString('fr-FR', { year: 'numeric', month: 'long', day: 'numeric' }) : '—';
-    return `
-      <div class="js-submission-card">
-        <div class="js-sub-head">
-          <div>
-            <div class="js-sub-title">${sub.titre || '(Sans titre)'}</div>
-            <div class="js-sub-meta">${sub.prenom || ''} ${sub.nom || ''} · ${atelierNames[sub.atelier] || 'Atelier ' + sub.atelier} · ${formatNames[sub.format] || sub.format}</div>
-          </div>
-          <span class="js-dash-status pending">⏳ En attente</span>
+  const ateliers = { '1': 'Atelier 1 — Statistique', '2': 'Atelier 2 — Évaluation', '3': 'Atelier 3 — Démographie' };
+  const formats = { oral: 'Oral', poster: 'Poster' };
+  list.innerHTML = subs.map(s => {
+    const date = s.submittedAt ? new Date(s.submittedAt).toLocaleDateString('fr-FR', { year: 'numeric', month: 'long', day: 'numeric' }) : '—';
+    return `<div class="js-submission-card">
+      <div class="js-sub-head">
+        <div>
+          <div class="js-sub-title">${escapeHtml(s.titre) || '(Sans titre)'}</div>
+          <div class="js-sub-meta">${escapeHtml(`${s.prenom || ''} ${s.nom || ''}`)} · ${escapeHtml(ateliers[s.atelier] || 'Atelier ' + s.atelier)} · ${escapeHtml(formats[s.format] || s.format)}</div>
         </div>
-        <div style="display:flex;gap:16px;flex-wrap:wrap;align-items:center;">
-          <span style="font-family:var(--fm);font-size:12px;color:var(--js-txt3);">${sub.ref || ''}</span>
-          <span style="font-size:12px;color:var(--js-txt3);">Soumis le ${date}</span>
-        </div>
+        <span class="js-dash-status pending">En attente</span>
       </div>
-    `;
+      <div style="display:flex;gap:16px;flex-wrap:wrap;align-items:center;">
+        <span style="font-family:var(--fm);font-size:12px;color:var(--text-3);">${escapeHtml(s.ref || '')}</span>
+        <span style="font-size:12px;color:var(--text-3);">Soumis le ${date}</span>
+      </div>
+    </div>`;
   }).join('');
 }
 
-/* ---- Restore Draft ---- */
-(function restoreDraft() {
+function restoreDraft() {
   try {
     const draft = sessionStorage.getItem('jssed_draft');
     if (!draft) return;
     const data = JSON.parse(draft);
     if (!data || typeof data !== 'object') return;
     jsform.data = data;
-    Object.entries(data).forEach(([key, val]) => {
-      const el = document.querySelector(`[name="${key}"]`);
+    Object.entries(data).forEach(([k, v]) => {
+      const el = document.querySelector(`[name="${k}"]`);
       if (!el) return;
-      if (el.type === 'radio') {
-        const target = document.querySelector(`[name="${key}"][value="${val}"]`);
-        if (target) target.checked = true;
-      } else if (el.type === 'checkbox') {
-        el.checked = Boolean(val);
-      } else {
-        el.value = val;
-      }
+      if (el.type === 'radio') { const t = document.querySelector(`[name="${k}"][value="${v}"]`); if (t) t.checked = true; }
+      else if (el.type === 'checkbox') { el.checked = Boolean(v); }
+      else { el.value = v; }
     });
-  } catch { /* ignore */ }
-})();
+    const r = $('#resume'); if (r) jsform.countWords(r);
+  } catch {}
+}
 
-/* ---- Init on DOM Ready ---- */
-document.addEventListener('DOMContentLoaded', () => {
-  renderDashboard();
-  renderJssedComite();
-  renderJssedPartners();
-});
-
-/* ---- JSSED Comité & Partenaires Data + Renders ---- */
-const JSSED_DATA = {
-  comite: [
-    { nom: 'Prof. Épiphane SODJINOU', role: 'Président', affil: 'ENSPD — Univ. de Parakou', initiales: 'ES' },
-    { nom: 'Dr. Honorat OROU BATA', role: 'Membre', affil: 'ENSPD — Univ. de Parakou', initiales: 'HOB' },
-    { nom: 'Dr. Gildas KPADONOU', role: 'Membre', affil: 'ENSPD — Univ. de Parakou', initiales: 'GK' },
-    { nom: 'Prof. Simplice DOSSOU-GBÉTÉ', role: 'Membre', affil: 'Université de Pau, France', initiales: 'SDG' },
-    { nom: 'Dr. Alphonse GBAGUIDI', role: 'Membre', affil: 'INSAE — Bénin', initiales: 'AG' },
-    { nom: 'Dr. Thierry DOSSOU', role: 'Secrétaire', affil: 'ENSPD — Univ. de Parakou', initiales: 'TD' },
-  ],
-  partners: [
-    { nom: 'ENSPD', sub: 'École Nationale de Statistique', icon: '🏛️' },
-    { nom: 'Univ. Parakou', sub: 'Université de Parakou', icon: '🎓' },
-    { nom: 'INSAE', sub: 'Institut National de la Statistique', icon: '📊' },
-    { nom: 'BUE-ENSPD', sub: 'Bureau d\'Union des Étudiants', icon: '🤝' },
-    { nom: 'CRISTAL', sub: 'Collectif de Recherche ENSPD', icon: '🔬' },
-    { nom: 'LaReSPD', sub: 'Laboratoire de Recherche', icon: '📚' },
-  ],
+/* =========================================================
+   BANDEAU COOKIES
+   ========================================================= */
+const jsCookie = {
+  KEY: 'jssed_cookie_ack',
+  init() {
+    const bar = $('#js-cookie'); if (!bar) return;
+    let ack = false; try { ack = localStorage.getItem(this.KEY) === '1'; } catch {}
+    if (!ack) setTimeout(() => bar.classList.add('show'), 900);
+  },
+  accept() { try { localStorage.setItem(this.KEY, '1'); } catch {} $('#js-cookie')?.classList.remove('show'); }
 };
 
-function renderJssedComite() {
-  const el = document.getElementById('js-sc-grid');
-  if (!el) return;
-  el.innerHTML = JSSED_DATA.comite.map(m => `
-    <div class="js-sc-card js-reveal" role="listitem">
-      <div class="js-sc-avatar">${m.initiales}</div>
-      <div class="js-sc-body">
-        <div class="js-sc-nom">${m.nom}</div>
-        <div class="js-sc-role">${m.role}</div>
-        <div class="js-sc-affil">${m.affil}</div>
-      </div>
-    </div>`).join('');
-}
-
-function renderJssedPartners() {
-  const el = document.getElementById('js-partners-grid');
-  if (!el) return;
-  el.innerHTML = JSSED_DATA.partners.map(p => `
-    <div class="js-partner-chip" role="listitem">
-      <span class="js-pc-icon" aria-hidden="true">${p.icon}</span>
-      <div>
-        <div class="js-pc-nom">${p.nom}</div>
-        <div class="js-pc-sub">${p.sub}</div>
-      </div>
-    </div>`).join('');
-}
-
-/* ---- Mini-countdown édition 2026 (carte navigateur) ---- */
-(function initEditionCountdown() {
-  var TARGET = new Date('2026-09-01T08:00:00');
-  var elJ = document.getElementById('ecd-j');
-  var elH = document.getElementById('ecd-h');
-  var elM = document.getElementById('ecd-m');
-  if (!elJ || !elH || !elM) return;
-
-  function pad2(n) { return String(n).padStart(2, '0'); }
-
-  function tickMini() {
-    var diff = TARGET - Date.now();
-    if (diff <= 0) {
-      elJ.textContent = '0';
-      elH.textContent = '00';
-      elM.textContent = '00';
-      return;
-    }
-    var d = Math.floor(diff / 86400000);
-    var h = Math.floor((diff % 86400000) / 3600000);
-    var m = Math.floor((diff % 3600000) / 60000);
-    elJ.textContent = d;
-    elH.textContent = pad2(h);
-    elM.textContent = pad2(m);
-  }
-
-  tickMini();
-  setInterval(tickMini, 60000);
-})();
+/* =========================================================
+   INITIALISATION
+   ========================================================= */
+document.addEventListener('DOMContentLoaded', () => {
+  jsTheme.init();
+  renderNews();
+  renderDocs();
+  renderComite();
+  renderPartners();
+  renderGallery();
+  renderTimeline();
+  renderFaq();
+  initBurger();
+  initTopbarScroll();
+  jsCountdown.init();
+  initFormSubmit();
+  restoreDraft();
+  renderDashboard();
+  jsCookie.init();
+  initReveal();
+  const y = $('#js-year'); if (y) y.textContent = new Date().getFullYear();
+});

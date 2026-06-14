@@ -1,0 +1,8 @@
+# Secrets et configuration locale — NE JAMAIS committer
+config.php
+*.local.php
+
+# Journaux
+/logs/*
+!/logs/.gitkeep
+!/logs/.htaccess
