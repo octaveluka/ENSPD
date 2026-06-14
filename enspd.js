@@ -6,7 +6,7 @@
 /* ── TRADUCTIONS ─────────────────────────────────────────── */
 const LANG = {
   fr:{
-    topbar_txt:'📢 Concours ENSPD 2026-2027 — <strong>MESRS/DEC</strong> — Bac C ou D · Mention assez-bien requis',
+    topbar_txt:'Concours ENSPD 2026-2027 — <strong>MESRS/DEC</strong> — Bac C ou D · Mention assez-bien requis',
     topbar_link:'Informations →', nav_univ:'Université de Parakou — Bénin',
     nav_home:'Accueil', nav_school:"A propos", nav_prog:'Formations', nav_adm:'Admissions',
     nav_research:'Recherche', nav_news:'Actualités', nav_events:' Vie Etudiante',
@@ -32,7 +32,7 @@ const LANG = {
     dir_more:'En savoir plus →',
     ev_tag:'Événements phares', ev_t:'Deux rendez-vous incontournables',
     jssed_ed:'2ème édition · Sep 2026',
-    jssed_full:'Journée de la Statistique, du Suivi-Évaluation et de la Démographie',
+    jssed_full:"Journées Scientifiques de la Statistique, de l'Évaluation et de la Démographie",
     jssed_desc:"Événement phare réunissant étudiants, enseignants, professionnels et partenaires.",
     news_tag:'Actualités', news_t:'Dernières nouvelles', news_all:'Toutes →',
     temo_tag:'Témoignages', temo_t:"Ils ont réussi depuis l'ENSPD",
@@ -74,7 +74,7 @@ const LANG = {
     pt_agd_bc:'Agenda', events_h1:'Agenda ENSPD', events_sub:'JSSED, Rentrée solennelle, Portes Ouvertes.', events_next:'Prochains événements',
     pt_ctc_bc:'Contact',
     form_name:'Nom complet *', form_email:'Email *', form_subject:'Objet', form_msg:'Message *',
-    info_addr:'Adresse', info_addr_v:'Campus de Logbessou<br>Université de Parakou, Bénin',
+    info_addr:'Adresse', info_addr_v:'Université de Parakou, Bénin',
     info_email:'Email', info_up:"Université de Parakou", info_hours:'Horaires', info_hours_v:"Lun–Ven : 08h00–17h00<br>Scolarité : 08h–12h / 15h–17h<br>Fermé weekends &amp; jours fériés",
     btn_visit_bue:'Visiter le site BUE →',
     pt_legal_bc:'Mentions légales', legal_h1:'Mentions légales &amp; Confidentialité', legal_sub:'Informations légales, politique de confidentialité et gestion des cookies.',
@@ -101,7 +101,7 @@ const LANG = {
     pub_tag:'Publications', pub_t:'Travaux scientifiques récents',
   },
   en:{
-    topbar_txt:'📢 ENSPD Entrance Exam 2026-2027 — <strong>MESRS/DEC</strong> — Bac C or D required',
+    topbar_txt:'ENSPD Entrance Exam 2026-2027 — <strong>MESRS/DEC</strong> — Bac C or D required',
     topbar_link:'Learn more →', nav_univ:'University of Parakou — Benin',
     nav_home:'Home', nav_school:'School', nav_prog:'Programs', nav_adm:'Admissions',
     nav_research:'Research', nav_news:'News', nav_events:'Events',
@@ -128,7 +128,7 @@ const LANG = {
     dir_more:'Learn more →',
     ev_tag:'Signature events', ev_t:'Two unmissable appointments',
     jssed_ed:'2nd edition · Sep 2026',
-    jssed_full:'Day of Statistics, Monitoring-Evaluation and Demography',
+    jssed_full:'Scientific Days of Statistics, Evaluation and Demography',
     jssed_desc:'Flagship event bringing together students, teachers, professionals and partners.',
     news_tag:'News', news_t:'Latest updates', news_all:'All news →',
     temo_tag:'Testimonials', temo_t:'They succeeded from ENSPD',
@@ -170,7 +170,7 @@ const LANG = {
     pt_agd_bc:'Agenda', events_h1:'ENSPD Agenda', events_sub:'JSSED, Solemn Opening, Open Days.', events_next:'Upcoming events',
     pt_ctc_bc:'Contact',
     form_name:'Full name *', form_email:'Email *', form_subject:'Subject', form_msg:'Message *',
-    info_addr:'Address', info_addr_v:'Logbessou Campus<br>University of Parakou, Benin',
+    info_addr:'Address', info_addr_v:'University of Parakou, Benin',
     info_email:'Email', info_up:'University of Parakou', info_hours:'Opening hours', info_hours_v:"Mon–Fri: 08:00–17:00<br>Registrar: 08:00–12:00 / 15:00–17:00<br>Closed weekends &amp; public holidays",
     btn_visit_bue:'Visit BUE website →',
     pt_legal_bc:'Legal', legal_h1:'Legal notices &amp; Privacy', legal_sub:'Legal information, privacy policy and cookie management.',
@@ -324,7 +324,7 @@ Le Directeur a insisté sur la nécessité d'accompagner les étudiants dans une
 
     {id:3,cat:'JSSED',date:'Sep 2025',img:'assets/galerie/bue/jssed_1775853364124.jpg',
      titre:"JSSED 1ère édition — Un succès retentissant",
-     texte:`La première Journée de la Statistique, du Suivi-Évaluation et de la Démographie (JSSED) a été organisée par le BUE-ENSPD en septembre 2025 sur le campus de l'Université de Parakou.
+     texte:`La première édition des Journées Scientifiques de la Statistique, de l'Évaluation et de la Démographie (JSSED) a été organisée par l'ENSPD en 2025 à l'Université de Parakou.
 
 Au programme :
 • Conférences animées par des professionnels du secteur
@@ -605,8 +605,8 @@ const AUTH={
 
 /* ── DARK MODE ────────────────────────────────────────────── */
 let _dark=false;
-function toggleDark(){_dark=!_dark;document.documentElement.dataset.theme=_dark?'dark':'';document.getElementById('dark-btn').textContent=_dark?'☀️':'🌙';localStorage.setItem('enspd-theme',_dark?'dark':'');}
-function initTheme(){const s=localStorage.getItem('enspd-theme');_dark=s!==null?s==='dark':true;document.documentElement.dataset.theme=_dark?'dark':'';const b=document.getElementById('dark-btn');if(b)b.textContent=_dark?'☀️':'🌙';}
+function toggleDark(){_dark=!_dark;document.documentElement.dataset.theme=_dark?'dark':'';localStorage.setItem('enspd-theme',_dark?'dark':'');}
+function initTheme(){const s=localStorage.getItem('enspd-theme');_dark=s!==null?s==='dark':true;document.documentElement.dataset.theme=_dark?'dark':'';}
 
 /* ── LANGUE ──────────────────────────────────────────────── */
 let _lang='fr';
@@ -622,7 +622,7 @@ function nav(page){
   document.getElementById('nav-links')?.classList.remove('open');
   window.scrollTo({top:0,behavior:'smooth'});
   setTimeout(initAnim,100);
-  if(page==='galerie'){window.open('bue.html','_blank');return;}
+  if(page==='galerie'){toast('La galerie sera bientôt disponible.','inf');return;}
   if(page==='admin')renderAdminPage();
 }
 
@@ -668,9 +668,9 @@ function openAuthModal(tab='login'){
   </div>
   <div class="auth-panel ${tab==='register'?'on':''}" id="panel-register">
     <div class="auth-role-grid">
-      <div class="role-card on" data-role="etudiant" onclick="selRole(this)"><div class="role-ico">🎓</div><div class="role-lbl">Étudiant(e)</div></div>
-      <div class="role-card" data-role="enseignant" onclick="selRole(this)"><div class="role-ico">👨‍🏫</div><div class="role-lbl">Enseignant</div></div>
-      <div class="role-card" data-role="visiteur" onclick="selRole(this)"><div class="role-ico">👀</div><div class="role-lbl">Visiteur</div></div>
+      <div class="role-card on" data-role="etudiant" onclick="selRole(this)"><div class="role-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 9l9-5 9 5-9 5-9-5z"/><path d="M7 11v4c0 1 2.2 2 5 2s5-1 5-2v-4M21 9v5"/></svg></div><div class="role-lbl">Étudiant(e)</div></div>
+      <div class="role-card" data-role="enseignant" onclick="selRole(this)"><div class="role-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="12" rx="1"/><path d="M12 16v4M8 20h8"/></svg></div><div class="role-lbl">Enseignant</div></div>
+      <div class="role-card" data-role="visiteur" onclick="selRole(this)"><div class="role-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg></div><div class="role-lbl">Visiteur</div></div>
     </div>
     <div class="fg"><label>Nom complet *</label><input id="r-nom" type="text" class="fi" placeholder="Nom et prénoms"></div>
     <div class="fg"><label>Email *</label><input id="r-email" type="email" class="fi" placeholder="votre@email.com"></div>
@@ -721,7 +721,7 @@ function doLogin(){
    le déployeur définit le sien au premier accès (stocké haché en localStorage) */
 function openAdminSetup(){
   openModal('Configuration administrateur',`
-    <div class="alert a-or mb16"><span>🔐</span>
+    <div class="alert a-or mb16"><span></span>
       <div>Aucun mot de passe administrateur n'est défini. Choisissez-en un
       maintenant — il sera stocké de façon hachée sur cet appareil.
       Faites-le dès le déploiement du site.</div></div>
@@ -778,14 +778,14 @@ function updateNavAuth(){
     const rLabel={admin:'Admin',etudiant:'Étudiant(e)',enseignant:'Enseignant',visiteur:'Visiteur'}[u.role]||'';
     const dirPhoto=localStorage.getItem('enspd_photo_dir');
     el.innerHTML=`<div class="nav-user" id="nav-user-btn" onclick="this.classList.toggle('open')">
-      <div class="nav-avatar">${u.role==='admin'&&dirPhoto?`<img src="${S.esc(dirPhoto)}" alt="dir">`:S.esc(u.init||'U')}</div>
+      <div class="nav-avatar">${u.role==='admin'&&dirPhoto?`<img src="${S.esc(dirPhoto)}" alt="dir" data-dirimg style="object-position:${dirPos()}">`:S.esc(u.init||'U')}</div>
       <span>${S.esc(u.nom.split(' ')[0])}</span>
       <span style="font-size:9px;color:rgba(255,255,255,.5)">▾</span>
       <div class="nav-user-menu">
         <span class="role-badge role-${u.role}" style="display:block;margin-bottom:8px">${rLabel}</span>
         <div style="height:1px;background:var(--brd);margin:8px 0"></div>
-        ${u.role==='admin'?'<a onclick="nav(\'admin\');document.getElementById(\'nav-user-btn\').classList.remove(\'open\')">🛠 Administration</a>':''}
-        <a onclick="nav('contact');document.getElementById('nav-user-btn').classList.remove('open')">👤 Mon profil</a>
+        ${u.role==='admin'?'<a onclick="nav(\'admin\');document.getElementById(\'nav-user-btn\').classList.remove(\'open\')">Administration</a>':''}
+        <a onclick="nav('contact');document.getElementById('nav-user-btn').classList.remove('open')">Mon profil</a>
         <button class="logout" onclick="AUTH.logout()">↩ Déconnexion</button>
       </div></div>`;
     renderAdminBar();
@@ -798,13 +798,13 @@ function renderAdminBar(){
   const ab=document.getElementById('admin-bar');if(!ab)return;
   if(AUTH.isAdmin()){
     ab.className='admin-bar show';
-    ab.innerHTML=`<strong>⚙️ Mode Admin</strong>
+    ab.innerHTML=`<strong>Mode Admin</strong>
     <button class="admin-action" onclick="nav('admin')">Dashboard</button>
     <button class="admin-action" onclick="openPubModal()">+ Actualité</button>
     <button class="admin-action" onclick="openPubEvModal()">+ Événement</button>
     <button class="admin-action" onclick="openPhotoModal()"> Photos</button>
     <button class="admin-action" onclick="openUsersModal()"> Utilisateurs</button>
-    <button class="admin-action" onclick="openTopBarModal()">📢 Annonce</button>
+    <button class="admin-action" onclick="openTopBarModal()">Annonce</button>
     <button class="admin-action" style="margin-left:auto" onclick="AUTH.logout()">Déconnexion</button>`;
     document.getElementById('btn-add-ev')?.classList.remove('hidden');
   }else{
@@ -829,7 +829,7 @@ function renderAdminPage(){
       <div class="card cp" style="border-top:3px solid var(--vt);text-align:center">
         <div style="font-size:32px;font-weight:800;color:var(--vt)">${D.actualites.length}</div><div class="f13 c3">Actualités</div></div>
       <div class="card cp" style="border-top:3px solid var(--mn);text-align:center">
-        <div style="font-size:32px;font-weight:800;color:var(--mn)">${users.length}</div><div class="f13 c3">Comptes inscrits</div></div>
+        <div style="font-size:32px;font-weight:800;color:var(--navy-ink)">${users.length}</div><div class="f13 c3">Comptes inscrits</div></div>
       <div class="card cp" style="border-top:3px solid var(--or);text-align:center">
         <div style="font-size:32px;font-weight:800;color:var(--or)">${D.events.length}</div><div class="f13 c3">Événements</div></div>
       <div class="card cp" style="border-top:3px solid #6B21A8;text-align:center">
@@ -1014,6 +1014,15 @@ function addEvent(){
 }
 
 /* ADMIN — Gestion photos */
+function dirPos(){return localStorage.getItem('enspd_photo_dir_pos')||'50% 30%';}
+function setDirPos(v){localStorage.setItem('enspd_photo_dir_pos',v);
+  document.querySelectorAll('[data-dirimg]').forEach(function(im){im.style.objectPosition=v;});
+  document.querySelectorAll('[data-dirpos]').forEach(function(b){b.classList.toggle('on',b.getAttribute('data-dirpos')===v);});}
+function cadrageGrid(){
+  var cur=dirPos();
+  var cells=[['0% 0%','Haut gauche'],['50% 0%','Haut'],['100% 0%','Haut droite'],['0% 50%','Gauche'],['50% 50%','Centre'],['100% 50%','Droite'],['0% 100%','Bas gauche'],['50% 100%','Bas'],['100% 100%','Bas droite']];
+  return '<div class="dirpos-grid">'+cells.map(function(c){return '<button type="button" class="dirpos-cell'+(c[0]===cur?' on':'')+'" data-dirpos="'+c[0]+'" title="'+c[1]+'" aria-label="Cadrage : '+c[1]+'" onclick="setDirPos(\''+c[0]+'\')"></button>';}).join('')+'</div>';
+}
 function openPhotoModal(){
   const dp=localStorage.getItem('enspd_photo_dir');
   openModal('Gestion des photos',`
@@ -1021,7 +1030,7 @@ function openPhotoModal(){
       <div class="m-sec-h">Photo du Directeur</div>
       <div style="display:flex;align-items:center;gap:16px;margin-bottom:14px">
         <div style="width:80px;height:80px;border-radius:50%;overflow:hidden;border:2px solid var(--brd);flex-shrink:0;display:flex;align-items:center;justify-content:center;background:var(--bg2)">
-          ${dp?`<img src="${dp}" style="width:100%;height:100%;object-fit:cover">`:'<span style="font-size:28px">🏛️</span>'}
+          ${dp?`<img src="${dp}" data-dirimg style="width:100%;height:100%;object-fit:cover;object-position:${dirPos()}">`:'<svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 21h18M5 21V9l7-4 7 4v12M9 21v-5h6v5"/></svg>'}
         </div>
         <div>
           <p class="f13 c3 mb8">Formats : JPG, PNG. Taille recommandée : 300×300px minimum.</p>
@@ -1033,6 +1042,7 @@ function openPhotoModal(){
         </div>
       </div>
     </div>
+    ${dp?'<div class="m-sec"><div class="m-sec-h">Cadrage de la photo</div><p class="f13 c3 mb8">Cliquez sur la zone du visage à mettre en avant dans le cadre (recadrage).</p>'+cadrageGrid()+'</div>':''}
     <div class="m-sec">
       <div class="m-sec-h">Ajouter des photos à la galerie</div>
       <div class="fg"><label>Catégorie</label>
@@ -1054,12 +1064,15 @@ function openPhotoModal(){
     <button class="btn b-gh b-sm mt16" onclick="closeModal()">Fermer</button>`,true);
 }
 function uploadDirPhoto(inp){
-  if(!inp.files[0])return;
+  const file=inp.files[0]; if(!file)return;
+  if(!/^image\//.test(file.type)){toast('Fichier non valide : choisissez une image.','err');return;}
+  if(file.size>2*1024*1024){toast('Image trop lourde (max 2 Mo).','err');return;}
   const reader=new FileReader();
   reader.onload=e=>{localStorage.setItem('enspd_photo_dir',e.target.result);
+    if(!localStorage.getItem('enspd_photo_dir_pos'))localStorage.setItem('enspd_photo_dir_pos','50% 30%');
     closeModal();renderAdmin();updateNavAuth();toast('Photo du Directeur mise à jour !','ok');
     setTimeout(openPhotoModal,400);};
-  reader.readAsDataURL(inp.files[0]);
+  reader.readAsDataURL(file);
 }
 function addGalPhoto(){
   const sel=document.getElementById('gc-sel')?.value;
@@ -1124,7 +1137,7 @@ function openUsersModal(){
           </tr>`).join('')}
       </table></div>`:'<p class="f13 c3">Aucun compte inscrit.</p>'}
     <div style="margin-top:14px;display:flex;gap:8px">
-      ${users.length?`<button class="btn b-er b-sm" onclick="if(confirm('Supprimer TOUS les comptes ?')){localStorage.removeItem('enspd_users7');closeModal();toast('Tous les comptes supprimés.','ok');}">🗑 Tout supprimer</button>`:''}
+      ${users.length?`<button class="btn b-er b-sm" onclick="if(confirm('Supprimer TOUS les comptes ?')){localStorage.removeItem('enspd_users7');closeModal();toast('Tous les comptes supprimés.','ok');}">Tout supprimer</button>`:''}
       <button class="btn b-gh b-sm" onclick="closeModal()">Fermer</button>
     </div>`,true);
 }
@@ -1314,7 +1327,7 @@ function showFil(id){
   const f=D.filieres.find(x=>x.id===id);if(!f)return;
   const prog=f.programme.map(p=>`
     <div style="margin-bottom:14px">
-      <div style="font-size:12px;font-weight:700;color:var(--mn);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px;padding-bottom:5px;border-bottom:1px solid var(--brd)">${p.s}</div>
+      <div style="font-size:12px;font-weight:700;color:var(--navy-ink);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px;padding-bottom:5px;border-bottom:1px solid var(--brd)">${p.s}</div>
       <div style="display:flex;flex-wrap:wrap;gap:6px">
         ${p.ues.map((u,i)=>`<span style="font-size:12.5px;padding:4px 11px;border-radius:100px;background:${i<3?'var(--mn-l)':'var(--bg2)'};color:${i<3?'var(--mn-d)':'var(--txt2)'};border:1px solid var(--brd)">${u}</span>`).join('')}
       </div>
@@ -1362,7 +1375,7 @@ function showFil(id){
 
 function renderDebouches(){
   const el=document.getElementById('debouches-grid');if(!el)return;
-  el.innerHTML=D.debouches.map(d=>`<div style="padding:14px;border-radius:var(--r);background:var(--vt-p);border:1px solid rgba(46,170,56,.14);text-align:center;font-size:13px;font-weight:600;color:var(--mn)">${d}</div>`).join('');
+  el.innerHTML=D.debouches.map(d=>`<div style="padding:14px;border-radius:var(--r);background:var(--vt-p);border:1px solid rgba(46,170,56,.14);text-align:center;font-size:13px;font-weight:600;color:var(--navy-ink)">${d}</div>`).join('');
 }
 
 /* Actualités — modal LARGE et lisible de long en large */
@@ -1371,13 +1384,13 @@ function renderActus(cat=''){const el=document.getElementById('actus-list');if(!
 function acCard(a,i){
   return`<div class="card ac-card anim d${(i%3)+1}" onclick="showActu(${a.id})">
     <div class="ac-img">
-      ${a.img?`<img src="${S.esc(a.img)}" alt="${S.esc(a.titre)}" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\\'ph\\'style=\\'height:195px\\'><div class=\\'ph-ico\\'>📰</div></div>'">`
-        :`<div class="ph" style="height:195px"><div class="ph-ico">📰</div><span style="font-size:12px">${S.esc(a.cat)}</span></div>`}
+      ${a.img?`<img src="${S.esc(a.img)}" alt="${S.esc(a.titre)}" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\\'ph\\'style=\\'height:195px\\'><div class=\\'ph-ico\\'></div></div>'">`
+        :`<div class="ph" style="height:195px"><div class="ph-ico"></div><span style="font-size:12px">${S.esc(a.cat)}</span></div>`}
     </div>
     <div class="ac-body">
       <div style="display:flex;justify-content:space-between;align-items:center">
         <span class="badge bv" style="font-size:11px">${S.esc(a.cat)}</span>
-        <span style="font-size:11px;color:var(--txt3)">📅 ${S.esc(a.date)}</span>
+        <span style="font-size:11px;color:var(--txt3)">${S.esc(a.date)}</span>
       </div>
       <h3>${S.esc(a.titre)}</h3>
       <p>${S.esc(a.texte.substring(0,88).replace(/\n/g,' '))}…</p>
@@ -1391,7 +1404,7 @@ function showActu(id){
   openModal(a.titre,`
     <div style="display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap">
       <span class="badge bv" style="font-size:12.5px">${S.esc(a.cat)}</span>
-      <span class="badge bgr">📅 ${S.esc(a.date)}</span>
+      <span class="badge bgr">${S.esc(a.date)}</span>
     </div>
     ${a.img?`<img src="${S.esc(a.img)}" alt="${S.esc(a.titre)}" style="width:100%;border-radius:10px;margin-bottom:20px;object-fit:cover;max-height:280px" onerror="this.style.display='none'">`:''}
     <div style="font-size:15.5px;line-height:2;color:var(--txt2);white-space:pre-line">${S.esc(a.texte)}</div>
@@ -1408,16 +1421,16 @@ function renderAdmin(){
   const de=document.getElementById('adm-dir');
   const dp=localStorage.getItem('enspd_photo_dir');
   const small=document.getElementById('dir-avatar-small');
-  if(small){small.innerHTML=dp?`<img src="${dp}" alt="Directeur" style="width:100%;height:100%;object-fit:cover;border-radius:50%">`:'ES';}
+  if(small){small.innerHTML=dp?`<img src="${dp}" alt="Directeur" data-dirimg style="width:100%;height:100%;object-fit:cover;border-radius:50%;object-position:${dirPos()}">`:'ES';}
   if(de)de.innerHTML=`
     <div class="adm-dir anim">
-      <div class="adm-dir-ico">${dp?`<img src="${dp}" alt="${dir.nom}">`:''}</div>
+      <div class="adm-dir-ico">${dp?`<img src="${dp}" alt="${dir.nom}" data-dirimg style="object-position:${dirPos()}">`:''}</div>
       <div>
         <h3>${dir.titre}</h3>
         <p class="n">${dir.nom}</p>
         <p style="font-size:12.5px;color:rgba(255,255,255,.6);font-style:italic;margin:3px 0">${dir.role}</p>
         <p>${dir.desc}</p>
-        ${AUTH.isAdmin()?`<button class="btn b-sm mt12" style="background:rgba(255,255,255,.1);color:#fff;border-color:rgba(255,255,255,.3)" onclick="openPhotoModal()">📷 Changer la photo</button>`:''}
+        ${AUTH.isAdmin()?`<button class="btn b-sm mt12" style="background:rgba(255,255,255,.1);color:#fff;border-color:rgba(255,255,255,.3)" onclick="openPhotoModal()">Changer la photo</button>`:''}
       </div>
     </div>`;
   const se=document.getElementById('adm-svcs');
@@ -1451,12 +1464,12 @@ function renderAdminPage() {
     <div class="adm-kpi-grid">
       <div class="adm-kpi" style="--accent:#3CB944">
         <div class="adm-kpi-bar"></div>
-        <div class="adm-kpi-n" style="color:#3CB944">${D.actualites.length}</div>
+        <div class="adm-kpi-n" style="color:var(--green-ink)">${D.actualites.length}</div>
         <div class="adm-kpi-l">Actualités</div>
       </div>
       <div class="adm-kpi" style="--accent:#1B1E6E">
         <div class="adm-kpi-bar"></div>
-        <div class="adm-kpi-n" style="color:#1B1E6E">${users.length}</div>
+        <div class="adm-kpi-n" style="color:var(--navy-ink)">${users.length}</div>
         <div class="adm-kpi-l">Comptes inscrits</div>
       </div>
       <div class="adm-kpi" style="--accent:#F0A500">
@@ -1594,7 +1607,7 @@ function renderAdmin() {
   if (de) de.innerHTML = `
     <div class="adm-dir anim">
       <div class="adm-dir-ico">
-        ${dp ? `<img src="${dp}" alt="${dir.nom}">` : '🏛️'}
+        ${dp ? `<img src="${dp}" alt="${dir.nom}" data-dirimg style="object-position:${dirPos()}">` : '<svg width=\"34\" height=\"34\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\"><path d=\"M3 21h18M5 21V9l7-4 7 4v12M9 21v-5h6v5\"/></svg>'}
       </div>
       <div>
         <h3>${dir.titre}</h3>
@@ -1607,7 +1620,7 @@ function renderAdmin() {
           ? `<label style="display:inline-flex;align-items:center;gap:7px;cursor:pointer;
                font-size:12px;font-weight:600;margin-top:12px;padding:6px 14px;
                border-radius:7px;border:1.5px solid rgba(255,255,255,.3);color:#fff">
-               📷 Changer la photo
+               Changer la photo
                <input type="file" accept="image/*"
                       onchange="uploadDirPhoto(this)" style="display:none">
              </label>` : ''}
@@ -1664,12 +1677,12 @@ function renderAdminPage() {
     <div class="adm-kpi-grid">
       <div class="adm-kpi">
         <div class="adm-kpi-bar" style="background:#3CB944"></div>
-        <div class="adm-kpi-n" style="color:#3CB944">${D.actualites.length}</div>
+        <div class="adm-kpi-n" style="color:var(--green-ink)">${D.actualites.length}</div>
         <div class="adm-kpi-l">Actualités</div>
       </div>
       <div class="adm-kpi">
         <div class="adm-kpi-bar" style="background:#1B1E6E"></div>
-        <div class="adm-kpi-n" style="color:#1B1E6E">${users.length}</div>
+        <div class="adm-kpi-n" style="color:var(--navy-ink)">${users.length}</div>
         <div class="adm-kpi-l">Comptes inscrits</div>
       </div>
       <div class="adm-kpi">
@@ -1817,7 +1830,7 @@ function renderDocs(){
     <div class="res-item anim" onclick="toast('Modèle bientôt disponible','inf')">
       <div class="res-ico" style="background:var(--vt-l);color:var(--vt-dd);font-weight:700;font-size:14px">${i+1}</div>
       <div class="res-info"><h4>${d.t}</h4><p>${d.p}</p></div>
-      <button class="btn b-omn b-sm" onclick="event.stopPropagation();toast('Modèle bientôt disponible','inf')">⬇ Modèle</button>
+      <button class="btn b-omn b-sm" onclick="event.stopPropagation();toast('Modèle bientôt disponible','inf')">Modèle</button>
     </div>`).join('');
   initAnim();
 }
@@ -1835,7 +1848,7 @@ function renderEvents(){
         <h4>${S.esc(e.titre)}</h4>
         <p>${S.esc(e.desc.substring(0,75))}…</p>
         <div class="ev-meta">
-          <span>🕐 ${S.esc(e.heure)}</span><span>📍 ${S.esc(e.lieu.substring(0,35))}</span>
+          <span>${S.esc(e.heure)}</span><span>${S.esc(e.lieu.substring(0,35))}</span>
           <span class="badge" style="background:${cols[e.type]||'#1B1E6E'}22;color:${cols[e.type]||'#1B1E6E'}">${S.esc(e.type)}</span>
         </div>
       </div>
@@ -1849,9 +1862,9 @@ function showEvent(i){
   openModal(e.titre,`
     <div class="m-sec">
       <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px">
-        <span class="badge" style="background:${c}22;color:${c};font-size:12.5px">📅 ${S.esc(e.j)} ${S.esc(e.m)}</span>
-        <span class="badge bgr">🕐 ${S.esc(e.heure)}</span>
-        <span class="badge bgr">📍 ${S.esc(e.lieu)}</span>
+        <span class="badge" style="background:${c}22;color:${c};font-size:12.5px">${S.esc(e.j)} ${S.esc(e.m)}</span>
+        <span class="badge bgr">${S.esc(e.heure)}</span>
+        <span class="badge bgr">${S.esc(e.lieu)}</span>
         <span class="badge" style="background:${c}22;color:${c}">${S.esc(e.type)}</span>
       </div>
       <p style="font-size:15.5px;line-height:1.9;color:var(--txt2)">${S.esc(e.desc)}</p>
@@ -1881,7 +1894,7 @@ function renderGal(cat){
   grid.innerHTML=imgs.map((g,i)=>`
     <div class="gal-item" onclick="openLB(getCurGalImgs(),${i})">
       <img src="${g.src}" alt="${g.titre}" loading="lazy"
-        onerror="this.parentElement.innerHTML='<div class=\\'ph\\'><div class=\\'ph-ico\\'>📷</div><span>${g.titre}</span></div>'">
+        onerror="this.parentElement.innerHTML='<div class=\\'ph\\'><div class=\\'ph-ico\\'></div><span>${g.titre}</span></div>'">
       <div class="gal-ov"><span>${g.titre}</span><small>${g.ev}</small></div>
     </div>`).join('');
 }
@@ -1946,7 +1959,7 @@ function renderPublications() {
       </div>
       <h4 class="pub-titre">${S.esc(p.titre)}</h4>
       <p class="pub-auteurs">${S.esc(p.auteurs)}</p>
-      ${p.url ? `<a href="${S.esc(p.url)}" target="_blank" rel="noopener noreferrer" class="btn b-gh b-sm mt8">📄 Lire →</a>` : `<span class="pub-soon">Texte complet bientôt disponible</span>`}
+      ${p.url ? `<a href="${S.esc(p.url)}" target="_blank" rel="noopener noreferrer" class="btn b-gh b-sm mt8">Lire →</a>` : `<span class="pub-soon">Texte complet bientôt disponible</span>`}
     </div>`).join('');
   initAnim();
 }
@@ -1975,7 +1988,7 @@ function renderLegal(){
     <h2 class="sh-h2 mb16" style="font-size:20px">Éditeur du site</h2>
     <p style="color:var(--txt2);line-height:1.85;margin-bottom:28px">
       <strong>ENSPD — École Nationale de Statistique, de Planification et de Démographie</strong><br>
-      Université de Parakou, Campus de Logbessou, Bénin<br>
+      Université de Parakou, Bénin<br>
       Email : <a href="mailto:contact@enspd-up.bj" style="color:var(--vt-dd)">contact@enspd-up.bj</a><br>
       Directeur de la publication : Prof. Épiphane SODJINOU
     </p>
@@ -1993,7 +2006,7 @@ function renderLegal(){
       <li>Traitement interne du formulaire de contact (aucune transmission à un tiers)</li>
     </ul>
     <div class="alert a-vt mb28">
-      <span>🔒</span>
+      <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="9" rx="1"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></span>
       <div><strong>Aucune donnée personnelle n'est transmise à des tiers,</strong> à des régies publicitaires ou à des systèmes de tracking. Les données de session sont stockées uniquement en localStorage sur votre appareil.</div>
     </div>
     <h2 class="sh-h2 mb16" style="font-size:20px">Gestion des cookies</h2>
