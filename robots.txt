@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /backend/
+Disallow: /backend-enspd/
+Sitemap: https://jssed.enspd-up.bj/sitemap.xml

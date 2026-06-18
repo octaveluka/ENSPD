@@ -698,3 +698,54 @@ a.js-contact-method:hover { border-color: var(--navy-300); text-decoration: none
 
 .js-map { margin-top: 40px; border: 1px solid var(--border); border-radius: var(--r-lg); overflow: hidden; box-shadow: var(--shadow-sm); }
 .js-map iframe { width: 100%; height: 360px; border: 0; display: block; filter: saturate(.9); }
+
+/* ---------- v1.3 — Hero « data-driven » bleu profond (prototype) ---------- */
+.js-hero { background: linear-gradient(165deg,#0A2342 0%,#0C2B53 55%,#07182F 100%); border-bottom: 1px solid var(--border); }
+.js-hero::before { display: none; }            /* remplacé par le motif données */
+.js-hero-bg { position: absolute; inset: 0; z-index: 0; overflow: hidden; }
+.js-hero-bg svg { width: 100%; height: 100%; display: block; }
+.js-hero .js-container { position: relative; z-index: 2; }
+.js-hero .js-hero-title { color: #EAF1FB; }
+.js-hero-title .accent { color: #7FE9C6; }
+.js-hero-edition { background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.18); color: #9FE9CC; }
+.js-hero-edition .dot { background: #2DBA8C; }
+.js-hero-acronym { color: #8FA6C8; }
+.js-hero-meta-item { color: #C4D2E8; }
+.js-hero-meta-item strong { color: #fff; }
+.js-hero-meta-item svg { color: #7FE9C6; }
+.js-hero-sep { background: rgba(255,255,255,.18); }
+.js-hero p { color: #C4D2E8 !important; }
+.js-countdown-unit { background: rgba(255,255,255,.07); border-color: rgba(255,255,255,.14); box-shadow: none; }
+.js-countdown-num { color: #fff; }
+.js-countdown-lbl { color: #9FB1CC; }
+.js-countdown-tba { background: rgba(255,255,255,.07); border-color: rgba(255,255,255,.14); box-shadow: none; }
+.js-countdown-tba .lbl { color: #7FE9C6; }
+.js-countdown-tba .val { color: #EAF1FB; }
+.js-hero .js-btn-outline { color: #fff; border-color: rgba(255,255,255,.45); }
+.js-hero .js-btn-outline:hover { background: rgba(255,255,255,.12); border-color: #fff; }
+.js-hero .js-btn-ghost { color: #CFE9DD; }
+.js-hero .js-btn-ghost:hover { color: #fff; background: rgba(255,255,255,.12); }
+
+/* ---------- Intervenants & Programme ---------- */
+.js-speakers-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
+.js-speaker { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-lg); padding: 22px; text-align: center; box-shadow: var(--shadow-sm); }
+.js-speaker-photo { width: 84px; height: 84px; border-radius: 50%; margin: 0 auto 14px; object-fit: cover; background: var(--bg-2); display: grid; place-items: center; font-family: var(--fs); font-size: 26px; color: var(--navy); border: 1px solid var(--border); }
+[data-theme="dark"] .js-speaker-photo { color: var(--navy-300); }
+.js-speaker-name { font-family: var(--fs); font-size: 18px; font-weight: 600; color: var(--text); }
+.js-speaker-role { font-size: 12px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--gold-600); margin: 4px 0; }
+[data-theme="dark"] .js-speaker-role { color: var(--gold); }
+.js-speaker-affil { font-size: 13px; color: var(--text-2); }
+.js-speaker-bio { font-size: 13px; color: var(--text-2); margin-top: 8px; line-height: 1.6; }
+
+.js-prog { max-width: 880px; margin: 36px auto 0; }
+.js-prog-day { margin-bottom: 28px; }
+.js-prog-day-h { font-family: var(--fs); font-size: 20px; color: var(--text); padding-bottom: 8px; border-bottom: 2px solid var(--gold); margin-bottom: 6px; }
+.js-prog-row { display: grid; grid-template-columns: 130px 1fr; gap: 16px; padding: 14px 4px; border-bottom: 1px solid var(--border); }
+.js-prog-time { font-family: var(--fm); font-size: 13px; color: var(--gold-600); font-weight: 600; }
+[data-theme="dark"] .js-prog-time { color: var(--gold); }
+.js-prog-title { font-weight: 600; font-size: 15px; color: var(--text); }
+.js-prog-meta { font-size: 12.5px; color: var(--text-2); margin-top: 3px; }
+.js-prog-tag { display: inline-block; font-size: 10.5px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; padding: 2px 8px; border-radius: 100px; background: var(--surface-2); color: var(--text-2); border: 1px solid var(--border-2); margin-bottom: 5px; }
+
+@media (max-width:900px){ .js-speakers-grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width:640px){ .js-speakers-grid { grid-template-columns: 1fr; } .js-prog-row { grid-template-columns: 1fr; gap: 4px; } }

@@ -212,6 +212,31 @@ const JSSED_DATA = {
     { q: 'Où sont publiés les actes ?', a: 'Les meilleures communications sont publiées dans les séries spécialisées des Annales de l\'Université de Parakou. Un livre des résumés est distribué à tous les participants.' },
     { q: 'Peut-on assister sans présenter ?', a: 'Oui, la participation comme auditeur est possible au tarif correspondant à votre statut, avec accès à tous les ateliers et activités de réseautage.' },
     { q: 'Comment mes données sont-elles protégées ?', a: 'Vos données ne servent qu\'à l\'organisation de l\'événement, sont transmises de façon sécurisée et ne sont jamais cédées à des tiers. Vous pouvez demander leur suppression à tout moment.' }
+  ],
+  // Conférenciers / sessions clés (modifiable ; gérable via le backend une fois branché)
+  speakers: [
+    { nom: 'Hommage', role: 'Session plénière', affil: 'Pr. Mouftaou AMADOU SANNI — premier Directeur de l\'ENSPD', ini: 'MA' },
+    { nom: 'Conférence inaugurale', role: 'Keynote', affil: 'Intervenant invité — à confirmer', ini: 'CI' },
+    { nom: 'Conférence finale', role: 'Keynote', affil: 'Intervenant invité — à confirmer', ini: 'CF' }
+  ],
+  // Programme prévisionnel (15–18 septembre 2026)
+  program: [
+    { jour: 'Mardi 15 septembre 2026', items: [
+      { h: '09:00 – 10:30', tag: 'Plénière', t: 'Cérémonie d\'ouverture & hommage au Pr. Mouftaou AMADOU SANNI', meta: 'Session plénière d\'hommage' },
+      { h: '11:00 – 12:30', tag: 'Conférence', t: 'Conférence inaugurale', meta: 'Thème principal des journées' }
+    ]},
+    { jour: 'Mercredi 16 septembre 2026', items: [
+      { h: '09:00 – 12:30', tag: 'Atelier', t: 'Atelier 1 — Dynamiques démographiques & transformations socio-environnementales', meta: 'Communications orales' },
+      { h: '14:00 – 17:00', tag: 'Posters', t: 'Session de présentation des posters', meta: '' }
+    ]},
+    { jour: 'Jeudi 17 septembre 2026', items: [
+      { h: '09:00 – 12:30', tag: 'Atelier', t: 'Atelier 2 — Données, méthodes statistiques & innovations', meta: 'Communications orales' },
+      { h: '14:00 – 17:00', tag: 'Atelier', t: 'Atelier 3 — Évaluation des politiques publiques & pilotage du développement', meta: 'Communications orales' }
+    ]},
+    { jour: 'Vendredi 18 septembre 2026', items: [
+      { h: '09:00 – 11:00', tag: 'Exposition', t: 'Expositions & démonstrations d\'outils', meta: '' },
+      { h: '11:30 – 13:00', tag: 'Plénière', t: 'Conférence finale & cérémonie de clôture', meta: 'Capitalisation des acquis' }
+    ]}
   ]
 };
 
@@ -220,6 +245,35 @@ const SVG = {
   camera: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8a2 2 0 0 1 2-2h2l1.5-2h7L19 6h0a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><circle cx="12" cy="12.5" r="3.2"/></svg>',
   doc: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></svg>'
 };
+
+function renderSpeakers() {
+  const el = $('#js-speakers-grid'); if (!el) return;
+  el.innerHTML = JSSED_DATA.speakers.map(s => `
+    <article class="js-speaker">
+      <div class="js-speaker-photo">${s.photo ? `<img src="${escapeHtml(s.photo)}" alt="${escapeHtml(s.nom)}" style="width:100%;height:100%;border-radius:50%;object-fit:cover">` : escapeHtml(s.ini || '')}</div>
+      <div class="js-speaker-name">${escapeHtml(s.nom)}</div>
+      <div class="js-speaker-role">${escapeHtml(s.role)}</div>
+      <div class="js-speaker-affil">${escapeHtml(s.affil)}</div>
+      ${s.bio ? `<div class="js-speaker-bio">${escapeHtml(s.bio)}</div>` : ''}
+    </article>`).join('');
+}
+
+function renderProgram() {
+  const el = $('#js-prog'); if (!el) return;
+  el.innerHTML = JSSED_DATA.program.map(d => `
+    <div class="js-prog-day">
+      <div class="js-prog-day-h">${escapeHtml(d.jour)}</div>
+      ${d.items.map(it => `
+        <div class="js-prog-row">
+          <div class="js-prog-time">${escapeHtml(it.h)}</div>
+          <div>
+            ${it.tag ? `<span class="js-prog-tag">${escapeHtml(it.tag)}</span>` : ''}
+            <div class="js-prog-title">${escapeHtml(it.t)}</div>
+            ${it.meta ? `<div class="js-prog-meta">${escapeHtml(it.meta)}</div>` : ''}
+          </div>
+        </div>`).join('')}
+    </div>`).join('');
+}
 
 function renderNews() {
   const el = $('#js-news-grid'); if (!el) return;
@@ -693,6 +747,8 @@ document.addEventListener('DOMContentLoaded', () => {
   jsTheme.init();
   renderNews();
   renderDocs();
+  renderSpeakers();
+  renderProgram();
   renderComite();
   renderPartners();
   renderGallery();

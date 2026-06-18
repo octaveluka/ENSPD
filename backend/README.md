@@ -47,9 +47,12 @@ backend/
 │   ├── submit.php         # soumission de communication / poster
 │   ├── register.php       # inscription
 │   ├── contact.php        # formulaire de contact
+│   ├── speakers.php       # liste publique des intervenants (GET)
+│   ├── program.php        # programme public groupé par jour (GET)
 │   └── admin/             # API d'administration (session + CSRF)
 │       ├── login.php  logout.php  me.php
 │       ├── submissions.php  registrations.php  contacts.php
+│       ├── speakers.php  program.php   # CRUD (op: save/delete/reorder)
 │       ├── delete_participant.php  export.php
 ├── bin/
 │   └── create_admin.php   # script CLI de création d'administrateur
@@ -75,7 +78,9 @@ Les dossiers `src/` et `bin/` sont **inaccessibles depuis le web** (protégés p
 3. Onglet **Importer** → **Choisir un fichier** → sélectionnez `backend/schema.sql`
    → bouton **Importer / Exécuter**.
 4. Vous devez voir apparaître les tables : `submissions`, `registrations`,
-   `contacts`, `admins`, `rate_limits`, `audit_log`.
+   `contacts`, `admins`, `rate_limits`, `audit_log`, `speakers`,
+   `program_sessions` (ces deux dernières sont créées et **pré-remplies**
+   avec quelques exemples par le `schema.sql`).
 
 ---
 
@@ -233,3 +238,153 @@ Pensez à publier sur le site une **note de confidentialité** indiquant la fina
 du traitement, le responsable (ENSPD / Université de Parakou), la durée de
 conservation et les modalités d'exercice des droits (accès, rectification,
 effacement).
+
+---
+
+## 11. Intervenants et Programme (Speakers & Program)
+
+Deux modules complètent la plateforme : la **gestion des intervenants**
+(keynotes, invités, panel) et la **gestion du programme** (déroulé des sessions).
+Le frontend lit ces données via deux endpoints publics en **lecture seule**,
+et l'administration les gère depuis les onglets **Intervenants** et **Programme**.
+
+### 11.1 Tables ajoutées
+
+**`speakers`** — intervenants.
+
+| Colonne | Type | Notes |
+|---------|------|-------|
+| `id` | INT UNSIGNED AI | clé primaire |
+| `nom` | VARCHAR(160) | requis |
+| `titre` | VARCHAR(160) | fonction / titre |
+| `affiliation` | VARCHAR(200) | institution |
+| `pays` | VARCHAR(80) | |
+| `bio` | TEXT | biographie |
+| `photo` | VARCHAR(255) | URL ou chemin |
+| `type` | VARCHAR(20) | `keynote` \| `invited` \| `panel` (défaut `invited`) |
+| `ordre` | INT | ordre d'affichage croissant (défaut 0) |
+| `created_at` / `updated_at` | DATETIME | horodatage |
+
+Index : `(ordre, nom)` et `(type)`.
+
+**`program_sessions`** — sessions du programme.
+
+| Colonne | Type | Notes |
+|---------|------|-------|
+| `id` | INT UNSIGNED AI | clé primaire |
+| `jour` | DATE | requis (AAAA-MM-JJ) |
+| `heure_debut` / `heure_fin` | VARCHAR(10) | format `HH:MM`, optionnels |
+| `titre` | VARCHAR(255) | requis |
+| `type` | VARCHAR(20) | `pleniere` \| `conference` \| `atelier` \| `poster` \| `pause` \| `hommage` \| `autre` |
+| `salle` | VARCHAR(120) | optionnel |
+| `atelier` | TINYINT NULL | 1 à 3, ou NULL |
+| `speaker_id` | INT NULL | **lien « mou » vers `speakers.id`** |
+| `description` | TEXT | optionnel |
+| `ordre` | INT | ordre d'affichage (défaut 0) |
+| `created_at` | DATETIME | |
+
+Index : `(jour, ordre)`.
+
+> **Choix de conception — `speaker_id` sans clé étrangère dure.**
+> La colonne `speaker_id` est un simple `INT` nullable **sans** contrainte
+> `FOREIGN KEY`. Objectif : pouvoir supprimer un intervenant sans être bloqué
+> par une contrainte référentielle. À la suppression d'un intervenant, l'API
+> admin (`speakers.php`, op `delete`) **délie** automatiquement les sessions
+> concernées (`UPDATE program_sessions SET speaker_id = NULL`). Les endpoints
+> de lecture utilisent un `LEFT JOIN`, donc une session orpheline reste
+> affichée, simplement sans nom d'intervenant. L'intégrité est donc gérée
+> **applicativement**, pas par le moteur.
+
+### 11.2 Endpoints publics (lecture seule, GET)
+
+**`GET {apiBase}/speakers.php`** — liste des intervenants.
+Paramètre optionnel `?type=keynote|invited|panel`. Tri : `ordre`, puis `nom`.
+
+```json
+{
+  "ok": true,
+  "count": 3,
+  "items": [
+    {
+      "id": 1,
+      "nom": "Pr. Mouftaou AMADOU SANNI",
+      "titre": "Professeur de démographie",
+      "affiliation": "ENSPD — Université de Parakou",
+      "pays": "Bénin",
+      "bio": "…",
+      "photo": null,
+      "type": "keynote",
+      "ordre": 1
+    }
+  ]
+}
+```
+
+**`GET {apiBase}/program.php`** — programme groupé par jour.
+Chaque session est jointe au nom de l'intervenant (`speaker_nom`) si `speaker_id`
+est renseigné. Tri : `jour`, `ordre`, `heure_debut`.
+
+```json
+{
+  "ok": true,
+  "count": 9,
+  "days": [
+    {
+      "jour": "2026-09-15",
+      "sessions": [
+        {
+          "id": 1,
+          "jour": "2026-09-15",
+          "heure_debut": "09:00",
+          "heure_fin": "10:00",
+          "titre": "Cérémonie d'ouverture et conférence inaugurale",
+          "type": "pleniere",
+          "salle": "Amphithéâtre principal",
+          "atelier": null,
+          "speaker_id": null,
+          "speaker_nom": null,
+          "description": "…",
+          "ordre": 1
+        }
+      ]
+    }
+  ]
+}
+```
+
+### 11.3 Endpoints d'administration (session + CSRF)
+
+Mêmes garanties que les autres endpoints admin : `require_admin()`, jeton CSRF
+(`X-CSRF-Token`) obligatoire sur tout POST, requêtes préparées, journalisation
+`audit_log`. Les opérations sont sélectionnées par un champ **`op`**.
+
+**`{apiBase}/admin/speakers.php`**
+
+| Méthode | Corps | Effet |
+|---------|-------|-------|
+| `GET` | — | liste complète |
+| `POST` | `{op:"save", id?, nom, titre, affiliation, pays, bio, photo, type, ordre}` | crée (`id` absent/0) ou met à jour (`id` > 0) |
+| `POST` | `{op:"delete", id}` | supprime + délie les sessions liées |
+| `POST` | `{op:"reorder", order:[id1,id2,…]}` | réordonne (`ordre` = position) |
+
+**`{apiBase}/admin/program.php`**
+
+| Méthode | Corps | Effet |
+|---------|-------|-------|
+| `GET` | — | liste complète (avec `speaker_nom`) |
+| `POST` | `{op:"save", id?, jour, heure_debut, heure_fin, titre, type, salle, atelier, speaker_id, description, ordre}` | crée ou met à jour |
+| `POST` | `{op:"delete", id}` | supprime une session |
+| `POST` | `{op:"reorder", order:[id1,id2,…]}` | réordonne |
+
+Validation côté serveur (listes blanches `type`, format `jour` = `AAAA-MM-JJ`,
+heures `HH:MM`, `atelier` ∈ {1,2,3} ou nul, existence de `speaker_id`).
+Réponses : `200 {ok:true,…}`, `422 {ok:false,error:"validation",fields:{…}}`,
+`401 auth`, `403 csrf`.
+
+### 11.4 Tableau de bord
+
+Les onglets **Intervenants** et **Programme** offrent : tableau de la liste,
+formulaire d'ajout/édition (le même formulaire bascule en mode édition au clic
+sur « Modifier »), et suppression confirmée. Toutes les sorties sont échappées
+(`esc()` côté JS, `escape()` côté PHP). Palette institutionnelle marine + accent
+vert pour les actions d'enregistrement.

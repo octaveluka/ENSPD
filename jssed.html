@@ -9,6 +9,28 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Spectral:ital,wght@0,500;0,600;0,700;1,500;1,600&display=swap">
+  <link rel="canonical" href="https://jssed.enspd-up.bj/">
+  <!-- Open Graph / partage -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="JSSED 2026 — Journées Scientifiques de la Statistique, de l'Évaluation et de la Démographie">
+  <meta property="og:description" content="ENSPD × EDSAE, Université de Parakou — 15 au 18 septembre 2026. Soumettez un résumé et inscrivez-vous.">
+  <meta property="og:locale" content="fr_BJ">
+  <meta name="twitter:card" content="summary_large_image">
+  <!-- Données structurées (Event) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Event",
+    "name": "JSSED 2026 — Journées Scientifiques de la Statistique, de l'Évaluation et de la Démographie",
+    "startDate": "2026-09-15",
+    "endDate": "2026-09-18",
+    "eventAttendanceMode": "https://schema.org/MixedEventAttendanceMode",
+    "eventStatus": "https://schema.org/EventScheduled",
+    "location": { "@type": "Place", "name": "Université de Parakou", "address": "Parakou, Bénin" },
+    "organizer": { "@type": "Organization", "name": "ENSPD — Université de Parakou", "url": "https://jssed.enspd-up.bj/" },
+    "description": "Dynamiques démographiques et socio-environnementales en Afrique subsaharienne : statistique, évaluation et démographie au service du développement durable."
+  }
+  </script>
   <link rel="stylesheet" href="jssed.css">
   <!-- Applique le thème avant le rendu pour éviter le flash -->
   <script>
@@ -40,7 +62,7 @@
   <nav class="js-topbar-nav" aria-label="Navigation JSSED">
     <a href="#apropos">À propos</a>
     <a href="#aac">Axes thématiques</a>
-    <a href="#timeline">Dates clés</a>
+    <a href="#programme">Programme</a>
     <a href="#soumission">Soumettre</a>
     <a href="#tarifs">Inscription</a>
     <a href="#contact">Contact</a>
@@ -63,6 +85,7 @@
   <a href="#apropos" class="js-mobile-link">À propos</a>
   <a href="#actualites" class="js-mobile-link">Actualités</a>
   <a href="#aac" class="js-mobile-link">Axes thématiques</a>
+  <a href="#programme" class="js-mobile-link">Programme &amp; intervenants</a>
   <a href="#timeline" class="js-mobile-link">Dates clés</a>
   <a href="#soumission" class="js-mobile-link">Soumettre</a>
   <a href="#documents" class="js-mobile-link">Documents &amp; ressources</a>
@@ -75,7 +98,25 @@
 
 <!-- ===================== HERO ===================== -->
 <section class="js-hero" id="js-hero" aria-label="Présentation JSSED 2026">
-  <div class="js-hero-bg" aria-hidden="true"><img src="assets/jssed/hero.jpg" alt="" onerror="this.parentElement.remove()"></div>
+  <div class="js-hero-bg" aria-hidden="true">
+    <svg viewBox="0 0 1200 620" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <linearGradient id="js-curve" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0" stop-color="#16A37B" stop-opacity="0"/>
+          <stop offset="0.45" stop-color="#2DBA8C"/>
+          <stop offset="1" stop-color="#7FE9C6"/>
+        </linearGradient>
+        <pattern id="js-grid" width="84" height="84" patternUnits="userSpaceOnUse">
+          <path d="M84 0H0V84" fill="none" stroke="rgba(255,255,255,.06)" stroke-width="1"/>
+        </pattern>
+      </defs>
+      <rect width="1200" height="620" fill="url(#js-grid)"/>
+      <path d="M0,440 C180,210 340,210 560,360 C760,500 940,540 1200,250" fill="none" stroke="url(#js-curve)" stroke-width="3" opacity=".85"/>
+      <circle cx="340" cy="232" r="6" fill="#7FE9C6"/>
+      <circle cx="560" cy="360" r="5" fill="#2DBA8C"/>
+      <circle cx="940" cy="487" r="6" fill="#16A37B"/>
+    </svg>
+  </div>
   <div class="js-container">
     <div class="js-hero-edition">
       <span class="dot"></span> 2ᵉ Édition · 2026
@@ -395,6 +436,24 @@
         <p><a href="mailto:jssed.enspd.up.2026@gmail.com">jssed.enspd.up.2026@gmail.com</a><br>Objet : <em>JSSED – Résumé – Atelier N°X</em></p>
       </div>
     </div>
+  </div>
+</section>
+
+<div class="js-divider"></div>
+
+<!-- ===================== PROGRAMME & INTERVENANTS ===================== -->
+<section class="js-section" id="programme" aria-labelledby="prog-title">
+  <div class="js-container">
+    <div class="js-section-center js-reveal">
+      <div class="js-section-badge teal">Programme &amp; intervenants</div>
+      <h2 class="js-section-title" id="prog-title">Programme &amp; intervenants</h2>
+      <p class="js-section-sub">Programme prévisionnel des journées (15 au 18 septembre 2026) et conférenciers. Le détail est actualisé à l'approche de l'événement.</p>
+    </div>
+
+    <h3 class="js-section-title" style="font-size:22px;text-align:center;margin-top:48px;">Conférenciers &amp; sessions clés</h3>
+    <div class="js-speakers-grid js-reveal" id="js-speakers-grid" style="margin-top:24px;"></div>
+
+    <div class="js-prog js-reveal" id="js-prog"></div>
   </div>
 </section>
 
