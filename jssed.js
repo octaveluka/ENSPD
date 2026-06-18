@@ -17,10 +17,10 @@
      pas connue : le compte à rebours reste en attente.
    ========================================================= */
 const JSSED_CONFIG = {
-  apiBase: '',                 // ex. 'backend/api'
-  eventDate: '2026-09-08T08:00:00', // provisoire (septembre) — à corriger dès la date officielle connue
+  apiBase: 'backend/api',      // backend JSSED (dossier backend/) — repli email si indisponible
+  eventDate: '2026-09-15T08:00:00', // ouverture des JSSED — 15 au 18 septembre 2026
   registrationOpen: true,      // passer à false pour fermer les soumissions/inscriptions
-  email: 'jssed.enspd.up.2025@gmail.com'
+  email: 'jssed.enspd.up.2026@gmail.com'
 };
 
 /* ---------- Utilitaires ---------- */
@@ -39,7 +39,7 @@ const jsTheme = {
     document.documentElement.setAttribute('data-theme', t);
     try { localStorage.setItem(this.KEY, t); } catch (e) {}
     const meta = $('meta[name="theme-color"]');
-    if (meta) meta.setAttribute('content', t === 'dark' ? '#0E1726' : '#16294D');
+    if (meta) meta.setAttribute('content', t === 'dark' ? '#07182F' : '#0A2342');
   },
   toggle() {
     const cur = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
@@ -79,7 +79,7 @@ const jsCountdown = {
     if (mini) mini.hidden = false;
     if (miniTba) miniTba.style.display = 'none';
     if (heroDate) {
-      heroDate.textContent = target.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
+      heroDate.textContent = 'Du 15 au 18 septembre 2026';
     }
 
     const els = {
@@ -159,31 +159,31 @@ function initReveal() {
    ========================================================= */
 const JSSED_DATA = {
   comite: [
-    { nom: 'Direction scientifique', role: 'Présidence', affil: 'ENSPD — Univ. de Parakou', ini: 'DS' },
-    { nom: 'Atelier Statistique', role: 'Coordination', affil: 'ENSPD — Univ. de Parakou', ini: 'A1' },
-    { nom: 'Atelier Évaluation', role: 'Coordination', affil: 'ENSPD — Univ. de Parakou', ini: 'A2' },
-    { nom: 'Atelier Démographie', role: 'Coordination', affil: 'ENSPD — Univ. de Parakou', ini: 'A3' },
-    { nom: 'Comité de lecture', role: 'Évaluation', affil: 'Institutions partenaires', ini: 'CL' },
+    { nom: 'Comité scientifique', role: 'Présidence', affil: 'ENSPD — Univ. de Parakou', ini: 'CS' },
+    { nom: 'Collaboration EDSAE', role: 'Co-organisation', affil: 'École Doctorale Sc. Agronomiques & de l\'Eau', ini: 'ED' },
+    { nom: 'Atelier 1', role: 'Démographie & environnement', affil: 'ENSPD / EDSAE', ini: 'A1' },
+    { nom: 'Atelier 2', role: 'Données & méthodes', affil: 'ENSPD', ini: 'A2' },
+    { nom: 'Atelier 3', role: 'Évaluation & politiques', affil: 'ENSPD', ini: 'A3' },
     { nom: 'Secrétariat scientifique', role: 'Secrétariat', affil: 'ENSPD — Univ. de Parakou', ini: 'SS' }
   ],
   // Actualités / annonces — modifiable ici (les plus récentes en premier)
   news: [
-    { date: '2026', tag: 'Annonce', title: 'Lancement prochain de l\'appel à communications', text: 'La 2ᵉ édition des JSSED est en préparation. L\'appel à communications et le calendrier détaillé seront publiés très prochainement.' },
-    { date: '2026', tag: 'Inscription', title: 'Modalités d\'inscription et de paiement', text: 'Le paiement des frais de participation se fait en ligne via la plateforme du Trésor Public du Bénin (eQuittance). Détails dans la section Inscription.' },
-    { date: '2026', tag: 'Programme', title: 'Trois ateliers thématiques reconduits', text: 'Statistique & informatique décisionnelle, évaluation & IA, démographie & IA : les trois axes structurent à nouveau les soumissions.' }
+    { date: 'Mai 2026', tag: 'Appel', title: 'Appel à communications ouvert', text: 'La soumission des résumés est ouverte jusqu\'au 15 août 2026, en français ou en anglais, sur les trois ateliers thématiques.' },
+    { date: '2026', tag: 'Hommage', title: 'Édition dédiée au Pr. Mouftaou AMADOU SANNI', text: 'La 2ᵉ édition rend hommage au premier Directeur de l\'ENSPD, admis à la retraite en octobre 2025.' },
+    { date: '2026', tag: 'Inscription', title: 'Frais & modalités de paiement', text: 'Paiement en ligne via le Trésor Public du Bénin (eQuittance). Tarifs préférentiels avant le 30 août 2026.' }
   ],
   // Documents téléchargeables — mettre status:'available' + href réel quand disponible
   docs: [
     { name: 'Appel à communications', desc: 'Document officiel de l\'appel (PDF)', status: 'soon', href: '' },
     { name: 'Gabarit de résumé', desc: 'Modèle Word — Arial 12 pt, interligne 1,5', status: 'soon', href: '' },
-    { name: 'Livre des résumés 2025', desc: 'Actes de la 1ʳᵉ édition', status: 'soon', href: '' },
+    { name: 'Guide de participation', desc: 'Informations détaillées (PDF)', status: 'soon', href: '' },
     { name: 'Programme 2026', desc: 'Programme détaillé des journées', status: 'soon', href: '' }
   ],
   partners: [
-    { nom: 'ENSPD', sub: 'École Nationale de Statistique' },
+    { nom: 'ENSPD', sub: 'École Nat. de Statistique, Planification & Démographie' },
     { nom: 'Université de Parakou', sub: 'UP — Bénin' },
+    { nom: 'EDSAE', sub: 'École Doctorale des Sciences Agronomiques et de l\'Eau' },
     { nom: 'INStaD', sub: 'Institut National de la Statistique' },
-    { nom: 'BUE-ENSPD', sub: 'Bureau des Étudiants' },
     { nom: 'Annales de l\'UP', sub: 'Publication scientifique' },
     { nom: 'Partenaires institutionnels', sub: 'Soutiens de l\'événement' }
   ],
@@ -196,13 +196,13 @@ const JSSED_DATA = {
     { caption: 'Cérémonie de clôture', img: null }
   ],
   timeline: [
-    { date: 'Lancement', title: 'Ouverture de l\'appel à communications', desc: 'Publication de l\'appel et du programme préliminaire.', badge: { t: 'À venir', c: 'open' }, cls: '' },
-    { date: 'Soumission des résumés', title: 'Dépôt des résumés', desc: 'Envoi des résumés structurés (300 mots) pour les trois ateliers.', badge: { t: 'À ne pas manquer', c: 'warn' }, cls: '' },
-    { date: 'Évaluation', title: 'Examen par le comité scientifique', desc: 'Évaluation en double aveugle des soumissions.', badge: null, cls: '' },
-    { date: 'Notifications', title: 'Réponses aux auteurs', desc: 'Acceptations, demandes de révision et instructions de présentation.', badge: null, cls: '' },
-    { date: 'Inscriptions', title: 'Ouverture des inscriptions', desc: 'Période d\'inscription à tarif préférentiel (early bird).', badge: { t: 'Tarif réduit', c: 'warn' }, cls: 'current' },
-    { date: 'Articles complets', title: 'Soumission des textes intégraux', desc: 'Pour publication dans les Actes des journées.', badge: null, cls: '' },
-    { date: 'Tenue des JSSED', title: 'Journées scientifiques 2026', desc: 'Conférences, ateliers, posters, expositions et réseautage.', badge: { t: 'Événement principal', c: 'key' }, cls: 'key' }
+    { date: '15 mai 2026', title: 'Ouverture des soumissions', desc: 'Début de la soumission des résumés pour les trois ateliers.', badge: { t: 'Ouvert', c: 'open' }, cls: 'current' },
+    { date: '15 juin 2026', title: '1er rappel', desc: 'Premier rappel aux auteurs.', badge: null, cls: '' },
+    { date: '15 juillet 2026', title: '2ème rappel', desc: 'Second rappel aux auteurs.', badge: null, cls: '' },
+    { date: '15 août 2026', title: 'Clôture des soumissions', desc: 'Date limite de dépôt des résumés (300 mots maximum).', badge: { t: 'À ne pas manquer', c: 'warn' }, cls: '' },
+    { date: '20 août 2026', title: 'Réponses & ouverture des inscriptions', desc: 'Notifications aux auteurs et début des inscriptions.', badge: null, cls: '' },
+    { date: '10 septembre 2026', title: 'Dépôt des posters', desc: 'Dépôt des communications affichées / posters.', badge: null, cls: '' },
+    { date: '15 au 18 septembre 2026', title: 'Tenue des JSSED 2026', desc: 'Hommage, conférences-débats, communications, posters et expositions — Université de Parakou.', badge: { t: 'Événement', c: 'key' }, cls: 'key' }
   ],
   faq: [
     { q: 'Qui peut soumettre une communication ?', a: 'Tout chercheur, enseignant-chercheur, étudiant en Master ou Doctorat, et professionnel des domaines de la statistique, de l\'évaluation ou de la démographie. Les communications interdisciplinaires sont les bienvenues.' },

@@ -7,46 +7,46 @@
 
 /* ---------- Tokens : thème clair (défaut) ---------- */
 :root {
-  /* Marque */
-  --navy:        #16294D;
-  --navy-700:    #1E3A66;
-  --navy-300:    #3B5C99;
-  --gold:        #C49A2E;
-  --gold-600:    #A9831F;
-  --gold-soft:   #E7D8A8;
+  /* Marque — identité JSSED 2026 (bleu profond + vert) */
+  --navy:        #0A2342;
+  --navy-700:    #123257;
+  --navy-300:    #3F5A85;
+  --gold:        #16A37B;
+  --gold-600:    #13845F;
+  --gold-soft:   #7FE9C6;
 
   /* Surfaces & texte (clair) */
-  --bg:          #F7F5EF;
-  --bg-2:        #EFEBDF;
+  --bg:          #F4F7FB;
+  --bg-2:        #E6ECF4;
   --surface:     #FFFFFF;
-  --surface-2:   #FBFAF6;
-  --border:      #E4DECE;
-  --border-2:    #D8D0BC;
-  --text:        #1A2238;
-  --text-2:      #4F5B73;
-  --text-3:      #8A93A6;
+  --surface-2:   #F4F7FB;
+  --border:      #E4EBF4;
+  --border-2:    #D3DEEC;
+  --text:        #0A2342;
+  --text-2:      #46566D;
+  --text-3:      #7C8BA1;
 
   /* Sémantique */
   --primary:     var(--navy);
   --primary-ink: #FFFFFF;
-  --link:        var(--navy-700);
+  --link:        var(--gold-600);
   --accent:      var(--gold);
 
-  --ok:          #2E7D52;
+  --ok:          #16A37B;
   --warn:        #B5772A;
-  --err:         #B23A3A;
-  --info:        #2C5C8A;
+  --err:         #C0392B;
+  --info:        #1E5F8C;
 
   /* Effets */
-  --shadow-sm:   0 1px 2px rgba(22,41,77,.06), 0 2px 6px rgba(22,41,77,.05);
-  --shadow:      0 6px 18px rgba(22,41,77,.08), 0 2px 6px rgba(22,41,77,.05);
-  --shadow-lg:   0 18px 48px rgba(22,41,77,.14);
-  --ring:        0 0 0 3px rgba(196,154,46,.35);
+  --shadow-sm:   0 1px 2px rgba(10,35,66,.06), 0 2px 6px rgba(10,35,66,.05);
+  --shadow:      0 6px 18px rgba(10,35,66,.09), 0 2px 6px rgba(10,35,66,.05);
+  --shadow-lg:   0 18px 48px rgba(10,35,66,.16);
+  --ring:        0 0 0 3px rgba(22,163,123,.32);
 
   /* Typo */
   --fs: 'Spectral', Georgia, 'Times New Roman', serif;   /* titres */
-  --fd: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, sans-serif; /* corps */
-  --fm: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+  --fd: 'IBM Plex Sans', system-ui, -apple-system, Segoe UI, Roboto, sans-serif; /* corps */
+  --fm: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
 
   /* Rayons */
   --r-sm: 8px;
@@ -59,22 +59,22 @@
 
 /* ---------- Tokens : thème sombre ---------- */
 [data-theme="dark"] {
-  --bg:          #0E1726;
-  --bg-2:        #0A1120;
-  --surface:     #14223A;
-  --surface-2:   #1A2B49;
+  --bg:          #07182F;
+  --bg-2:        #05122A;
+  --surface:     #102A4D;
+  --surface-2:   #16335C;
   --border:      rgba(255,255,255,.10);
-  --border-2:    rgba(255,255,255,.16);
-  --text:        #ECF1F8;
-  --text-2:      #A9B6CC;
-  --text-3:      #768298;
+  --border-2:    rgba(255,255,255,.18);
+  --text:        #EAF0F8;
+  --text-2:      #A7B6CC;
+  --text-3:      #7387A3;
 
-  --primary:     #2E4B82;
+  --primary:     #1E406F;
   --primary-ink: #FFFFFF;
-  --link:        #9DBBED;
-  --navy-300:    #6E8FCB;
-  --gold:        #D8B65A;
-  --gold-soft:   rgba(216,182,90,.16);
+  --link:        #7FE9C6;
+  --navy-300:    #5E86C4;
+  --gold:        #2DBA8C;
+  --gold-soft:   rgba(45,186,140,.18);
 
   --shadow-sm:   0 1px 2px rgba(0,0,0,.4);
   --shadow:      0 10px 30px rgba(0,0,0,.45);
@@ -141,7 +141,7 @@ h1, h2, h3, h4 { font-family: var(--fs); font-weight: 600; line-height: 1.18; co
 .js-btn:active { transform: translateY(0); }
 .js-btn-primary { background: var(--primary); color: var(--primary-ink); box-shadow: var(--shadow-sm); }
 .js-btn-primary:hover { background: var(--navy-700); box-shadow: var(--shadow); }
-.js-btn-gold { background: var(--gold); color: #2A2208; box-shadow: var(--shadow-sm); }
+.js-btn-gold { background: var(--gold); color: #FFFFFF; box-shadow: var(--shadow-sm); }
 .js-btn-gold:hover { background: var(--gold-600); color: #fff; }
 .js-btn-teal { background: var(--info); color: #fff; }
 .js-btn-teal:hover { filter: brightness(1.05); }
@@ -452,7 +452,7 @@ a.js-doc-item:hover { border-color: var(--navy-300); text-decoration: none; }
 .js-step-dot { display: flex; flex-direction: column; align-items: center; gap: 8px; position: relative; z-index: 1; flex: 1; }
 .js-step-num { width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; font-weight: 700; font-size: 14px; background: var(--surface); border: 2px solid var(--border-2); color: var(--text-3); transition: .2s; }
 .js-step-dot.active .js-step-num { background: var(--navy); border-color: var(--navy); color: #fff; }
-.js-step-dot.done .js-step-num { background: var(--gold); border-color: var(--gold); color: #2A2208; }
+.js-step-dot.done .js-step-num { background: var(--gold); border-color: var(--gold); color: #FFFFFF; }
 .js-step-lbl { font-size: 12px; font-weight: 600; color: var(--text-3); }
 .js-step-dot.active .js-step-lbl { color: var(--text); }
 
@@ -685,3 +685,16 @@ a.js-contact-method:hover { border-color: var(--navy-300); text-decoration: none
 .js-chat-fab svg { width: 19px; height: 19px; }
 .js-chat-fab span { font-size: 12px; font-weight: 600; }
 [data-theme="dark"] .js-chat-fab { background: var(--surface-2); border: 1px solid var(--border-2); }
+
+/* ---------- v1.2 — À propos / Hommage / Accès ---------- */
+.js-hommage { margin-top: 28px; background: color-mix(in srgb, var(--gold) 7%, var(--surface));
+  border: 1px solid var(--border); border-left: 4px solid var(--gold); border-radius: var(--r-lg);
+  padding: 26px 28px; max-width: 880px; margin-left: auto; margin-right: auto; }
+.js-hommage-badge { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--gold-600); margin-bottom: 8px; }
+[data-theme="dark"] .js-hommage-badge { color: var(--gold); }
+.js-hommage h3 { font-size: 22px; margin-bottom: 8px; }
+.js-hommage p { color: var(--text-2); font-size: 15px; line-height: 1.7; }
+
+.js-map { margin-top: 40px; border: 1px solid var(--border); border-radius: var(--r-lg); overflow: hidden; box-shadow: var(--shadow-sm); }
+.js-map iframe { width: 100%; height: 360px; border: 0; display: block; filter: saturate(.9); }
