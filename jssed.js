@@ -709,6 +709,69 @@ const jsCookie = {
   accept() { try { localStorage.setItem(this.KEY, '1'); } catch {} $('#js-cookie')?.classList.remove('show'); }
 };
 
+const jsReg = {
+  init() {
+    const f = $('#js-reg'); if (!f) return;
+    if (!JSSED_CONFIG.registrationOpen) {
+      f.style.display = 'none';
+      const w = $('#inscription-form');
+      if (w) w.insertAdjacentHTML('afterbegin', '<div class="js-reg-closed" style="max-width:760px;margin:0 auto 12px;">Les inscriptions ne sont pas encore ouvertes. Revenez bientôt.</div>');
+      return;
+    }
+    f.addEventListener('submit', (e) => { e.preventDefault(); this.submit(); });
+  },
+  showErr(name, msg) {
+    const b = document.querySelector(`#js-reg .js-field-error[data-for="${name}"]`);
+    if (b) { if (msg) b.textContent = msg; b.classList.add('show'); }
+    const el = document.querySelector(`#js-reg [name="${name}"]`); if (el && el.classList) el.classList.add('is-invalid');
+  },
+  alert(msg) { const a = $('#js-reg-alert'); if (a) { a.textContent = msg; a.classList.add('show'); } },
+  clear() {
+    $$('#js-reg .js-field-error').forEach(b => b.classList.remove('show'));
+    $$('#js-reg .is-invalid').forEach(e => e.classList.remove('is-invalid'));
+    const a = $('#js-reg-alert'); if (a) a.classList.remove('show');
+  },
+  genRef() { return `INS2026-${Date.now().toString(36).toUpperCase()}-${Math.random().toString(36).slice(2,4).toUpperCase()}`; },
+  resetBtn(b) { if (b) { b.disabled = false; b.textContent = 'Valider mon inscription'; } },
+  async submit() {
+    const f = $('#js-reg'); if (!f) return;
+    this.clear();
+    const hp = $('#js-reg-hp'); if (hp && hp.value) { this.success(this.genRef()); return; }
+    const data = {};
+    f.querySelectorAll('input, select').forEach(el => {
+      if (!el.name || el.name === 'website') return;
+      data[el.name] = el.type === 'checkbox' ? el.checked : el.value.trim();
+    });
+    let ok = true, first = null;
+    ['type','prenom','nom','email','pays'].forEach(n => { if (!data[n]) { ok = false; this.showErr(n); if (!first) first = n; } });
+    if (data.email && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(data.email)) { ok = false; this.showErr('email','Email invalide.'); if (!first) first = 'email'; }
+    if (!data.consent) { ok = false; this.alert('Veuillez accepter la politique de confidentialité.'); }
+    if (!ok) { if (first) { const el = document.querySelector(`#js-reg [name="${first}"]`); if (el && el.focus) el.focus(); } else this.alert('Veuillez corriger les champs indiqués.'); return; }
+    const btn = $('#js-reg-submit'); if (btn) { btn.disabled = true; btn.textContent = 'Envoi en cours…'; }
+    let ref = null, sent = false;
+    if (JSSED_CONFIG.apiBase) {
+      try {
+        const res = await fetch(`${JSSED_CONFIG.apiBase}/register.php`, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(data) });
+        const out = await res.json().catch(() => ({}));
+        if (res.ok && out.ok) { ref = out.ref; sent = true; }
+        else if (res.status === 422 && out.fields) { Object.entries(out.fields).forEach(([k,m]) => this.showErr(k,m)); this.alert('Veuillez corriger les champs signalés.'); this.resetBtn(btn); return; }
+        else if (res.status === 429) { this.alert('Trop de tentatives. Réessayez dans quelques minutes.'); this.resetBtn(btn); return; }
+      } catch (e) { /* repli hors-ligne */ }
+    }
+    if (!sent) { ref = this.genRef(); this.mailto(data, ref); }
+    this.success(ref);
+  },
+  mailto(d, ref) {
+    const subject = encodeURIComponent(`JSSED 2026 – Inscription – ${d.nom || ''}`);
+    const body = encodeURIComponent(`Réf : ${ref}\nCatégorie : ${d.type}\nNom : ${d.prenom || ''} ${d.nom || ''}\nEmail : ${d.email || ''}\nTéléphone : ${d.tel || ''}\nInstitution : ${d.institution || ''}\nPays : ${d.pays || ''}`);
+    window.location.href = `mailto:${JSSED_CONFIG.email}?subject=${subject}&body=${body}`;
+  },
+  success(ref) {
+    const f = $('#js-reg'); if (f) f.style.display = 'none';
+    const s = $('#js-reg-success'); if (s) { s.style.display = ''; const r = $('#js-reg-ref'); if (r) r.textContent = ref; s.scrollIntoView({ behavior:'smooth', block:'center' }); }
+  }
+};
+
 /* =========================================================
    ARCHIVE 2025 — déverrouillage au clic
    ========================================================= */
@@ -745,12 +808,11 @@ document.addEventListener('DOMContentLoaded', () => {
   jssedArchive.init();
   applyRegistrationState();
   jsTheme.init();
-  renderNews();
   renderDocs();
   renderSpeakers();
   renderProgram();
-  renderComite();
   renderPartners();
+  jsReg.init();
   renderGallery();
   renderTimeline();
   renderFaq();

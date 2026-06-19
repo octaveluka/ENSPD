@@ -110,7 +110,7 @@ configuration `JSSED_CONFIG` situé tout en haut du fichier :
 const JSSED_CONFIG = {
   apiBase: 'https://votre-domaine.bj/backend/api', // URL déployée du backend
   eventDate: null,        // ex. '2026-09-08T08:00:00' dès que la date est connue
-  email: 'jssed.enspd.up.2025@gmail.com'
+  email: 'jssed.enspd.up.2026@gmail.com'
 };
 ```
 

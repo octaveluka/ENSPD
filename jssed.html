@@ -83,14 +83,11 @@
 <!-- Mobile Nav -->
 <nav class="js-mobile-nav" id="js-mobile-nav" aria-label="Menu mobile">
   <a href="#apropos" class="js-mobile-link">À propos</a>
-  <a href="#actualites" class="js-mobile-link">Actualités</a>
   <a href="#aac" class="js-mobile-link">Axes thématiques</a>
   <a href="#programme" class="js-mobile-link">Programme &amp; intervenants</a>
-  <a href="#timeline" class="js-mobile-link">Dates clés</a>
-  <a href="#soumission" class="js-mobile-link">Soumettre</a>
-  <a href="#documents" class="js-mobile-link">Documents &amp; ressources</a>
   <a href="#tarifs" class="js-mobile-link">Inscription</a>
-  <a href="#comite" class="js-mobile-link">Comité scientifique</a>
+  <a href="#soumission" class="js-mobile-link">Soumettre un résumé</a>
+  <a href="#documents" class="js-mobile-link">Documents</a>
   <a href="#faq" class="js-mobile-link">FAQ</a>
   <a href="#contact" class="js-mobile-link">Contact</a>
   <a href="index.html" class="js-mobile-link">← Site ENSPD</a>
@@ -262,20 +259,6 @@
 
 <div class="js-divider"></div>
 
-<!-- ===================== ACTUALITÉS / ANNONCES ===================== -->
-<section class="js-section" id="actualites" aria-labelledby="news-title">
-  <div class="js-container">
-    <div class="js-section-center js-reveal">
-      <div class="js-section-badge">Actualités &amp; annonces</div>
-      <h2 class="js-section-title" id="news-title">Dernières informations</h2>
-      <p class="js-section-sub">Suivez les annonces officielles de l'organisation : ouverture des soumissions, inscriptions, programme.</p>
-    </div>
-    <div class="js-news-grid js-reveal" style="margin-top:40px;" id="js-news-grid"></div>
-  </div>
-</section>
-
-<div class="js-divider"></div>
-
 <!-- ===================== STATS ===================== -->
 <div class="js-stats-strip" id="js-stats">
   <div class="js-container">
@@ -314,20 +297,6 @@
       <a href="#soumission" class="js-btn js-btn-primary">JSSED 2026 — Participer →</a>
     </div>
     </div><!-- /js-archive-body -->
-  </div>
-</section>
-
-<div class="js-divider"></div>
-
-<!-- ===================== COMITÉ SCIENTIFIQUE ===================== -->
-<section class="js-section" id="comite" aria-labelledby="sc-title">
-  <div class="js-container">
-    <div class="js-section-center js-reveal">
-      <div class="js-section-badge">Comité scientifique</div>
-      <h2 class="js-section-title" id="sc-title">Comité Scientifique</h2>
-      <p class="js-section-sub">Experts des universités et institutions partenaires chargés de l'évaluation des soumissions.</p>
-    </div>
-    <div class="js-sc-grid js-reveal" style="margin-top:40px;" id="js-sc-grid" role="list"></div>
   </div>
 </section>
 
@@ -399,30 +368,7 @@
       </div>
     </div>
 
-    <div class="js-section-center js-reveal" style="margin-top:60px;">
-      <div class="js-section-badge">Formats de participation</div>
-      <h3 class="js-section-title" style="font-size:clamp(22px,3vw,30px);">Modes de contribution</h3>
-    </div>
-
-    <div class="js-formats-grid js-reveal">
-      <div class="js-format-item">
-        <span class="js-format-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></span>
-        <div class="js-format-name">Conférence-débat</div>
-        <div class="js-format-desc">Présentations thématiques invitées avec discussion</div>
-      </div>
-      <div class="js-format-item">
-        <span class="js-format-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v12H4z"/><path d="M8 20h8M9 16v4M15 16v4"/></svg></span>
-        <div class="js-format-name">Communication orale</div>
-        <div class="js-format-desc">Présentation de travaux originaux (15–20 min)</div>
-      </div>
-      <div class="js-format-item">
-        <span class="js-format-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="3" width="16" height="18" rx="1"/><path d="M8 7h8M8 11h8M8 15h5"/></svg></span>
-        <div class="js-format-name">Poster scientifique</div>
-        <div class="js-format-desc">Affichage de résultats commenté en session dédiée</div>
-      </div>
-    </div>
-
-    <div class="js-aac-info js-reveal">
+    <div class="js-aac-info js-reveal" style="margin-top:48px;">
       <div class="js-aac-info-item">
         <h4>Format du résumé</h4>
         <p>300 mots maximum · Police Arial 12 pt · Interligne 1,5 · Format Word (.docx) · 3 à 5 mots-clés.</p>
@@ -783,7 +729,7 @@
           <li>Certificat de participation</li>
           <li>Réseautage scientifique</li>
         </ul>
-        <a href="#contact" class="js-btn js-btn-teal js-btn-full">S'inscrire →</a>
+        <a href="#inscription-form" class="js-btn js-btn-teal js-btn-full">S'inscrire →</a>
       </div>
 
       <div class="js-tarif-card chercheur js-tarif-featured js-reveal js-reveal-delay-1">
@@ -800,7 +746,7 @@
           <li>Présentation prioritaire</li>
           <li>Réseautage scientifique</li>
         </ul>
-        <a href="#contact" class="js-btn js-btn-primary js-btn-full">S'inscrire →</a>
+        <a href="#inscription-form" class="js-btn js-btn-primary js-btn-full">S'inscrire →</a>
       </div>
 
       <div class="js-tarif-card exposant js-reveal js-reveal-delay-2">
@@ -816,7 +762,7 @@
           <li>Mention dans le programme</li>
           <li>Accès au réseautage</li>
         </ul>
-        <a href="#contact" class="js-btn js-btn-gold js-btn-full">Réserver →</a>
+        <a href="#inscription-form" class="js-btn js-btn-gold js-btn-full">Réserver →</a>
       </div>
     </div>
 
@@ -838,6 +784,53 @@
           <li>Envoyer le reçu à <a href="mailto:jssed.enspd.up.2026@gmail.com">jssed.enspd.up.2026@gmail.com</a></li>
           <li>Confirmation sous 48 h ouvrables</li>
         </ul>
+      </div>
+    </div>
+
+    <!-- Formulaire d'inscription -->
+    <div class="js-reveal" id="inscription-form" style="margin-top:44px;">
+      <div class="js-form-card" style="max-width:760px;margin:0 auto;">
+        <h3 class="js-form-section-title">Formulaire d'inscription</h3>
+        <p class="js-form-section-sub">Inscrivez-vous à l'événement. Les instructions de finalisation (paiement) vous seront envoyées par email.</p>
+        <div class="js-form-alert err" id="js-reg-alert" role="alert"></div>
+        <form id="js-reg" novalidate autocomplete="on">
+          <input type="text" name="website" id="js-reg-hp" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;">
+          <div class="js-field-group">
+            <label class="js-label" for="r-type">Catégorie <span>*</span></label>
+            <select class="js-select" id="r-type" name="type" required>
+              <option value="">— Sélectionnez —</option>
+              <option value="etudiant">Étudiant / Doctorant — 10 000 FCFA</option>
+              <option value="chercheur">Enseignant-chercheur / Praticien — 20 000 FCFA</option>
+              <option value="exposant">Stand / Exposition — 60 000 FCFA</option>
+            </select>
+            <div class="js-field-error" data-for="type">Veuillez choisir une catégorie.</div>
+          </div>
+          <div class="js-field-row">
+            <div class="js-field-group"><label class="js-label" for="r-prenom">Prénom <span>*</span></label><input class="js-input" id="r-prenom" name="prenom" required maxlength="80" autocomplete="given-name"><div class="js-field-error" data-for="prenom">Champ requis.</div></div>
+            <div class="js-field-group"><label class="js-label" for="r-nom">Nom <span>*</span></label><input class="js-input" id="r-nom" name="nom" required maxlength="80" autocomplete="family-name"><div class="js-field-error" data-for="nom">Champ requis.</div></div>
+          </div>
+          <div class="js-field-row">
+            <div class="js-field-group"><label class="js-label" for="r-email">Email <span>*</span></label><input class="js-input" type="email" id="r-email" name="email" required maxlength="160" autocomplete="email"><div class="js-field-error" data-for="email">Email invalide.</div></div>
+            <div class="js-field-group"><label class="js-label" for="r-tel">Téléphone</label><input class="js-input" type="tel" id="r-tel" name="tel" maxlength="30" autocomplete="tel"></div>
+          </div>
+          <div class="js-field-row">
+            <div class="js-field-group"><label class="js-label" for="r-institution">Institution</label><input class="js-input" id="r-institution" name="institution" maxlength="160"></div>
+            <div class="js-field-group"><label class="js-label" for="r-pays">Pays <span>*</span></label>
+              <select class="js-select" id="r-pays" name="pays" required>
+                <option value="BJ" selected>Bénin</option><option value="BF">Burkina Faso</option><option value="CI">Côte d'Ivoire</option><option value="CM">Cameroun</option><option value="SN">Sénégal</option><option value="TG">Togo</option><option value="NE">Niger</option><option value="ML">Mali</option><option value="FR">France</option><option value="XX">Autre</option>
+              </select></div>
+          </div>
+          <div class="js-field-group" style="margin-bottom:10px;">
+            <label class="js-consent"><input type="checkbox" id="r-consent" name="consent" required><span>J'accepte la <a href="#legal">politique de confidentialité</a> et le traitement de mes données aux fins de mon inscription.</span></label>
+          </div>
+          <button type="submit" class="js-btn js-btn-primary" id="js-reg-submit">Valider mon inscription</button>
+        </form>
+        <div class="js-confirm-check" id="js-reg-success" style="display:none;">
+          <div class="js-confirm-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>
+          <h3 class="js-confirm-title">Inscription enregistrée</h3>
+          <p class="js-confirm-sub">Un email de confirmation et les instructions de paiement vous seront adressés.</p>
+          <div class="js-confirm-ref" id="js-reg-ref"></div>
+        </div>
       </div>
     </div>
   </div>

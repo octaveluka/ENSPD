@@ -1,53 +1,10 @@
-# =====================================================================
-#  JSSED 2026 — Sécurité Apache (dossier backend)
-# ---------------------------------------------------------------------
-#  NOTE : nécessite le module Apache "mod_headers" (généralement actif
-#  sur les hébergements cPanel). Si les en-têtes ne s'appliquent pas,
-#  demandez à votre hébergeur d'activer mod_headers.
-# =====================================================================
-
-# --- En-têtes de sécurité ---
-<IfModule mod_headers.c>
-    Header always set X-Content-Type-Options "nosniff"
-    Header always set X-Frame-Options "DENY"
-    Header always set Referrer-Policy "strict-origin-when-cross-origin"
-    Header always set Cross-Origin-Resource-Policy "same-site"
-    # CSP minimale (le tableau de bord admin utilise des styles/scripts
-    # internes "inline" ; on les autorise donc explicitement).
-    Header set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; base-uri 'self'; frame-ancestors 'none'"
-    # Empêche la mise en cache des réponses API sensibles.
-    <FilesMatch "\.php$">
-        Header set Cache-Control "no-store"
-    </FilesMatch>
+# Interdire tout accès web au dossier bin/ (scripts CLI uniquement).
+# Apache 2.4
+<IfModule mod_authz_core.c>
+    Require all denied
 </IfModule>
-
-# --- Interdire l'accès direct aux fichiers sensibles ---
-# config.php, fichiers d'exemple, schéma SQL, journaux, .md
-<FilesMatch "(?i)\.(sql|md|log|ini)$">
-    <IfModule mod_authz_core.c>
-        Require all denied
-    </IfModule>
-    <IfModule !mod_authz_core.c>
-        Order allow,deny
-        Deny from all
-    </IfModule>
-</FilesMatch>
-
-<FilesMatch "^(config\.php|config\.example\.php|.*\.example\.php|.*\.local\.php)$">
-    <IfModule mod_authz_core.c>
-        Require all denied
-    </IfModule>
-    <IfModule !mod_authz_core.c>
-        Order allow,deny
-        Deny from all
-    </IfModule>
-</FilesMatch>
-
-# --- Désactiver le listing des répertoires ---
-<IfModule mod_autoindex.c>
-    Options -Indexes
+# Apache 2.2
+<IfModule !mod_authz_core.c>
+    Order allow,deny
+    Deny from all
 </IfModule>
-
-# Note : les dossiers src/ et bin/ contiennent en plus leur propre
-# fichier .htaccess "tout interdire" (défense en profondeur). Seuls les
-# dossiers api/ et admin/ sont destinés à être accessibles via le web.
