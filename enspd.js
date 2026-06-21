@@ -1268,19 +1268,81 @@ function goTemo(i){
     goTemo((_temoIdx + 1) % D.temos.length), 5000);
 }
 
+function _temoStep(){
+  /* Mobile : 1 carte visible => 100% par cran. Desktop : 3 cartes => 33.333% */
+  return window.matchMedia('(max-width: 768px)').matches ? 100 : 33.333;
+}
 function goTemo(i) {
   _temoIdx = i; _ti = i;
   const slider = document.getElementById('temo-slider');
   if (slider) {
-    /* Chaque carte = 33.333% de la largeur du slider */
-    slider.style.transform = `translateX(-${i * 33.333}%)`;
+    slider.style.transition = 'transform .48s cubic-bezier(.25,.46,.45,.94)';
+    slider.style.transform = `translateX(-${i * _temoStep()}%)`;
   }
   document.querySelectorAll('.temo-dot').forEach((d,j) =>
     d.classList.toggle('on', j===i));
 }
+function slideTemo(dir){ goTemo((_ti + dir + D.temos.length) % D.temos.length); }
+window.addEventListener('resize', () => goTemo(_ti));
 
-function slideTemo(dir){goTemo((_ti+dir+D.temos.length)%D.temos.length);}
-window.addEventListener('resize',()=>goTemo(_ti));
+/* ── SWIPE TACTILE (mobile uniquement) ─────────────────────── */
+function _restartTemoAuto(){
+  if(_temoInterval) clearInterval(_temoInterval);
+  _temoInterval = setInterval(() => goTemo((_temoIdx + 1) % D.temos.length), 5000);
+}
+function _initTemoSwipe(){
+  const wrap = document.querySelector('.temo-wrap');
+  const slider = document.getElementById('temo-slider');
+  if(!wrap || !slider || wrap.dataset.swipeInit) return;
+  wrap.dataset.swipeInit = '1';
+
+  let startX=0, startY=0, dx=0, dragging=false, locked=false, paused=false, w=0;
+
+  const onStart = (e) => {
+    if(!window.matchMedia('(max-width: 768px)').matches) return;
+    const t = e.touches[0];
+    startX = t.clientX; startY = t.clientY;
+    dx = 0; dragging = true; locked = false;
+    w = wrap.offsetWidth || 1;
+    /* Pause de la rotation auto pendant que l'utilisateur maintient/déplace */
+    if(_temoInterval){ clearInterval(_temoInterval); _temoInterval = null; paused = true; }
+    slider.style.transition = 'none';
+  };
+  const onMove = (e) => {
+    if(!dragging) return;
+    const t = e.touches[0];
+    const ddx = t.clientX - startX;
+    const ddy = t.clientY - startY;
+    if(!locked){
+      if(Math.abs(ddx) > 8 || Math.abs(ddy) > 8){
+        locked = true;
+        if(Math.abs(ddy) > Math.abs(ddx)){ dragging = false; if(paused){ _restartTemoAuto(); paused=false; } return; }
+      } else return;
+    }
+    if(e.cancelable) e.preventDefault();
+    dx = ddx;
+    const base = _ti * _temoStep();
+    slider.style.transform = `translateX(calc(-${base}% + ${dx}px))`;
+  };
+  const onEnd = () => {
+    if(!dragging){ if(paused){ _restartTemoAuto(); paused=false; } return; }
+    dragging = false;
+    const threshold = w * 0.18;
+    let target = _ti;
+    if(dx <= -threshold) target = Math.min(_ti + 1, D.temos.length - 1);
+    else if(dx >= threshold) target = Math.max(_ti - 1, 0);
+    goTemo(target);
+    if(paused){ _restartTemoAuto(); paused = false; }
+  };
+
+  wrap.addEventListener('touchstart',  onStart, {passive:true});
+  wrap.addEventListener('touchmove',   onMove,  {passive:false});
+  wrap.addEventListener('touchend',    onEnd);
+  wrap.addEventListener('touchcancel', onEnd);
+}
+document.addEventListener('DOMContentLoaded', _initTemoSwipe);
+setTimeout(_initTemoSwipe, 300);
+
 
 /* ── LIGHTBOX ─────────────────────────────────────────────── */
 let _lbImgs=[],_lbIdx=0;
