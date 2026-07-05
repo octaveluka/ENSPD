@@ -1,4 +1,0 @@
-- [Proxy server architecture](proxy-server.md) — Le site utilise server.py (Python ThreadingHTTPServer) au lieu de http.server pour proxifier /api/chat vers Delfa AI côté serveur (évite le CORS navigateur).
-- [Galerie tab routing](gallery-routing.md) — La galerie est un vrai onglet nav (data-p="galerie") ; nav() appelle renderGal() ; les données sont dans D.galerie dans enspd.js.
-- [Extensions fichiers galerie](gallery-routing.md) — Certains fichiers assets ont des extensions en majuscules (.JPG) ou .jpeg — toujours vérifier ls avant de toucher les src dans D.galerie.
-- [Render MySQL+PHP Docker gotchas](render-mysql-docker.md) — bundling MySQL in a PHP Docker image: bootstrap root via unix socket, and pin PHP's mysqlnd default_socket to match, or DB calls silently fail.
