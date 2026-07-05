@@ -9,8 +9,8 @@ Sécurité :
 """
 import http.server, urllib.request, urllib.parse, json, os, sys, time, threading
 
-PORT        = 5000
-DELFA       = 'https://delfaapiai.vercel.app/ai/copilot'
+PORT        = int(os.environ.get('PORT', 5000))
+DELFA       = os.environ.get('DELFA_API_URL', 'https://delfaapiai.vercel.app/ai/copilot')
 ORIGIN      = os.path.dirname(os.path.abspath(__file__))
 
 # ── limites sécurité ───────────────────────────────────────────────────────────

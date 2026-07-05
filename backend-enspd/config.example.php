@@ -15,6 +15,16 @@
  *  Toutes les valeurs sont des chaînes de caractères entre guillemets,
  *  sauf indication contraire. Ne supprimez ni les guillemets ni les
  *  virgules.
+ *
+ *  ⚠️ VARIABLES D'ENVIRONNEMENT (Render, Railway, Docker...) :
+ *  Sur ces hébergeurs, ce fichier config.php N'EST PAS NÉCESSAIRE.
+ *  Les valeurs ci-dessous sont automatiquement remplacées par les
+ *  variables d'environnement du service si elles sont définies
+ *  (DB_HOST, DB_NAME, DB_USER, DB_PASS, DB_PORT, ENV, CORS_ORIGINS,
+ *  SESSION_NAME, SESSION_SECRET, SESSION_IDLE_TIMEOUT, COOKIE_SECURE,
+ *  BASE_URL). Voir le fichier "render-env-variables.txt" à la racine
+ *  du dépôt pour la liste complète prête à copier dans le dashboard
+ *  Render (Environment → Add Environment Variable).
  * =====================================================================
  */
 

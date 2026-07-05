@@ -2000,11 +2000,29 @@ function renderGal(cat){
   if(_galCat==='Tout')Object.values(D.galerie).forEach(v=>imgs.push(...v));
   else imgs=D.galerie[_galCat]||[];
   grid.innerHTML=imgs.map((g,i)=>`
-    <div class="gal-item" onclick="openLB(getCurGalImgs(),${i})">
+    <div class="gal-item reveal" onclick="openLB(getCurGalImgs(),${i})">
       <img src="${g.src}" alt="${g.titre}" loading="lazy"
         onerror="this.parentElement.innerHTML='<div class=\\'ph\\'><div class=\\'ph-ico\\'></div><span>${g.titre}</span></div>'">
       <div class="gal-ov"><span>${g.titre}</span><small>${g.ev}</small></div>
     </div>`).join('');
+  requestAnimationFrame(()=>initGalReveal(grid));
+}
+let _galObs=null;
+function initGalReveal(grid){
+  if(!('IntersectionObserver' in window)){
+    grid.querySelectorAll('.gal-item.reveal').forEach(el=>el.classList.add('in'));
+    return;
+  }
+  if(_galObs)_galObs.disconnect();
+  _galObs=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        e.target.classList.add('in');
+        _galObs.unobserve(e.target);
+      }
+    });
+  },{threshold:0.08,rootMargin:'0px 0px -20px 0px'});
+  grid.querySelectorAll('.gal-item.reveal:not(.in)').forEach(el=>_galObs.observe(el));
 }
 function getCurGalImgs(){if(_galCat==='Tout'){let a=[];Object.values(D.galerie).forEach(v=>a.push(...v));return a;}return D.galerie[_galCat]||[];}
 

@@ -1,0 +1,55 @@
+# =====================================================================
+# ENSPD — Variables d'environnement pour déploiement Render
+# =====================================================================
+#
+# Ce fichier liste toutes les variables d'environnement utilisées par
+# le backend PHP (backend/ ou backend-enspd/, selon celui que vous
+# retenez comme canonique). Le code lit désormais ces variables en
+# PRIORITÉ (getenv()), avec repli sur backend*/config.php si elles ne
+# sont pas définies.
+#
+# COMMENT S'EN SERVIR SUR RENDER :
+#   Dashboard → votre service backend → Environment
+#   → Add Environment Variable → copiez chaque clé et sa valeur.
+#   Remplacez toutes les valeurs marquées "A_DEFINIR" par vos vraies
+#   valeurs de production. Ne committez JAMAIS ce fichier une fois
+#   rempli avec de vrais secrets.
+#
+# =====================================================================
+
+# --- Base de données MySQL --------------------------------------------
+DB_HOST=A_DEFINIR
+DB_NAME=A_DEFINIR
+DB_USER=A_DEFINIR
+DB_PASS=A_DEFINIR
+DB_PORT=3306
+
+# --- Environnement d'exécution -----------------------------------------
+ENV=prod
+
+# --- CORS (URL exacte du frontend, plusieurs valeurs séparées par des virgules) ---
+CORS_ORIGINS=https://votre-frontend.onrender.com
+
+# --- Sessions d'administration ------------------------------------------
+SESSION_NAME=ENSPD_ADMIN
+SESSION_SECRET=A_DEFINIR
+SESSION_IDLE_TIMEOUT=1800
+COOKIE_SECURE=true
+
+# --- URL publique du backend ---------------------------------------------
+BASE_URL=https://votre-backend.onrender.com
+
+# --- API IA (optionnel — le proxy /api/chat de server.py) ---------------
+DELFA_API_URL=https://delfaapiai.vercel.app/ai/copilot
+
+# =====================================================================
+# Notes :
+# - SESSION_SECRET : générez une valeur aléatoire forte (min. 32
+#   caractères), par ex. avec : openssl rand -hex 32
+# - DB_PASS : mot de passe fort (min. 16 caractères, alphanumérique +
+#   caractères spéciaux).
+# - CORS_ORIGINS accepte plusieurs origines séparées par des virgules,
+#   ex : https://site-a.onrender.com,https://site-b.onrender.com
+# - Si backend/ ET backend-enspd/ sont déployés séparément, chacun a
+#   ses propres variables (DB_NAME/SESSION_NAME différents typiquement).
+# =====================================================================

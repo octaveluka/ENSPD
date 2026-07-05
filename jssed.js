@@ -337,14 +337,14 @@ function renderGallery() {
   const el = $('#js-arch-gallery'); if (!el) return;
   el.innerHTML = JSSED_DATA.gallery.map(g => {
     if (g.img) {
-      return `<div class="js-arch-photo-wrap">
+      return `<div class="js-arch-photo-wrap js-reveal">
         <img src="${escapeHtml(g.img)}" alt="JSSED 2025 — ${escapeHtml(g.caption)}" class="js-arch-photo" loading="lazy"
              onerror="this.style.display='none'">
         <div class="js-arch-photo-placeholder" aria-hidden="true">${SVG.camera}<span class="js-arch-ph-label">${escapeHtml(g.caption)}</span></div>
         <div class="js-arch-photo-caption">${escapeHtml(g.caption)}</div>
       </div>`;
     }
-    return `<div class="js-arch-photo-wrap js-arch-photo-wrap--empty">
+    return `<div class="js-arch-photo-wrap js-arch-photo-wrap--empty js-reveal">
       <div class="js-arch-photo-placeholder" aria-hidden="true">${SVG.camera}<span class="js-arch-ph-label">${escapeHtml(g.caption)} · à ajouter</span></div>
       <div class="js-arch-photo-caption">${escapeHtml(g.caption)}</div>
     </div>`;

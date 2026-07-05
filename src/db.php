@@ -22,27 +22,25 @@ function db(): PDO
         return $pdo;
     }
 
-    // Charge la configuration (backend-enspd/config.php).
-    $configPath = __DIR__ . '/../config.php';
-    if (!is_file($configPath)) {
+    $config = config();
+
+    if ($config['db_name'] === '' || $config['db_user'] === '') {
         http_response_code(500);
         header('Content-Type: application/json; charset=utf-8');
         echo json_encode([
             'ok'    => false,
             'error' => 'server',
-            'message' => 'Configuration manquante (config.php). Copiez config.example.php.',
+            'message' => 'Configuration base de données manquante. Définissez les variables '
+                . "d'environnement (DB_HOST, DB_NAME, DB_USER, DB_PASS, DB_PORT) ou créez config.php à partir de config.example.php.",
         ]);
         exit;
     }
 
-    /** @var array $config */
-    $config = require $configPath;
-
-    $host = $config['db_host'] ?? 'localhost';
-    $name = $config['db_name'] ?? '';
-    $user = $config['db_user'] ?? '';
-    $pass = $config['db_pass'] ?? '';
-    $port = (int) ($config['db_port'] ?? 3306);
+    $host = $config['db_host'];
+    $name = $config['db_name'];
+    $user = $config['db_user'];
+    $pass = $config['db_pass'];
+    $port = $config['db_port'];
 
     $dsn = sprintf(
         'mysql:host=%s;port=%d;dbname=%s;charset=utf8mb4',
@@ -82,13 +80,49 @@ function db(): PDO
 
 /**
  * Retourne le tableau de configuration complet.
+ *
+ * Priorité : variables d'environnement (utilisées sur Render/Railway/etc.)
+ * puis, à défaut, le fichier local config.php (utile en hébergement
+ * mutualisé cPanel où les variables d'environnement ne sont pas
+ * disponibles).
  */
 function config(): array
 {
     static $config = null;
-    if ($config === null) {
-        $configPath = __DIR__ . '/../config.php';
-        $config = is_file($configPath) ? require $configPath : [];
+    if ($config !== null) {
+        return $config;
     }
+
+    $configPath = __DIR__ . '/../config.php';
+    $file = is_file($configPath) ? require $configPath : [];
+
+    $env = static function (string $key, $default = null) {
+        $value = getenv($key);
+        return ($value === false || $value === '') ? $default : $value;
+    };
+
+    $corsEnv = getenv('CORS_ORIGINS');
+    $corsOrigins = $corsEnv !== false && $corsEnv !== ''
+        ? array_values(array_filter(array_map('trim', explode(',', $corsEnv))))
+        : ($file['cors_origins'] ?? []);
+
+    $config = [
+        'db_host'              => (string) $env('DB_HOST', $file['db_host'] ?? 'localhost'),
+        'db_name'              => (string) $env('DB_NAME', $file['db_name'] ?? ''),
+        'db_user'              => (string) $env('DB_USER', $file['db_user'] ?? ''),
+        'db_pass'              => (string) $env('DB_PASS', $file['db_pass'] ?? ''),
+        'db_port'              => (int) $env('DB_PORT', $file['db_port'] ?? 3306),
+        'env'                  => (string) $env('ENV', $file['env'] ?? 'prod'),
+        'cors_origins'         => $corsOrigins,
+        'session_name'         => (string) $env('SESSION_NAME', $file['session_name'] ?? 'ENSPD_ADMIN'),
+        'session_secret'       => (string) $env('SESSION_SECRET', $file['session_secret'] ?? ''),
+        'session_idle_timeout' => (int) $env('SESSION_IDLE_TIMEOUT', $file['session_idle_timeout'] ?? 1800),
+        'cookie_secure'        => filter_var(
+            $env('COOKIE_SECURE', $file['cookie_secure'] ?? true),
+            FILTER_VALIDATE_BOOLEAN
+        ),
+        'base_url'             => (string) $env('BASE_URL', $file['base_url'] ?? ''),
+    ];
+
     return $config;
 }

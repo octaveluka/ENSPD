@@ -1591,8 +1591,8 @@ Merci à tous les participants pour cet esprit sportif exemplaire et cette belle
       { src:'assets/galerie/bue/anglais3.jpg', titre:'Formation Anglais', ev:'Club Anglais CRISTAL' },
     ],
     'Rentrée Solennelle': [
-      { src:'assets/galerie/enspd/rentree_1775854492374.jpg', titre:'Rentrée Solennelle', ev:'3ème éd. — Déc 2025' },
-      { src:'assets/galerie/enspd/rentree_1775854494083.jpg', titre:'Rentrée Solennelle', ev:'3ème éd. — Déc 2025' },
+      { src:'assets/galerie/enspd/rentree_1775854492374.jpeg', titre:'Rentrée Solennelle', ev:'3ème éd. — Déc 2025' },
+      { src:'assets/galerie/enspd/rentree_1775854494083.JPG', titre:'Rentrée Solennelle', ev:'3ème éd. — Déc 2025' },
       { src:'assets/galerie/enspd/rentree_1775854499589.jpg', titre:'Rentrée Solennelle', ev:'3ème éd. — Déc 2025' },
     ],
   },
@@ -1982,6 +1982,24 @@ function filterBueGal(cat, btn) {
         <small>${S.esc(g.ev)}</small>
       </div>
     </div>`).join('');
+  requestAnimationFrame(() => initBueGalReveal(grid));
+}
+let _bueGalObs = null;
+function initBueGalReveal(grid) {
+  if (!('IntersectionObserver' in window)) {
+    grid.querySelectorAll('.gal-item').forEach(el => el.classList.add('in'));
+    return;
+  }
+  if (_bueGalObs) _bueGalObs.disconnect();
+  _bueGalObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('in');
+        _bueGalObs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -20px 0px' });
+  grid.querySelectorAll('.gal-item:not(.in)').forEach(el => _bueGalObs.observe(el));
 }
 function getBueGalImages() {
   if (_bueGalCat === 'Tout') {
