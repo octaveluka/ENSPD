@@ -626,8 +626,33 @@ const AUTH={
 
 /* ── DARK MODE ────────────────────────────────────────────── */
 let _dark=false;
-function toggleDark(){_dark=!_dark;document.documentElement.dataset.theme=_dark?'dark':'';localStorage.setItem('enspd-theme',_dark?'dark':'');}
-function initTheme(){const s=localStorage.getItem('enspd-theme');_dark=s!==null?s==='dark':false;document.documentElement.dataset.theme=_dark?'dark':'';}
+function toggleDark(){
+  /* Animation de transition */
+  const ov=document.getElementById('theme-ov');
+  if(ov){ov.style.opacity='.4';setTimeout(()=>{ov.style.opacity='0';},320);}
+  _dark=!_dark;
+  document.documentElement.dataset.theme=_dark?'dark':'';
+  localStorage.setItem('enspd-theme',_dark?'dark':'');
+  _syncThemeBtn();
+}
+function _syncThemeBtn(){
+  const btn=document.getElementById('dark-btn');
+  if(btn)btn.setAttribute('aria-label',_dark?'Passer en mode clair':'Passer en mode sombre');
+}
+function initTheme(){
+  const s=localStorage.getItem('enspd-theme');
+  if(s!==null){_dark=s==='dark';}
+  else{_dark=window.matchMedia('(prefers-color-scheme:dark)').matches;}
+  document.documentElement.dataset.theme=_dark?'dark':'';
+  /* Écoute les changements système si l'utilisateur n'a pas de préférence manuelle */
+  window.matchMedia('(prefers-color-scheme:dark)').addEventListener('change',e=>{
+    if(localStorage.getItem('enspd-theme')===null){
+      _dark=e.matches;
+      document.documentElement.dataset.theme=_dark?'dark':'';
+      _syncThemeBtn();
+    }
+  });
+}
 
 /* ── LANGUE ──────────────────────────────────────────────── */
 let _lang='fr';
@@ -2200,6 +2225,91 @@ function initWhySlider(){
   if(slides.length<2 && timer){clearInterval(timer);timer=null;}
 }
 
+/* ── AI CHATBOT (Delfa API) ──────────────────────────────── */
+const CHAT_CTX=`Tu es l'assistant virtuel officiel de l'ENSPD (École Nationale de Statistique, de Planification et de Démographie), Université de Parakou, Bénin.
+
+INFORMATIONS CLÉS SUR L'ENSPD :
+- Fondée en 2012 par arrêté ministériel n°256/MESRS. Une des 9 UFR de l'Université de Parakou.
+- Directeur : Prof. Épiphane SODJINOU (Ph.D. Économie Agricole, Université de Copenhague).
+- Spécialités : statistique, planification, démographie, suivi-évaluation.
+- FORMATIONS (8 au total) :
+  • Licences : SA (Statistique Appliquée), PSE (Planification & Suivi-Évaluation)
+  • Masters : SSD, SAAV (Biostat), SESA (Actuariat), SE-MP, SILPD
+  • Doctorat : Population et Ressources Naturelles (École Doctorale «Agronomie et Eau»)
+- ADMISSION LICENCE : Concours MESRS/DEC — Bac C ou D, mention Assez-Bien minimum. Inscription sur apresmonbac.bj.
+- ADMISSION MASTER : sur dossier, Licence en domaine compatible.
+- PAIEMENT DROITS : paiement.tresorbenin.bj — Compte ENSPD : 01001 000001048692 20 (BJ66 0010 0100 0001 0486 9220) — MTN/Moov/Carte bancaire.
+- LABORATOIRES : LaReSPD (2014) et ODeSPoL (2016).
+- PARTENAIRES : INSAE, Université Laval (Canada), Pan African University, UEMOA, FAO, UNFPA.
+- VIE ÉTUDIANTE : BUE (Bureau d'Union des Étudiants, élu démocratiquement), CRISTAL (4 sections : Informatique, Anglais, Art & Dev. personnel, Science fondamentale).
+- ÉVÉNEMENTS : JSSED (Journées Scientifiques Statistique Évaluation Démographie — 2ème éd. sep. 2026), Rentrée Solennelle.
+- CONTACT : Université de Parakou, Bénin — Lun-Ven 08h-17h. Scolarité : 08h-12h / 15h-17h.
+- DÉBOUCHÉS : INSAE, ministères, ONG, agences ONU (UNFPA, PNUD), banques, communes, cabinets-conseils.
+- OUTILS ENSEIGNÉS : R, Python, STATA, SPSS, SIG, KoboToolbox, ODK.
+
+Réponds uniquement en lien avec l'ENSPD. Sois concis, utile et professionnel. Si tu ne connais pas une information précise, dis-le clairement.`;
+
+let _chatOpen=false,_chatHist=[],_chatBusy=false;
+
+function toggleChat(){
+  _chatOpen=!_chatOpen;
+  const win=document.getElementById('chat-window');
+  const fab=document.getElementById('chat-fab');
+  if(win){win.classList.toggle('open',_chatOpen);win.setAttribute('aria-hidden',!_chatOpen);}
+  if(fab)fab.setAttribute('aria-expanded',String(_chatOpen));
+  if(_chatOpen&&_chatHist.length===0){
+    _chatPush('bot','Bonjour ! 👋 Je suis l\'assistant virtuel de l\'ENSPD. Posez-moi vos questions sur les formations, admissions, vie étudiante ou tout autre sujet lié à notre école.');
+  }
+  if(_chatOpen)setTimeout(()=>document.getElementById('chat-input')?.focus(),300);
+}
+function _chatPush(role,text){_chatHist.push({role,text});_chatRender();}
+function _chatRender(){
+  const el=document.getElementById('chat-messages');if(!el)return;
+  el.innerHTML=_chatHist.map(m=>{
+    if(m.role==='bot')return`<div class="cm-row cm-bot"><div class="cm-av">🤖</div><div class="cm-bbl cm-bbl-bot">${S.esc(m.text).replace(/\n/g,'<br>')}</div></div>`;
+    return`<div class="cm-row cm-usr"><div class="cm-bbl cm-bbl-usr">${S.esc(m.text)}</div></div>`;
+  }).join('');
+  if(_chatBusy)el.innerHTML+=`<div class="cm-row cm-bot"><div class="cm-av">🤖</div><div class="cm-bbl cm-bbl-bot cm-typing"><span></span><span></span><span></span></div></div>`;
+  el.scrollTop=el.scrollHeight;
+}
+async function chatSend(){
+  const inp=document.getElementById('chat-input');
+  if(!inp||_chatBusy)return;
+  const txt=inp.value.trim();if(!txt)return;
+  inp.value='';inp.style.height='';
+  _chatPush('user',txt);_chatBusy=true;_chatRender();
+  const recent=_chatHist.slice(-8).map(m=>(m.role==='user'?'Utilisateur':'Assistant')+': '+m.text).join('\n');
+  const msg=CHAT_CTX+'\n\nConversation:\n'+recent+'\n\nRéponds à la dernière question de l\'Utilisateur de façon concise.';
+  try{
+    const r=await fetch('https://delfaapiai.vercel.app/ai/copilot?message='+encodeURIComponent(msg)+'&model=default');
+    const d=await r.json();
+    _chatBusy=false;
+    _chatPush('bot',d.answer||'Désolé, je n\'ai pas pu traiter votre demande. Veuillez réessayer.');
+  }catch{
+    _chatBusy=false;
+    _chatPush('bot','Erreur de connexion. Vérifiez votre connexion internet et réessayez.');
+  }
+}
+function chatKey(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();chatSend();}}
+function chatAutoResize(el){el.style.height='auto';el.style.height=Math.min(el.scrollHeight,120)+'px';}
+
+/* ── ANIMATIONS AVANCÉES ─────────────────────────────────── */
+function initAnimPlus(){
+  /* Observer principal — scroll reveal */
+  const mainObs=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');mainObs.unobserve(e.target);}});
+  },{threshold:0.08,rootMargin:'0px 0px -40px 0px'});
+  document.querySelectorAll('.anim-s:not(.vis),.anim-blur:not(.vis)').forEach(el=>mainObs.observe(el));
+  /* Stagger automatique sur les grilles */
+  document.querySelectorAll('.g2,.g3,.g4,.vie-grid,.form-apercu-grid,.debouches-grid').forEach(grid=>{
+    grid.querySelectorAll(':scope > *').forEach((child,i)=>{
+      if(!child.classList.contains('anim'))return;
+      const delay=Math.min(i*0.1,0.6);
+      child.style.transitionDelay=delay+'s';
+    });
+  });
+}
+
 /* ── INIT ─────────────────────────────────────────────────── */
 document.addEventListener('DOMContentLoaded',()=>{
   /* Routing — tous les [data-p] clickables */
@@ -2270,4 +2380,14 @@ document.addEventListener('DOMContentLoaded',()=>{
   initWhySlider();
 
   nav('accueil');
+
+  /* Fermer le chat si clic en dehors */
+  document.addEventListener('click',e=>{
+    const win=document.getElementById('chat-window');
+    const fab=document.getElementById('chat-fab');
+    if(_chatOpen&&win&&!win.contains(e.target)&&!fab?.contains(e.target))toggleChat();
+  });
+
+  /* Animations avancées */
+  initAnimPlus();
 });

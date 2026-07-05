@@ -1,0 +1,296 @@
+================================================================
+AUDIT DE SÉCURITÉ — ENSPD SITE OFFICIEL
+Date : Juillet 2026
+Périmètre : Frontend (index.html, enspd.js, shared.css)
+================================================================
+
+RÉSUMÉ EXÉCUTIF
+---------------
+Le site ENSPD est une SPA (Single Page Application) statique en vanilla JS.
+Le périmètre frontend a été audité. Plusieurs vulnérabilités ont été identifiées,
+principalement liées à la conception du système d'authentification côté client.
+Le site ne gère pas de données sensibles critiques en production front-end,
+ce qui limite l'impact global, mais plusieurs points doivent être corrigés
+avant tout déploiement en production avec backend activé.
+
+================================================================
+VULNÉRABILITÉS CRITIQUES
+================================================================
+
+[CRIT-01] Authentification admin entièrement côté client (localStorage)
+------------------------------------------------------------------------
+Fichier  : enspd.js, lignes ~584–625
+Sévérité : CRITIQUE
+
+Description :
+Le système d'authentification admin est implémenté intégralement dans le
+navigateur. Le mot de passe admin est stocké dans localStorage sous forme
+de hash (hashP), et la vérification s'effectue aussi côté client.
+N'importe quel utilisateur peut :
+1. Ouvrir la console du navigateur
+2. Appeler AUTH.setAdminPassword('nouveauPass')
+3. Se connecter en tant qu'admin
+
+Impact : Prise de contrôle totale du dashboard admin par n'importe quel visiteur.
+
+Correction :
+- Migrer l'authentification vers le backend PHP (backend-enspd/).
+- Ne jamais stocker ni vérifier des credentials dans le navigateur.
+- Utiliser une session serveur (SESSION_SECRET déjà disponible en variable).
+
+
+[CRIT-02] Fonction hashP() — Hachage cryptographiquement faible
+----------------------------------------------------------------
+Fichier  : enspd.js, ligne 576
+Sévérité : CRITIQUE
+
+Description :
+La fonction hashP() utilise une variante de l'algorithme djb2 (hash 32 bits).
+Ce n'est PAS un algorithme cryptographique. Les mots de passe hachés avec
+cette fonction sont vulnérables à des attaques par force brute ou par
+table arc-en-ciel en quelques secondes avec un GPU ordinaire.
+
+Code actuel :
+  function hashP(s){let h=0;for(let i=0;i<s.length;i++)
+  {h=((h<<5)-h)+s.charCodeAt(i);h|=0;}return Math.abs(h).toString(36);}
+
+Correction :
+- Utiliser bcrypt (PHP : password_hash / password_verify) côté serveur.
+- Ne jamais hacher les mots de passe côté client.
+
+
+[CRIT-03] Exposition de l'email admin dans le code source
+----------------------------------------------------------
+Fichier  : enspd.js, ligne 585
+Sévérité : CRITIQUE
+
+Description :
+L'email administrateur est hardcodé et visible dans le source :
+  ADMIN_EMAIL:'admin@enspd.bj'
+Un attaquant peut immédiatement cibler ce compte.
+
+Correction :
+- Ne pas exposer les identifiants administrateurs dans le code frontend.
+- Gérer les routes d'administration uniquement côté serveur.
+
+
+================================================================
+VULNÉRABILITÉS HAUTES
+================================================================
+
+[HIGH-01] Rate Limiting admin contournable via localStorage
+-----------------------------------------------------------
+Fichier  : enspd.js, lignes 579–582
+Sévérité : HAUTE
+
+Description :
+Le rate limiting sur les tentatives de connexion (5 tentatives / 5 min)
+est stocké dans localStorage. Un attaquant peut le contourner en exécutant :
+  localStorage.removeItem('enspd_rl')
+puis en réessayant immédiatement.
+
+Correction :
+- Implémenter le rate limiting côté serveur (basé sur l'IP).
+- En PHP : utiliser une table de base de données pour tracer les tentatives.
+
+
+[HIGH-02] Sessions stockées dans localStorage — Risque XSS
+----------------------------------------------------------
+Fichier  : enspd.js, ligne 590
+Sévérité : HAUTE
+
+Description :
+Les sessions utilisateurs (clé 'enspd_u7') sont stockées dans localStorage.
+Si une vulnérabilité XSS est exploitée, un script malveillant peut exfiltrer
+ces données avec localStorage.getItem('enspd_u7').
+
+Correction :
+- Utiliser des cookies httpOnly pour les sessions (inaccessibles au JS).
+- Le backend PHP peut définir ces cookies via Set-Cookie; HttpOnly; Secure.
+
+
+[HIGH-03] Absence de Content Security Policy (CSP)
+--------------------------------------------------
+Fichier  : index.html
+Sévérité : HAUTE
+
+Description :
+Aucun header CSP n'est configuré. En cas d'injection XSS, un attaquant peut
+charger des scripts tiers, exfiltrer des données ou manipuler la page.
+
+Correction à ajouter dans .htaccess ou dans la réponse du serveur :
+  Content-Security-Policy: default-src 'self';
+    script-src 'self' 'unsafe-inline';
+    style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+    font-src 'self' https://fonts.gstatic.com;
+    img-src 'self' data: https:;
+    connect-src 'self' https://delfaapiai.vercel.app;
+    frame-ancestors 'none';
+
+Note : 'unsafe-inline' est nécessaire pour les onclick= dans le HTML actuel.
+Pour l'éliminer, migrer vers des event listeners et supprimer les onclick= inline.
+
+
+[HIGH-04] Pas d'en-tête X-Frame-Options / Clickjacking
+-------------------------------------------------------
+Fichier  : .htaccess
+Sévérité : HAUTE
+
+Description :
+Le site peut être embarqué dans un iframe par un site malveillant (clickjacking).
+
+Correction à ajouter dans .htaccess :
+  Header always set X-Frame-Options "DENY"
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+
+
+================================================================
+VULNÉRABILITÉS MOYENNES
+================================================================
+
+[MED-01] Handlers onclick= inline dans le HTML
+----------------------------------------------
+Fichier  : index.html
+Sévérité : MOYENNE
+
+Description :
+L'utilisation extensive de onclick="..." inline (ex: onclick="nav('admissions')")
+empêche la mise en place d'une CSP stricte sans 'unsafe-inline', ce qui affaiblit
+la protection contre les injections XSS.
+
+Correction :
+- Migrer progressivement vers des addEventListener() dans enspd.js.
+- Utiliser des data-attributes pour les actions (ex: data-nav="admissions").
+
+
+[MED-02] innerHTML sans sanitisation dans renderAdmin
+----------------------------------------------------
+Fichier  : enspd.js
+Sévérité : MOYENNE
+
+Description :
+Certaines fonctions de rendu admin utilisent innerHTML avec des données
+potentiellement non sanitisées (données lues depuis localStorage).
+
+Impact : Si des données localStorage sont manipulées par un attaquant ayant
+accès au navigateur, cela peut aboutir à une injection XSS persistante.
+
+Correction :
+- Systématiser l'utilisation de S.esc() pour toutes les données dynamiques.
+- Valider les données au chargement depuis localStorage.
+
+
+[MED-03] Absence de Subresource Integrity (SRI) pour Google Fonts
+-----------------------------------------------------------------
+Fichier  : shared.css, ligne 12
+Sévérité : MOYENNE
+
+Description :
+Le @import Google Fonts charge des ressources externes sans vérification
+d'intégrité. En cas de compromission de Google CDN, des polices malveillantes
+pourraient être injectées.
+
+Alternative :
+- Télécharger et auto-héberger les polices pour une indépendance totale.
+- Ou utiliser <link> avec integrity= et crossorigin= dans le HTML.
+
+
+[MED-04] Pas d'en-tête Strict-Transport-Security (HSTS)
+-------------------------------------------------------
+Sévérité : MOYENNE
+
+Description :
+HSTS n'est pas configuré, permettant des attaques de downgrade HTTPS→HTTP.
+
+Correction dans .htaccess (si HTTPS disponible) :
+  Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+
+
+================================================================
+VULNÉRABILITÉS FAIBLES
+================================================================
+
+[LOW-01] Route admin visible dans le HTML source
+------------------------------------------------
+Fichier  : index.html, ligne 75
+Sévérité : FAIBLE
+
+Description :
+  <a href="#" data-p="admin" id="nav-admin-link" hidden>Admin</a>
+Le lien admin est visible dans le source HTML même s'il est caché visuellement.
+Un attaquant sait qu'une route admin existe.
+
+Note : L'impact est limité car l'admin est protégé par mot de passe (côté client).
+Devrait être généré dynamiquement et inséré uniquement si authentifié.
+
+
+[LOW-02] Confidentialité — Requêtes Google Fonts
+------------------------------------------------
+Sévérité : FAIBLE
+
+Description :
+Les polices Google Fonts envoient l'adresse IP du visiteur à Google à chaque
+chargement. Cela peut poser des problèmes RGPD si le site est accessible à
+des résidents de l'UE ou si une politique de confidentialité stricte est requise.
+
+Correction :
+- Auto-héberger les polices (télécharger depuis fonts.google.com).
+- Mentionner explicitement dans la politique de confidentialité du site.
+
+
+[LOW-03] Commentaires sensibles dans le HTML
+-------------------------------------------
+Fichier  : index.html
+Sévérité : FAIBLE
+
+Description :
+Des commentaires de développement explicitent la structure du code et les
+fonctionnalités prévues :
+  <!-- Lien vers le site du BUE — prévu, masqué pour le moment -->
+  <!-- Sélecteur FR/EN retiré -->
+Ces commentaires donnent des informations à un attaquant sur la roadmap.
+
+Correction : Supprimer les commentaires sensibles en production.
+
+
+================================================================
+BONNES PRATIQUES DÉJÀ EN PLACE ✓
+================================================================
+
+✓ meta referrer="strict-origin-when-cross-origin" présent (index.html)
+✓ Sanitisation S.esc() implémentée pour les outputs utilisateur
+✓ Rate limiting basique sur les tentatives de connexion
+✓ Pas d'API keys exposées dans le code frontend
+✓ Validation email (isEmail()) avant traitement
+✓ Vérification de la force du mot de passe (passStr())
+✓ Attributs ARIA et accessibilité correctement implémentés
+✓ Protection contre les injections via innerHTML dans les cas principaux
+✓ meta robots="index,follow" correctement configuré
+
+
+================================================================
+PLAN DE CORRECTION PRIORITAIRE
+================================================================
+
+Priorité 1 — IMMÉDIAT (avant mise en production) :
+  - CRIT-01 : Migrer l'auth admin vers le backend PHP
+  - CRIT-02 : Remplacer hashP() par bcrypt côté serveur
+  - CRIT-03 : Retirer l'email admin du code source
+  - HIGH-01 : Rate limiting côté serveur
+  - HIGH-02 : Sessions en cookies httpOnly
+
+Priorité 2 — COURT TERME (dans les 2 semaines) :
+  - HIGH-03 : Mettre en place le header CSP
+  - HIGH-04 : Ajouter X-Frame-Options, X-Content-Type-Options, Referrer-Policy
+  - MED-04 : Activer HSTS
+
+Priorité 3 — MOYEN TERME :
+  - MED-01 : Migrer les onclick= inline vers event listeners
+  - MED-02 : Audit complet des innerHTML dans renderAdmin
+  - LOW-01 : Générer dynamiquement le lien admin
+  - LOW-03 : Nettoyer les commentaires pour la production
+
+================================================================
+FIN DU RAPPORT — ENSPD Security Audit v1.0 — Juillet 2026
+================================================================

@@ -841,10 +841,33 @@
   </div>
 </div>
 
-<!-- Chat — placeholder « bientôt disponible » -->
-<button id="chat-fab" class="chat-fab" onclick="toast('Chat — bientôt disponible.','inf')" aria-label="Chat (bientôt disponible)" title="Chat — bientôt disponible">
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-8.5 8.5 8.5 8.5 0 0 1-3.8-.9L3 21l1.9-5.7A8.5 8.5 0 0 1 12.5 3 8.38 8.38 0 0 1 21 11.5z"/></svg>
-  <span class="chat-fab-soon">Bientôt</span>
+<!-- Overlay transition de thème -->
+<div id="theme-ov" style="position:fixed;inset:0;z-index:9999;background:var(--bg);opacity:0;pointer-events:none;transition:opacity .3s ease;" aria-hidden="true"></div>
+
+<!-- Assistant IA ENSPD -->
+<div id="chat-window" class="chat-window" role="dialog" aria-label="Assistant virtuel ENSPD" aria-hidden="true">
+  <div class="chat-hdr">
+    <div class="chat-hdr-info">
+      <div class="chat-hdr-av">🎓</div>
+      <div>
+        <div class="chat-hdr-name">Assistant ENSPD</div>
+        <div class="chat-hdr-status"><span class="chat-dot"></span>En ligne — Propulsé par IA</div>
+      </div>
+    </div>
+    <button class="chat-cls" onclick="toggleChat()" aria-label="Fermer">✕</button>
+  </div>
+  <div id="chat-messages" class="chat-msgs"></div>
+  <div class="chat-ftr">
+    <textarea id="chat-input" class="chat-inp" placeholder="Posez votre question sur l'ENSPD…" rows="1"
+      onkeydown="chatKey(event)" oninput="chatAutoResize(this)" aria-label="Message"></textarea>
+    <button class="chat-snd" onclick="chatSend()" aria-label="Envoyer">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+    </button>
+  </div>
+</div>
+<button id="chat-fab" class="chat-fab" onclick="toggleChat()" aria-label="Assistant virtuel ENSPD" aria-expanded="false" title="Assistant IA — ENSPD">
+  <svg class="chat-fab-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-8.5 8.5 8.5 8.5 0 0 1-3.8-.9L3 21l1.9-5.7A8.5 8.5 0 0 1 12.5 3 8.38 8.38 0 0 1 21 11.5z"/></svg>
+  <span class="chat-fab-lbl">IA</span>
 </button>
 <button id="btt" data-i18n-title="btt_title" title="Retour en haut" aria-label="Retour en haut de page">↑</button>
 <script src="enspd.js" defer></script>
