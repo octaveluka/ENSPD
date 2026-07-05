@@ -272,6 +272,15 @@ h1, h2, h3, h4 { font-family: var(--fs); font-weight: 600; line-height: 1.18; co
 .js-hero-actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 36px; }
 
 /* ---------- Bandeau de notice / instructions temps réel ---------- */
+.skip-link {
+  position: absolute; top: -60px; left: 20px;
+  background: var(--gold-600); color: #fff;
+  padding: 10px 20px; border-radius: 8px;
+  font-size: 14px; font-weight: 600;
+  z-index: 999; transition: top .2s ease;
+}
+.skip-link:focus { top: 20px; outline: 3px solid var(--gold); outline-offset: 2px; }
+
 .js-notice-bar {
   background: var(--navy); color: #Eaf0fb; font-size: 13.5px; text-align: center;
   padding: 9px 20px; letter-spacing: .01em;

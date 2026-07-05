@@ -427,7 +427,11 @@ function initTheme() {
    ══════════════════════════════════════════════════════════════════════════ */
 function nav(page) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('act'));
-  document.querySelectorAll('[data-p]').forEach(a => a.classList.toggle('act', a.dataset.p === page));
+  document.querySelectorAll('[data-p]').forEach(a => {
+    const on = a.dataset.p === page;
+    a.classList.toggle('act', on);
+    if (on) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current');
+  });
   const el = document.getElementById('p-' + page);
   if (el) el.classList.add('act');
   document.getElementById('nav-links')?.classList.remove('open');

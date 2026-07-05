@@ -149,13 +149,15 @@ La charte utilise un **marine** profond et un **vert** académique. Cibles WCAG 
 - [ ] **États de focus visibles** : conserver/renforcer un `outline` net (ne pas
       faire `outline:none` sans alternative). Le backend admin met déjà un
       `box-shadow` de focus sur les champs — appliquer le même principe au front.
-- [ ] **ARIA** : `aria-label` sur les boutons icône ; `aria-current="page"` sur
-      l'onglet/lien actif ; `role`/`aria-live` pour les messages de statut des
-      formulaires (succès/erreur annoncés aux lecteurs d'écran).
+- [x] **ARIA** : `aria-label` déjà présent sur les boutons icône (thème, burger) ;
+      `aria-current="page"` maintenant posé dynamiquement par `nav()` sur
+      l'onglet/lien actif (ENSPD + BUE) ; `role`/`aria-live` pour les messages
+      de statut des formulaires reste à faire.
 - [ ] **Formulaires** : chaque champ a un `<label>` associé (`for`/`id`) ;
       messages d'erreur reliés via `aria-describedby` ; champs requis indiqués
       autrement que par la seule couleur.
-- [ ] **Lien d'évitement** « Aller au contenu principal » en début de page.
+- [x] **Lien d'évitement** « Aller au contenu principal » présent en début de
+      page sur les 3 sites (`index.html`, `bue.html`, `jssed.html`).
 - [ ] **Cibles tactiles** ≥ 44×44 px (boutons/menus mobiles).
 - [ ] **Mouvement réduit** : respecter la préférence utilisateur :
       ```css

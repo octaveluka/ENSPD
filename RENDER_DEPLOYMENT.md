@@ -9,42 +9,36 @@
 
 | Service | Type Render | Dossier | Port |
 |---|---|---|---|
-| Frontend statique | **Static Site** | `/` (racine) | — |
+| Frontend (3 SPAs + proxy IA) | **Web Service** (Python) | `/` (racine) | `$PORT` (fourni par Render) |
 | Backend PHP | **Web Service** (Docker) | `backend-enspd/` | 10000 |
 
 > **Note :** Clarifier lequel de `backend/` ou `backend-enspd/` est le dossier canonique avant de commencer. Ce guide utilise `backend-enspd/` (version refactorisée).
 
+> ⚠️ **Important** : le frontend n'est **PAS** un simple site statique. Il est
+> servi par `server.py` (Python), qui sert les fichiers HTML/CSS/JS **et**
+> proxifie `/api/chat` vers l'API Delfa AI côté serveur (pour éviter les
+> erreurs CORS du chatbot). Un déploiement en **Static Site** Render romprait
+> silencieusement le chatbot IA — il faut impérativement utiliser un
+> **Web Service** exécutant `python3 server.py`.
+
 ---
 
-## Partie 1 — Frontend (Static Site)
+## Partie 1 — Frontend (Web Service Python)
 
 ### Étapes
 
 1. **Connecter le dépôt GitHub** à Render.
-2. Créer un service **Static Site**.
+2. Créer un service **Web Service** (pas Static Site).
 3. Configuration :
-   - **Build Command** : _(laisser vide — aucun build nécessaire)_
-   - **Publish Directory** : `/` _(racine du dépôt)_
-   - **Root Directory** : _(laisser vide)_
-4. **Headers personnalisés** (dans `render.yaml` ou dashboard) :
-
-```yaml
-headers:
-  - path: /*
-    name: X-Frame-Options
-    value: DENY
-  - path: /*
-    name: X-Content-Type-Options
-    value: nosniff
-  - path: /*
-    name: Referrer-Policy
-    value: strict-origin-when-cross-origin
-  - path: /*
-    name: Content-Security-Policy
-    value: "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://delfaapiai.vercel.app;"
-```
-
-5. **URL du frontend** : sera de la forme `https://enspd.onrender.com` — noter cette URL pour configurer le CORS backend.
+   - **Environment** : `Python 3`
+   - **Build Command** : _(laisser vide — aucune dépendance à installer, `server.py` n'utilise que la librairie standard)_
+   - **Start Command** : `python3 server.py`
+   - **Root Directory** : _(laisser vide — racine du dépôt)_
+4. **Variables d'environnement** (Dashboard → Environment) :
+   - `PORT` est fourni automatiquement par Render — ne pas le redéfinir manuellement (le code lit déjà `PORT` depuis l'environnement, avec repli sur `5000` en local).
+   - `DELFA_API_URL` (optionnel) : ne définir que si vous changez de fournisseur d'API IA. Valeur par défaut : `https://delfaapiai.vercel.app/ai/copilot`.
+5. **Headers de sécurité** : `server.py` étant un serveur Python personnalisé (pas un CDN statique Render), les en-têtes de sécurité (CSP, X-Frame-Options...) doivent être ajoutés directement dans `server.py` (méthode `send_header`) plutôt que via `render.yaml` → `headers:` (cette directive ne s'applique qu'aux services de type `static`).
+6. **URL du frontend** : sera de la forme `https://enspd.onrender.com` — noter cette URL pour configurer le CORS backend.
 
 ---
 
@@ -91,6 +85,14 @@ Exécuter le fichier `backend-enspd/schema.sql` après création de la base.
 ### Comment les définir sur Render
 
 Dashboard → Service → **Environment** → Add Environment Variable
+
+> 📄 La liste complète, prête à copier-coller (avec valeurs d'exemple), est
+> disponible dans **`render-env-variables.txt`** à la racine du dépôt.
+> Ces variables sont lues en **priorité absolue** par `backend*/src/db.php`
+> (fonction `getenv()`) : si elles sont définies, `config.php` n'est même
+> plus nécessaire sur le serveur de production — seul un `config.php` de
+> secours (non commité) est requis en local si vous ne voulez pas utiliser
+> de variables d'environnement en développement.
 
 ### 1. Base de données MySQL
 
@@ -147,26 +149,15 @@ Placer à la racine du dépôt :
 
 ```yaml
 services:
-  # Frontend statique
+  # Frontend (Web Service Python — sert les 3 SPAs + proxy /api/chat)
   - type: web
     name: enspd-frontend
-    env: static
+    env: python
     buildCommand: ""
-    staticPublishPath: .
-    headers:
-      - path: /*
-        name: X-Frame-Options
-        value: DENY
-      - path: /*
-        name: X-Content-Type-Options
-        value: nosniff
-      - path: /*
-        name: Referrer-Policy
-        value: strict-origin-when-cross-origin
-    routes:
-      - type: rewrite
-        source: /*
-        destination: /index.html
+    startCommand: "python3 server.py"
+    envVars:
+      - key: DELFA_API_URL
+        value: https://delfaapiai.vercel.app/ai/copilot
 
   # Backend PHP (si Docker)
   - type: web
