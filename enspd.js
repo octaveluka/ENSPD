@@ -434,8 +434,8 @@ L'événement a mobilisé plus de 200 participants. La 2ème édition est prévu
       {src:'assets/campus/photo_groupe.jpg',titre:'Photo de famille',ev:'Séance intégration Oct 2025'},
     ],
     'Rentrée Solennelle':[
-      {src:'assets/galerie/enspd/rentree_1775854492374.jpg',titre:'Rentrée solennelle',ev:'3ème édition — Déc 2025'},
-      {src:'assets/galerie/enspd/rentree_1775854494083.jpg',titre:'Discours du Directeur',ev:'3ème édition — Déc 2025'},
+      {src:'assets/galerie/enspd/rentree_1775854492374.jpeg',titre:'Rentrée solennelle',ev:'3ème édition — Déc 2025'},
+      {src:'assets/galerie/enspd/rentree_1775854494083.JPG',titre:'Discours du Directeur',ev:'3ème édition — Déc 2025'},
       {src:'assets/galerie/enspd/rentree_1775854499589.jpg',titre:'Amphi principal',ev:'3ème édition — Déc 2025'},
     ],
     'Soutenances':[
