@@ -2226,28 +2226,8 @@ function initWhySlider(){
 }
 
 /* ── AI CHATBOT (Delfa API) ──────────────────────────────── */
-const CHAT_CTX=`Tu es l'assistant virtuel officiel de l'ENSPD (École Nationale de Statistique, de Planification et de Démographie), Université de Parakou, Bénin.
-
-INFORMATIONS CLÉS SUR L'ENSPD :
-- Fondée en 2012 par arrêté ministériel n°256/MESRS. Une des 9 UFR de l'Université de Parakou.
-- Directeur : Prof. Épiphane SODJINOU (Ph.D. Économie Agricole, Université de Copenhague).
-- Spécialités : statistique, planification, démographie, suivi-évaluation.
-- FORMATIONS (8 au total) :
-  • Licences : SA (Statistique Appliquée), PSE (Planification & Suivi-Évaluation)
-  • Masters : SSD, SAAV (Biostat), SESA (Actuariat), SE-MP, SILPD
-  • Doctorat : Population et Ressources Naturelles (École Doctorale «Agronomie et Eau»)
-- ADMISSION LICENCE : Concours MESRS/DEC — Bac C ou D, mention Assez-Bien minimum. Inscription sur apresmonbac.bj.
-- ADMISSION MASTER : sur dossier, Licence en domaine compatible.
-- PAIEMENT DROITS : paiement.tresorbenin.bj — Compte ENSPD : 01001 000001048692 20 (BJ66 0010 0100 0001 0486 9220) — MTN/Moov/Carte bancaire.
-- LABORATOIRES : LaReSPD (2014) et ODeSPoL (2016).
-- PARTENAIRES : INSAE, Université Laval (Canada), Pan African University, UEMOA, FAO, UNFPA.
-- VIE ÉTUDIANTE : BUE (Bureau d'Union des Étudiants, élu démocratiquement), CRISTAL (4 sections : Informatique, Anglais, Art & Dev. personnel, Science fondamentale).
-- ÉVÉNEMENTS : JSSED (Journées Scientifiques Statistique Évaluation Démographie — 2ème éd. sep. 2026), Rentrée Solennelle.
-- CONTACT : Université de Parakou, Bénin — Lun-Ven 08h-17h. Scolarité : 08h-12h / 15h-17h.
-- DÉBOUCHÉS : INSAE, ministères, ONG, agences ONU (UNFPA, PNUD), banques, communes, cabinets-conseils.
-- OUTILS ENSEIGNÉS : R, Python, STATA, SPSS, SIG, KoboToolbox, ODK.
-
-Réponds uniquement en lien avec l'ENSPD. Sois concis, utile et professionnel. Si tu ne connais pas une information précise, dis-le clairement.`;
+/* Contexte compact (gardé court pour rester sous les limites d'URL) */
+const CHAT_CTX='[ENSPD-Assistant] Tu es l\'assistant de l\'ENSPD (Statistique, Planification, Démographie), Univ. Parakou, Bénin. Fondée 2012. Directeur: Prof. SODJINOU. 8 formations LMD (2 Licences SA/PSE, 5 Masters, 1 Doctorat). Admission Licence: Bac C/D, concours MESRS/DEC, apresmonbac.bj. Paiement: paiement.tresorbenin.bj. Partenaires: INSAE, Laval, Pan African U. BUE+CRISTAL (vie étudiante). JSSED sep.2026. Contact: Lun-Ven 08h-17h. Réponds en français, concis et utile.';
 
 let _chatOpen=false,_chatHist=[],_chatBusy=false;
 
@@ -2278,16 +2258,18 @@ async function chatSend(){
   const txt=inp.value.trim();if(!txt)return;
   inp.value='';inp.style.height='';
   _chatPush('user',txt);_chatBusy=true;_chatRender();
-  const recent=_chatHist.slice(-8).map(m=>(m.role==='user'?'Utilisateur':'Assistant')+': '+m.text).join('\n');
-  const msg=CHAT_CTX+'\n\nConversation:\n'+recent+'\n\nRéponds à la dernière question de l\'Utilisateur de façon concise.';
+  /* Contexte + 4 derniers échanges + question actuelle, encodé proprement */
+  const recent=_chatHist.slice(-5).map(m=>(m.role==='user'?'U':'A')+':'+m.text.slice(0,200)).join('|');
+  const msg=CHAT_CTX+' Échanges récents: '+recent;
   try{
     const r=await fetch('https://delfaapiai.vercel.app/ai/copilot?message='+encodeURIComponent(msg)+'&model=default');
+    if(!r.ok)throw new Error('HTTP '+r.status);
     const d=await r.json();
     _chatBusy=false;
     _chatPush('bot',d.answer||'Désolé, je n\'ai pas pu traiter votre demande. Veuillez réessayer.');
-  }catch{
+  }catch(err){
     _chatBusy=false;
-    _chatPush('bot','Erreur de connexion. Vérifiez votre connexion internet et réessayez.');
+    _chatPush('bot','Erreur de connexion'+(err.message?' ('+err.message+')':'')+'. Vérifiez votre connexion et réessayez.');
   }
 }
 function chatKey(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();chatSend();}}
