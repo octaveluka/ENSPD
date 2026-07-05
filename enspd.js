@@ -5,7 +5,7 @@
    ENSPD_CONFIG.apiBase = 'backend-enspd/api';
    Les fonctions ENSPD_API.* sont fournies et prêtes à l'emploi (voir
    backend-enspd/README.md). Branchement laissé opt-in pour la stabilité. */
-const ENSPD_CONFIG = { apiBase: '' };
+const ENSPD_CONFIG = { apiBase: 'https://enspd-backend.onrender.com/' };
 const ENSPD_API = {
   async get(path){ if(!ENSPD_CONFIG.apiBase) return null; try{ const r=await fetch(ENSPD_CONFIG.apiBase+'/'+path); if(!r.ok) return null; return await r.json(); }catch(e){ return null; } },
   actualites(){ return this.get('actualites.php'); },
