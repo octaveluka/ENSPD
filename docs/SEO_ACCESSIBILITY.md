@@ -16,9 +16,9 @@ dessous au domaine réellement déployé.
 - [x] **Open Graph** (`og:title`, `og:description`, `og:type`, `og:locale=fr_BJ`).
 - [x] **Twitter Card** (`summary_large_image`).
 - [x] **Canonical** (`<link rel="canonical">`).
-- [ ] **`sitemap.xml`** à publier à la racine (bloc fourni §1.3).
-- [ ] **`robots.txt`** à publier à la racine (bloc fourni §1.4).
-- [ ] **JSON-LD `Event`** pour JSSED 2026 (bloc fourni §1.2).
+- [x] **`sitemap.xml`** publié à la racine (index.html, jssed.html, bue.html).
+- [x] **`robots.txt`** publié à la racine (bloque `/backend*/admin/` et `/backend*/api/`).
+- [x] **JSON-LD `Event`** pour JSSED 2026 (présent dans `jssed.html`).
 - [x] **`theme-color`** défini (`#0A2342`).
 - [ ] **Image Open Graph** : fournir `og:image` (1200×630, < 300 Ko) — ex.
       `assets/logos/jssed-og.jpg` — et l'ajouter aux balises OG/Twitter.

@@ -1,5 +1,10 @@
 User-agent: *
 Allow: /
-Disallow: /backend/
-Disallow: /backend-enspd/
+
+# Ne pas indexer l'espace d'administration ni l'API backend
+Disallow: /backend/admin/
+Disallow: /backend/api/
+Disallow: /backend-enspd/admin/
+Disallow: /backend-enspd/api/
+
 Sitemap: https://jssed.enspd-up.bj/sitemap.xml
