@@ -668,7 +668,7 @@ function nav(page){
   document.getElementById('nav-links')?.classList.remove('open');
   window.scrollTo({top:0,behavior:'smooth'});
   setTimeout(initAnim,100);
-  if(page==='galerie'){toast('La galerie sera bientôt disponible.','inf');return;}
+  if(page==='galerie'){setTimeout(renderGal,60);return;}
   if(page==='admin')renderAdminPage();
 }
 
@@ -2262,7 +2262,7 @@ async function chatSend(){
   const recent=_chatHist.slice(-5).map(m=>(m.role==='user'?'U':'A')+':'+m.text.slice(0,200)).join('|');
   const msg=CHAT_CTX+' Échanges récents: '+recent;
   try{
-    const r=await fetch('https://delfaapiai.vercel.app/ai/copilot?message='+encodeURIComponent(msg)+'&model=default');
+    const r=await fetch('/api/chat?message='+encodeURIComponent(msg)+'&model=default');
     if(!r.ok)throw new Error('HTTP '+r.status);
     const d=await r.json();
     _chatBusy=false;
@@ -2277,18 +2277,57 @@ function chatAutoResize(el){el.style.height='auto';el.style.height=Math.min(el.s
 
 /* ── ANIMATIONS AVANCÉES ─────────────────────────────────── */
 function initAnimPlus(){
-  /* Observer principal — scroll reveal */
+  /* Observer principal — scroll reveal avec unobserve */
   const mainObs=new IntersectionObserver(entries=>{
-    entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');mainObs.unobserve(e.target);}});
-  },{threshold:0.08,rootMargin:'0px 0px -40px 0px'});
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        e.target.classList.add('vis');
+        mainObs.unobserve(e.target);
+      }
+    });
+  },{threshold:0.06,rootMargin:'0px 0px -30px 0px'});
   document.querySelectorAll('.anim-s:not(.vis),.anim-blur:not(.vis)').forEach(el=>mainObs.observe(el));
-  /* Stagger automatique sur les grilles */
-  document.querySelectorAll('.g2,.g3,.g4,.vie-grid,.form-apercu-grid,.debouches-grid').forEach(grid=>{
+
+  /* Stagger automatique sur les grilles et listes */
+  document.querySelectorAll('.g2,.g3,.g4,.vie-grid,.form-apercu-grid,.debouches-grid,.qa-wrap,.stats-in').forEach(grid=>{
     grid.querySelectorAll(':scope > *').forEach((child,i)=>{
-      if(!child.classList.contains('anim'))return;
-      const delay=Math.min(i*0.1,0.6);
+      const delay=Math.min(i*0.09,0.55);
       child.style.transitionDelay=delay+'s';
     });
+  });
+
+  /* Parallax léger sur le hero */
+  const heroImg=document.querySelector('.hero-bg img');
+  if(heroImg){
+    let ticking=false;
+    window.addEventListener('scroll',()=>{
+      if(!ticking){
+        requestAnimationFrame(()=>{
+          const s=window.scrollY;
+          if(s<window.innerHeight*1.5)heroImg.style.transform='translateY('+Math.round(s*0.22)+'px)';
+          ticking=false;
+        });
+        ticking=true;
+      }
+    },{passive:true});
+  }
+
+  /* Révèle les cartes stat-bande */
+  const sbObs=new IntersectionObserver(entries=>{
+    entries.forEach((e,i)=>{
+      if(e.isIntersecting){
+        setTimeout(()=>e.target.classList.add('sbox-vis'),i*80);
+        sbObs.unobserve(e.target);
+      }
+    });
+  },{threshold:0.3});
+  document.querySelectorAll('.sbox').forEach(el=>sbObs.observe(el));
+
+  /* Ajoute les classes anim-s aux éléments non encore animés */
+  document.querySelectorAll('.sec .card:not(.anim):not(.anim-s)').forEach((el,i)=>{
+    el.classList.add('anim-s');
+    el.style.transitionDelay=Math.min(i%4*0.09,0.36)+'s';
+    mainObs.observe(el);
   });
 }
 

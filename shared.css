@@ -1819,15 +1819,17 @@ body { padding-top:calc(var(--tb) + var(--nh)); }
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
    35. ANIMATIONS
    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-.anim    { opacity:0; transform:translateY(24px); transition:opacity .55s ease,transform .55s ease; }
-.anim.al { transform:translateX(-24px); }
-.anim.ar { transform:translateX(24px); }
+/* Entrée principale — décalage plus généreux + spring */
+.anim    { opacity:0; transform:translateY(36px); transition:opacity .65s cubic-bezier(.4,0,.2,1), transform .7s cubic-bezier(.34,1.26,.64,1); }
+.anim.al { transform:translateX(-40px); }
+.anim.ar { transform:translateX(40px); }
+.anim.au { transform:translateY(-36px); }
 .anim.vis { opacity:1; transform:none; }
 .d1  { transition-delay:.08s; }
-.d2  { transition-delay:.18s; }
-.d3  { transition-delay:.28s; }
-.d4  { transition-delay:.38s; }
-.d5  { transition-delay:.48s; }
+.d2  { transition-delay:.17s; }
+.d3  { transition-delay:.27s; }
+.d4  { transition-delay:.37s; }
+.d5  { transition-delay:.47s; }
 
 @media (prefers-reduced-motion: reduce) {
   .anim,.anim.al,.anim.ar { transition:none; }
@@ -3171,9 +3173,12 @@ table { max-width:100%; }
 .card-smooth:hover { transform:translateY(-5px); }
 
 /* Transitions de pages (fade entre sections) */
-.page { transition:opacity .18s ease; }
-.page:not(.act) { opacity:0; pointer-events:none; }
-.page.act { opacity:1; pointer-events:all; }
+/* Page transition — animation at entry (display:none→block ne se transitionne pas) */
+.page.act { animation: pgIn .38s cubic-bezier(.4,0,.2,1) both; }
+@keyframes pgIn {
+  from { opacity:0; transform:translateY(18px); }
+  to   { opacity:1; transform:none; }
+}
 
 /* Ligne de chargement animée sous la navbar */
 @keyframes navline {
@@ -3219,4 +3224,207 @@ table { max-width:100%; }
   .anim-s,.anim-blur { transition:none; }
   .anim-float,.gradient-txt { animation:none; }
   .nav-loading::after { animation:none; }
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   43. ANIMATIONS PROFESSIONNELLES v2 — galerie, stats, nav, micro-interactions
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+/* ── Stats band — apparition en pop ─────────────────── */
+.sbox { opacity:0; transform:translateY(22px) scale(.95);
+  transition:opacity .55s cubic-bezier(.4,0,.2,1),
+             transform .6s cubic-bezier(.34,1.3,.64,1); }
+.sbox-vis { opacity:1; transform:none; }
+
+/* ── Hero title — underline draw ─────────────────────── */
+.ht-accent { position:relative; display:inline; }
+.ht-accent::after {
+  content:''; position:absolute; left:0; bottom:-3px;
+  height:3px; width:0; border-radius:2px;
+  background:linear-gradient(90deg,var(--vt),var(--vt-m));
+  transition:width 1.1s cubic-bezier(.34,1.1,.64,1) .5s;
+}
+.anim.vis ~ .anim.vis .ht-accent::after,
+.hero-title.anim.vis .ht-accent::after { width:100%; }
+
+/* ── Navigation active pill animation ────────────────── */
+.nav-links a { position:relative; transition:color var(--e); }
+.nav-links a::after {
+  content:''; position:absolute; bottom:-3px; left:50%; right:50%;
+  height:2px; border-radius:2px;
+  background:var(--vt);
+  transition:left .28s cubic-bezier(.4,0,.2,1),
+             right .28s cubic-bezier(.4,0,.2,1);
+}
+.nav-links a.act::after,
+.nav-links a:hover::after { left:0; right:0; }
+
+/* ── Quick-action cards hover — lift + glow ──────────── */
+.qa-card {
+  transition: transform .3s cubic-bezier(.34,1.2,.64,1),
+              box-shadow .3s ease, background var(--e);
+}
+.qa-card:hover { transform:translateY(-5px); box-shadow:var(--sh-lg); }
+
+/* ── Fil-card (formations) hover ─────────────────────── */
+.fil-card {
+  transition: transform .32s cubic-bezier(.34,1.26,.64,1),
+              box-shadow .3s ease;
+}
+.fil-card:hover { transform:translateY(-7px); box-shadow:var(--sh-xl); }
+
+/* ── Hero CTA buttons entrance ───────────────────────── */
+.hero-ctas .btn { position:relative; overflow:hidden; }
+.hero-ctas .btn::before {
+  content:''; position:absolute; inset:0;
+  background:rgba(255,255,255,.08);
+  transform:translateX(-100%) skewX(-12deg);
+  transition:transform .4s ease;
+}
+.hero-ctas .btn:hover::before { transform:translateX(110%) skewX(-12deg); }
+
+/* ── Back-to-top button — bounce in ─────────────────── */
+#btt { transition:opacity .3s ease, transform .3s cubic-bezier(.34,1.4,.64,1); }
+#btt.on { animation:bttPop .4s cubic-bezier(.34,1.4,.64,1) both; }
+@keyframes bttPop {
+  from { opacity:0; transform:translateY(10px) scale(.7); }
+  to   { opacity:1; transform:none; }
+}
+
+/* ── Toast — slide + scale in ───────────────────────── */
+.toast { transform:translateX(110%) scale(.9); transition:transform .36s cubic-bezier(.34,1.2,.64,1),opacity .3s ease; }
+.toast.on { transform:none; }
+
+/* ── Modal — zoom in ─────────────────────────────────── */
+.modal-box { transition:transform .32s cubic-bezier(.34,1.15,.64,1), opacity .24s ease; }
+#modal:not(.on) .modal-box { transform:scale(.88) translateY(24px); opacity:0; }
+#modal.on .modal-box { transform:none; opacity:1; }
+
+/* ── Card hover standard ─────────────────────────────── */
+.card.cp {
+  transition:transform .3s cubic-bezier(.34,1.2,.64,1),
+             box-shadow .3s ease;
+}
+.card.cp:hover { transform:translateY(-6px); box-shadow:var(--sh-lg); }
+
+/* ── Vie étudiante cards ─────────────────────────────── */
+.vie-card {
+  transition:transform .32s cubic-bezier(.34,1.24,.64,1),
+             box-shadow .28s ease;
+}
+.vie-card:hover { transform:translateY(-8px); box-shadow:var(--sh-xl); }
+
+/* ── Actu-card hover ─────────────────────────────────── */
+.actu-card {
+  transition:transform .28s cubic-bezier(.34,1.2,.64,1),
+             box-shadow .28s ease;
+}
+.actu-card:hover { transform:translateY(-6px); box-shadow:var(--sh-lg); }
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   44. GALERIE V2 — onglet complet, grille masonry améliorée
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.pg-hero-gal {
+  background: linear-gradient(135deg, var(--mn-d) 0%, var(--mn) 60%, #1a3a5c 100%);
+}
+.pg-hero-gal h1 { font-size:clamp(2rem,5vw,3.2rem); }
+
+/* Filtres catégorie v2 — pill style */
+.gal-cats-v2 {
+  display:flex; flex-wrap:wrap; gap:8px;
+  margin-bottom:28px; justify-content:center;
+}
+.gal-cats-v2 .gal-cat-btn {
+  padding:8px 20px; border-radius:100px; font-size:13px; font-weight:600;
+  border:2px solid var(--brd); background:var(--wh); color:var(--txt);
+  cursor:pointer; transition:all .25s cubic-bezier(.4,0,.2,1);
+  letter-spacing:.02em;
+}
+.gal-cats-v2 .gal-cat-btn:hover {
+  border-color:var(--vt); color:var(--vt); transform:translateY(-2px);
+}
+.gal-cats-v2 .gal-cat-btn.on {
+  background:var(--vt); border-color:var(--vt); color:#fff;
+  box-shadow:0 4px 14px rgba(60,185,68,.35);
+  transform:translateY(-2px);
+}
+[data-theme="dark"] .gal-cats-v2 .gal-cat-btn { background:var(--bg2); }
+
+/* Grille v2 — colonnes auto-fill */
+.gal-grid-v2 {
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
+  gap:14px;
+}
+
+/* Item galerie v2 — card shadow + hover spectacular */
+.gal-grid-v2 .gal-item {
+  border-radius:14px; overflow:hidden;
+  aspect-ratio:4/3;
+  box-shadow:var(--sh);
+  cursor:pointer;
+  transform:translateY(0) scale(1);
+  transition:transform .36s cubic-bezier(.34,1.3,.64,1),
+             box-shadow .3s ease;
+  /* Entrée staggerée */
+  opacity:0; animation:galIn .45s cubic-bezier(.34,1.1,.64,1) both;
+}
+.gal-grid-v2 .gal-item:hover {
+  transform:translateY(-8px) scale(1.02);
+  box-shadow:var(--sh-xl);
+}
+.gal-grid-v2 .gal-item:nth-child(1)  { animation-delay:.04s; }
+.gal-grid-v2 .gal-item:nth-child(2)  { animation-delay:.08s; }
+.gal-grid-v2 .gal-item:nth-child(3)  { animation-delay:.12s; }
+.gal-grid-v2 .gal-item:nth-child(4)  { animation-delay:.16s; }
+.gal-grid-v2 .gal-item:nth-child(5)  { animation-delay:.20s; }
+.gal-grid-v2 .gal-item:nth-child(6)  { animation-delay:.24s; }
+.gal-grid-v2 .gal-item:nth-child(7)  { animation-delay:.28s; }
+.gal-grid-v2 .gal-item:nth-child(8)  { animation-delay:.32s; }
+.gal-grid-v2 .gal-item:nth-child(9)  { animation-delay:.36s; }
+.gal-grid-v2 .gal-item:nth-child(n+10) { animation-delay:.40s; }
+@keyframes galIn {
+  from { opacity:0; transform:translateY(28px) scale(.93); }
+  to   { opacity:1; transform:none; }
+}
+/* Premier item — grand format */
+.gal-grid-v2 .gal-item:first-child {
+  grid-column:span 2; aspect-ratio:16/9;
+}
+@media (max-width:600px) {
+  .gal-grid-v2 { grid-template-columns:1fr 1fr; gap:8px; }
+  .gal-grid-v2 .gal-item:first-child { grid-column:span 2; aspect-ratio:4/3; }
+}
+@media (max-width:400px) {
+  .gal-grid-v2 { grid-template-columns:1fr; }
+  .gal-grid-v2 .gal-item:first-child { grid-column:span 1; }
+}
+
+/* Overlay image v2 */
+.gal-grid-v2 .gal-ov {
+  padding:14px 12px 10px; border-radius:0 0 14px 14px;
+  background:linear-gradient(to top,rgba(0,0,0,.72) 0%,transparent 100%);
+}
+
+/* ── Lightbox amélioré ───────────────────────────────── */
+.lightbox { transition:opacity .25s ease; }
+.lightbox:not(.on) { pointer-events:none; opacity:0; }
+.lightbox.on { opacity:1; }
+#lb-img { transition:opacity .2s ease, transform .28s cubic-bezier(.4,0,.2,1); }
+
+/* ── Scrollbar styling ───────────────────────────────── */
+::-webkit-scrollbar { width:5px; height:5px; }
+::-webkit-scrollbar-track { background:transparent; }
+::-webkit-scrollbar-thumb { background:var(--brd2); border-radius:10px; }
+::-webkit-scrollbar-thumb:hover { background:var(--txt3); }
+
+/* ── Focus visible global ────────────────────────────── */
+:focus-visible { outline:2.5px solid var(--vt); outline-offset:3px; border-radius:5px; }
+
+/* ── prefers-reduced-motion : toutes les anim désactivées ── */
+@media (prefers-reduced-motion:reduce) {
+  .anim,.anim-s,.anim-blur,.sbox,
+  .qa-card,.fil-card,.card.cp,.vie-card,.actu-card { transition:none !important; animation:none !important; }
+  .page.act { animation:none; }
+  .hero-bg img { transform:none !important; }
 }
