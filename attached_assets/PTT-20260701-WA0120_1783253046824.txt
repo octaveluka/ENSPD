@@ -1,0 +1,61 @@
+(Transcrit par TurboScribe. Passez à Illimité pour supprimer ce message.)
+
+Ok, très bien. Maintenant, concernant le projet sur lequel je t'ai ajouté, voilà. Donc, tu vas voir des fichiers là et tout.
+
+Normalement, au début, l'idée, c'est de construire trois sites reliés. Bon, le premier, c'est officiel pour le NSPD, en fait. Et le second, ça sera pour le Bureau d'Union d'Entité.
+
+Et le troisième, c'est pour G7, en fait. Donc, au fur et à mesure, bon, on a dû les masquer pour le Bureau d'Union d'Entité parce que si on prend tout ensemble, on n'évoluait pas, on ferait perdre assez de temps. Et on a finalement repensé à une autre architecture.
+
+Puis, c'est moi-même, je vais devoir l'implémenter. Et puis, ils vont devoir poursuivre. Je vais devoir tracer le chemin de l'architecture en question.
+
+Genre, on ne veut plus faire trois. On va revenir finalement à trois sites. Genre, un pour le G7 en question.
+
+Bon, là, je l'ai joué scientifique. Donc, je te parlais ce matin qu'on est en train de travailler là-dessus. Bon, on va avoir une année pure pour le NSPD qui est actuellement dans cette phase que je t'ai montrée.
+
+Et donc, pour le NSPD, on va devoir essayer et on va devoir trouver un moyen. Et il y a un endroit là-haut, on va devoir mettre certaines choses dedans, quoi. Et qui va contenir des informations du bureau d'identité, en fait.
+
+Genre, ce qui manque surtout aussi de le NSPD, c'est de remplir la partie où il y a fille étudiante là. Tu vas voir que quand tu vas partir là, il y aura un bouton ajouter un événement. Normalement, ce sont des événements.
+
+C'est parce qu'on devrait supprimer ce truc. Normalement, ce sont des événements. Il faut ajouter des calories photo.
+
+Bon, finalement, on devrait présenter le bureau et le cristal là. Trouver un moyen de les présenter peut-être. Fais un test, on va cliquer sur le... On peut revoir.
+
+On peut voir autrement les informations sur le bureau et le cristal. Maintenant, le truc, c'est que... Le truc, c'est que je suis en train de penser à ce qu'on ajoute des calories photo là, quoi. Genre des calories photo là, des événements et tout.
+
+Et là, si les gens... Si les gens, des trucs à faire... Si les gens veulent voir des photos, parcourir des photos, des images, des anciennes images et tout. Devenez là. Aujourd'hui, je suis en train de penser aussi à un onglet.
+
+Et par exemple, pour le moment là, je ne sais pas, mais... C'est moi, je travaille sur le backing. Mais ça ne... Ce n'est pas encore trop cool. Ce que je voulais, ce n'est pas encore trop cool, quoi.
+
+Peut-être que tu vas constater ça. Je veux te connaitre plus. Et voilà.
+
+Bon, ce n'est pas encore... Ce n'est pas encore ça, quoi. Ça ne me donne pas encore ce que je... Tout ça, c'est... C'est parce que je ne me suis pas... Je ne suis pas tellement calme, quoi. Et puis, je ne me suis pas tellement concentré sur ça aussi.
+
+Bon, l'autre chose, c'est que... J'en étais au même. Voilà. D'abord, il y a un peu de limites sur le côté backing qu'il faudrait revoir et tout.
+
+Et je pense aussi à un espace... Par exemple, il y a aussi d'abord l'agent qui n'est pas encore disponible. Et que toi-même, tu as constaté. Ce n'est pas encore implémenté, même.
+
+Je pense aussi à un espace où les gens pour... Les gens de l'UNSV, les gens pourront se connecter à cet espace-là. Voilà. Recevoir, apprendre des trucs en ligne, quoi.
+
+Genre, apprendre des trucs en ligne. Mais ça, l'idée là, ça m'avait tellement... J'avais eu l'idée depuis le début de l'année. Genre, c'est ça.
+
+C'est ça. Je devrais faire plutôt avec un camarade de classe, là. Et puis, on n'a plus fait jusqu'à maintenant.
+
+Un espace où les gens pourront discuter en ligne. Si quelqu'un a des préoccupations. Par exemple, si quelqu'un ne sait pas installer SVC, il pourra se connecter en ligne et poser des questions.
+
+C'est tout comme un forum, quoi. Il peut aussi avoir des cours en ligne, là. Tu vois.
+
+Donc, cet espace-là, genre... Là, il doit y avoir un bouton, là. Qui va connecter chaque étudiant. Et puis, chaque étudiant parti de là peut se connecter à un espace, en fait.
+
+Et là, on pourra finalement déplacer le bouton connexion inscrite là, de là. Et mettre ça à ce niveau. Voilà.
+
+C'est surtout l'un des difficultés, je pense, qu'on doit relever. Qu'il faut relever, en fait. Et bon, voilà.
+
+Peut-être... Voilà. Connecter à un agent. Connecter ça même à un agent.
+
+D'abord, il faut lui fournir... Il faut préparer une bonne base. Et... Base de données, genre... Avec les informations qu'il faut. Il faut beaucoup d'informations.
+
+Il faut beaucoup d'informations. Par exemple, si la personne demande... Des trucs qu'ils pourront... Des agents qui pourront le répondre même automatiquement et tout, quoi. Je sais pas si tu... Tu vois un peu l'idée.
+
+En fait.
+
+(Transcrit par TurboScribe. Passez à Illimité pour supprimer ce message.)
