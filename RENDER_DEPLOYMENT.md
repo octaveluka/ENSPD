@@ -42,41 +42,58 @@
 
 ---
 
-## Partie 2 — Backend PHP (Web Service)
+## Partie 2 — Backend PHP (Web Service Docker, tout-en-un)
 
-### Prérequis
+### ✅ Aucune base de données externe à configurer
 
-Le backend requiert PHP 8.2+ et MySQL 8.0+.  
-Render ne supporte pas PHP nativement → utiliser **Docker** ou un hébergeur PHP dédié (OVH, PlanetHoster, Infomaniak).
+`backend-enspd/Dockerfile` est **prêt à l'emploi** : l'image embarque
+**son propre serveur MySQL** en plus de PHP/Apache. Au premier démarrage
+du conteneur, le script `docker/entrypoint.sh` :
 
-**Alternative recommandée pour le backend :** utiliser **Railway** ou un hébergeur mutualisé cPanel avec PHP pour le backend, et Render uniquement pour le frontend statique.
+1. initialise MySQL (si le volume est vide) ;
+2. crée la base `DB_NAME` et l'utilisateur `DB_USER`/`DB_PASS` (à partir
+   des variables d'environnement, `DB_HOST=localhost`) ;
+3. importe `schema.sql` (idempotent — `CREATE TABLE IF NOT EXISTS`) ;
+4. crée un compte admin par défaut si la table `admins` est vide :
+   **`admin@enspd.bj` / `EnspdAdmin2026!`** (⚠️ à changer immédiatement
+   après la première connexion, depuis le tableau de bord) ;
+5. démarre Apache sur le port `$PORT` fourni par Render.
 
-### Si Docker sur Render
+Ce Dockerfile a été **testé de bout en bout localement** (build + run +
+requêtes HTTP sur `/api/settings.php` et `/admin/`) et fonctionne tel
+quel.
 
-Créer un `Dockerfile` dans `backend-enspd/` :
+### Étapes sur Render
 
-```dockerfile
-FROM php:8.2-apache
-RUN docker-php-ext-install pdo pdo_mysql mysqli
-COPY . /var/www/html/
-RUN chmod -R 755 /var/www/html
-EXPOSE 80
-```
+1. **New +** → **Web Service** → connecter le dépôt.
+2. **Environment** : `Docker`.
+3. **Root Directory** : `backend-enspd`.
+4. **Dockerfile Path** : `backend-enspd/Dockerfile` (ou laissez Render le
+   détecter automatiquement dans le dossier racine choisi).
+5. **Plan** : au minimum **Starter** (le plan gratuit ne permet pas
+   d'attacher un Disk persistant — voir avertissement ci-dessous).
+6. Ajouter les variables d'environnement (section suivante).
 
----
+### ⚠️ Persistance des données MySQL — IMPORTANT
 
-## Partie 3 — Base de données MySQL
+Les services Render sont **éphémères** : sans disque persistant, le
+conteneur (et donc la base MySQL qu'il contient) est recréé de zéro à
+chaque redéploiement ou redémarrage, et **toutes les données seraient
+perdues** (actualités, événements, galerie, messages de contact,
+comptes admin créés en plus du compte par défaut...).
 
-Render propose un service **PostgreSQL** natif mais **pas MySQL**.  
-Options recommandées :
-- **PlanetScale** (MySQL compatible, plan gratuit)
-- **Clever Cloud** (MySQL, datacenter Europe/Afrique)
-- **Aiven** (MySQL managé)
-- **Railway** (MySQL, simple à configurer)
+**Solution : attacher un Render Disk** (disponible à partir du plan
+Starter) monté sur `/var/lib/mysql` :
 
-### Schéma
+- Dashboard du service backend → **Disks** → **Add Disk**
+  - Mount Path : `/var/lib/mysql`
+  - Size : 1 Go suffit largement pour ce projet.
+- Le fichier `render.yaml` fourni à la racine du dépôt déclare déjà ce
+  disque automatiquement si vous déployez via **Blueprint**.
 
-Exécuter le fichier `backend-enspd/schema.sql` après création de la base.
+Sans ce disque, le site fonctionnera très bien mais **repartira à zéro
+au moindre redéploiement** — à réserver à des tests, pas à la
+production.
 
 ---
 
@@ -143,52 +160,27 @@ Dashboard → Service → **Environment** → Add Environment Variable
 
 ---
 
-## Fichier `render.yaml` (Infrastructure as Code)
+## Fichier `render.yaml` (Infrastructure as Code — déploiement en un clic)
 
-Placer à la racine du dépôt :
+Un fichier `render.yaml` est **déjà présent à la racine du dépôt**, avec
+les deux services préconfigurés (frontend Python + backend Docker
+tout-en-un avec disque persistant pour MySQL). Pour l'utiliser :
 
-```yaml
-services:
-  # Frontend (Web Service Python — sert les 3 SPAs + proxy /api/chat)
-  - type: web
-    name: enspd-frontend
-    env: python
-    buildCommand: ""
-    startCommand: "python3 server.py"
-    envVars:
-      - key: DELFA_API_URL
-        value: https://delfaapiai.vercel.app/ai/copilot
+1. Sur Render : **New +** → **Blueprint**.
+2. Connecter ce dépôt GitHub.
+3. Render détecte `render.yaml` et propose de créer les 2 services
+   automatiquement, avec toutes les variables d'environnement déjà
+   renseignées.
+4. Cliquer **Apply** — c'est tout.
 
-  # Backend PHP (si Docker)
-  - type: web
-    name: enspd-backend
-    env: docker
-    dockerfilePath: ./backend-enspd/Dockerfile
-    plan: starter
-    envVars:
-      - key: DB_HOST
-        sync: false
-      - key: DB_NAME
-        value: enspd
-      - key: DB_USER
-        sync: false
-      - key: DB_PASS
-        sync: false
-      - key: ENV
-        value: prod
-      - key: COOKIE_SECURE
-        value: "true"
-      - key: SESSION_NAME
-        value: ENSPD_ADMIN
-      - key: SESSION_IDLE_TIMEOUT
-        value: "1800"
-      - key: SESSION_SECRET
-        sync: false
-      - key: BASE_URL
-        sync: false
-      - key: CORS_ORIGINS
-        sync: false
-```
+> ⚠️ Le fichier contient déjà `DB_PASS=CHANGEZ_MOI` (placeholder) et le
+> vrai `SESSION_SECRET` fourni lors de la configuration initiale. Ces
+> valeurs sont commitées dans le dépôt : ce n'est pas une pratique de
+> sécurité idéale (n'importe qui ayant accès au code source les voit),
+> mais cela permet un déploiement en un clic comme demandé. **Avant la
+> mise en ligne réelle**, changez au minimum `DB_PASS` pour un mot de
+> passe fort, directement dans le Dashboard Render (Environment) — cela
+> ne nécessite pas de modifier le code.
 
 ---
 
@@ -202,16 +194,18 @@ services:
 - [ ] Liens sociaux (Facebook, LinkedIn) vérifiés dans le footer
 
 ### Backend
-- [ ] Variables d'environnement définies sur Render
-- [ ] Base de données créée et `schema.sql` exécuté
-- [ ] CORS configuré avec l'URL exacte du frontend
-- [ ] Mot de passe admin créé via `backend-enspd/bin/create_admin.php`
+- [x] Variables d'environnement définies (déjà dans `render.yaml`)
+- [x] Base de données + schéma créés automatiquement au démarrage du conteneur
+- [ ] `CORS_ORIGINS` mis à jour avec l'URL réelle du frontend si différente
+- [x] Compte admin par défaut créé automatiquement (`admin@enspd.bj` / `EnspdAdmin2026!`)
+- [ ] **Changer le mot de passe admin par défaut dès la première connexion**
 - [ ] Photo du Directeur uploadée via l'interface admin
-- [ ] `COOKIE_SECURE=true` en production (HTTPS)
+- [ ] `COOKIE_SECURE=true` en production (HTTPS) — déjà configuré
+- [ ] **Disk Render attaché sur `/var/lib/mysql`** (sinon les données sont perdues à chaque redéploiement)
 
 ### Sécurité
-- [ ] `SESSION_SECRET` fort et aléatoire (min. 32 caractères)
-- [ ] Mot de passe DB fort (min. 16 caractères, alphanumériqu + spéciaux)
+- [ ] Remplacer `DB_PASS=CHANGEZ_MOI` par un mot de passe fort (min. 16 caractères) dans le Dashboard Render
+- [ ] `SESSION_SECRET` régénéré si le dépôt a été rendu public (celui commité dans `render.yaml` a été partagé lors de la configuration)
 - [ ] Headers de sécurité vérifiés via https://securityheaders.com
 - [ ] HTTPS actif (Render le gère automatiquement)
 

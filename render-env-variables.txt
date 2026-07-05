@@ -2,54 +2,58 @@
 # ENSPD — Variables d'environnement pour déploiement Render
 # =====================================================================
 #
-# Ce fichier liste toutes les variables d'environnement utilisées par
-# le backend PHP (backend/ ou backend-enspd/, selon celui que vous
-# retenez comme canonique). Le code lit désormais ces variables en
-# PRIORITÉ (getenv()), avec repli sur backend*/config.php si elles ne
-# sont pas définies.
+# Ces valeurs sont déjà pré-remplies dans render.yaml (déploiement en
+# un clic via "New +" -> "Blueprint" sur Render). Ce fichier sert de
+# référence si vous préférez les saisir manuellement dans le Dashboard
+# (Service backend -> Environment).
 #
-# COMMENT S'EN SERVIR SUR RENDER :
-#   Dashboard → votre service backend → Environment
-#   → Add Environment Variable → copiez chaque clé et sa valeur.
-#   Remplacez toutes les valeurs marquées "A_DEFINIR" par vos vraies
-#   valeurs de production. Ne committez JAMAIS ce fichier une fois
-#   rempli avec de vrais secrets.
+# ⚠️ DB_PASS est un PLACEHOLDER ("CHANGEZ_MOI") : changez-le pour un
+# vrai mot de passe fort avant la mise en production réelle (le backend
+# recréera l'utilisateur MySQL avec le nouveau mot de passe au prochain
+# redémarrage du conteneur).
+#
+# ⚠️ SESSION_SECRET ci-dessous a été partagé lors de la configuration
+# initiale du projet : si ce dépôt devient public, régénérez-en un
+# nouveau avec : openssl rand -hex 32
 #
 # =====================================================================
 
-# --- Base de données MySQL --------------------------------------------
-DB_HOST=A_DEFINIR
-DB_NAME=A_DEFINIR
-DB_USER=A_DEFINIR
-DB_PASS=A_DEFINIR
+# --- Base de données MySQL (embarquée dans le conteneur backend) -------
+DB_HOST=localhost
+DB_NAME=enspd
+DB_USER=enspd_user
+DB_PASS=CHANGEZ_MOI
 DB_PORT=3306
 
 # --- Environnement d'exécution -----------------------------------------
 ENV=prod
 
-# --- CORS (URL exacte du frontend, plusieurs valeurs séparées par des virgules) ---
-CORS_ORIGINS=https://votre-frontend.onrender.com
+# --- CORS (URL exacte du frontend) --------------------------------------
+CORS_ORIGINS=https://www.enspd-parakou.bj
 
 # --- Sessions d'administration ------------------------------------------
 SESSION_NAME=ENSPD_ADMIN
-SESSION_SECRET=A_DEFINIR
+SESSION_SECRET=782b2348ccffe3e9a93ded9000fe12fa69893fbc846f9a7c7e34a8aa4868bb09
 SESSION_IDLE_TIMEOUT=1800
 COOKIE_SECURE=true
 
 # --- URL publique du backend ---------------------------------------------
-BASE_URL=https://votre-backend.onrender.com
+BASE_URL=https://www.enspd-parakou.bj/backend-enspd
 
-# --- API IA (optionnel — le proxy /api/chat de server.py) ---------------
+# --- Port d'écoute Apache (fourni par Render) ---------------------------
+PORT=10000
+
+# --- API IA (proxy /api/chat de server.py, service frontend séparé) -----
 DELFA_API_URL=https://delfaapiai.vercel.app/ai/copilot
 
 # =====================================================================
 # Notes :
-# - SESSION_SECRET : générez une valeur aléatoire forte (min. 32
-#   caractères), par ex. avec : openssl rand -hex 32
-# - DB_PASS : mot de passe fort (min. 16 caractères, alphanumérique +
-#   caractères spéciaux).
-# - CORS_ORIGINS accepte plusieurs origines séparées par des virgules,
-#   ex : https://site-a.onrender.com,https://site-b.onrender.com
-# - Si backend/ ET backend-enspd/ sont déployés séparément, chacun a
-#   ses propres variables (DB_NAME/SESSION_NAME différents typiquement).
+# - Ces variables correspondent au service "enspd-backend" (Docker,
+#   backend-enspd/Dockerfile). DELFA_API_URL est utilisée par le service
+#   "enspd-frontend" (Python), pas par le backend PHP.
+# - Le compte administrateur par défaut créé automatiquement au premier
+#   démarrage est : admin@enspd.bj / EnspdAdmin2026! — à changer dès la
+#   première connexion depuis le tableau de bord.
+# - Pour que les données MySQL survivent aux redéploiements, attachez un
+#   Render Disk monté sur /var/lib/mysql (voir RENDER_DEPLOYMENT.md).
 # =====================================================================

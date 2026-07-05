@@ -1,0 +1,63 @@
+# =====================================================================
+# ENSPD — Render Blueprint (Infrastructure as Code)
+# =====================================================================
+# Déploiement en un clic : sur Render, choisissez
+# "New +" → "Blueprint" → connectez ce dépôt GitHub.
+# Render détecte ce fichier et crée automatiquement les 2 services
+# ci-dessous, déjà configurés (aucune base de données externe requise :
+# le backend embarque son propre MySQL).
+# =====================================================================
+services:
+  # ---------------------------------------------------------------
+  # Frontend — sert les 3 sites (ENSPD, BUE, JSSED) + proxy /api/chat
+  # ---------------------------------------------------------------
+  - type: web
+    name: enspd-frontend
+    env: python
+    plan: free
+    buildCommand: ""
+    startCommand: "python3 server.py"
+    envVars:
+      - key: DELFA_API_URL
+        value: https://delfaapiai.vercel.app/ai/copilot
+
+  # ---------------------------------------------------------------
+  # Backend PHP — API + admin + MySQL embarqué (tout-en-un)
+  # ---------------------------------------------------------------
+  - type: web
+    name: enspd-backend
+    env: docker
+    dockerfilePath: ./backend-enspd/Dockerfile
+    dockerContext: ./backend-enspd
+    plan: starter
+    disk:
+      name: enspd-mysql-data
+      mountPath: /var/lib/mysql
+      sizeGB: 1
+    envVars:
+      - key: PORT
+        value: "10000"
+      - key: DB_HOST
+        value: localhost
+      - key: DB_NAME
+        value: enspd
+      - key: DB_USER
+        value: enspd_user
+      - key: DB_PASS
+        value: CHANGEZ_MOI
+      - key: DB_PORT
+        value: "3306"
+      - key: ENV
+        value: prod
+      - key: CORS_ORIGINS
+        value: https://www.enspd-parakou.bj
+      - key: SESSION_NAME
+        value: ENSPD_ADMIN
+      - key: SESSION_SECRET
+        value: 782b2348ccffe3e9a93ded9000fe12fa69893fbc846f9a7c7e34a8aa4868bb09
+      - key: SESSION_IDLE_TIMEOUT
+        value: "1800"
+      - key: COOKIE_SECURE
+        value: "true"
+      - key: BASE_URL
+        value: https://www.enspd-parakou.bj/backend-enspd
