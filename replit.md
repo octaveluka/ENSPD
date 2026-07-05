@@ -31,7 +31,7 @@ Les deux ont la même structure (`admin/`, `api/`, `src/`, `schema.sql`, `config
 
 - `render.yaml` (racine) — Blueprint Render : crée automatiquement le frontend (Web Service Python) et le backend (`backend-enspd/Dockerfile`, Web Service Docker), avec toutes les variables d'environnement pré-remplies. Déploiement en un clic via **New +** → **Blueprint**.
 - `backend-enspd/Dockerfile` + `backend-enspd/docker/entrypoint.sh` — image tout-en-un PHP 8.2/Apache **+ MySQL embarqué** : aucune base de données externe à créer. Au premier démarrage : init MySQL, création DB/utilisateur, import de `schema.sql`, création d'un compte admin par défaut (`admin@enspd.bj` / `EnspdAdmin2026!` — à changer immédiatement). Testé de bout en bout (build + run + requêtes HTTP).
-- ⚠️ Sans **Render Disk** monté sur `/var/lib/mysql` (déjà déclaré dans `render.yaml`, nécessite le plan Starter+), les données MySQL sont perdues à chaque redéploiement — voir `RENDER_DEPLOYMENT.md`.
+- `render.yaml` est configuré pour le **plan Free** (préférence utilisateur — pas de carte bancaire). Conséquence connue : sans Disk persistant (payant, plan Starter+), les données MySQL (actualités, galerie, contacts, mot de passe admin changé...) sont réinitialisées à chaque redéploiement du backend ; le schéma et le compte admin par défaut sont recréés automatiquement à chaque fois.
 - Voir `RENDER_DEPLOYMENT.md` (guide complet) et `render-env-variables.txt` (liste des variables) pour le détail.
 
 ---

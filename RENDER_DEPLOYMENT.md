@@ -70,30 +70,29 @@ quel.
 3. **Root Directory** : `backend-enspd`.
 4. **Dockerfile Path** : `backend-enspd/Dockerfile` (ou laissez Render le
    détecter automatiquement dans le dossier racine choisi).
-5. **Plan** : au minimum **Starter** (le plan gratuit ne permet pas
-   d'attacher un Disk persistant — voir avertissement ci-dessous).
+5. **Plan** : **Free** (aucune carte bancaire requise).
 6. Ajouter les variables d'environnement (section suivante).
 
-### ⚠️ Persistance des données MySQL — IMPORTANT
+### ⚠️ Plan gratuit : ce que ça implique concrètement
 
-Les services Render sont **éphémères** : sans disque persistant, le
-conteneur (et donc la base MySQL qu'il contient) est recréé de zéro à
-chaque redéploiement ou redémarrage, et **toutes les données seraient
-perdues** (actualités, événements, galerie, messages de contact,
-comptes admin créés en plus du compte par défaut...).
+Le plan gratuit Render fonctionne très bien pour ce projet, avec deux
+particularités à connaître (pas de mauvaise surprise) :
 
-**Solution : attacher un Render Disk** (disponible à partir du plan
-Starter) monté sur `/var/lib/mysql` :
-
-- Dashboard du service backend → **Disks** → **Add Disk**
-  - Mount Path : `/var/lib/mysql`
-  - Size : 1 Go suffit largement pour ce projet.
-- Le fichier `render.yaml` fourni à la racine du dépôt déclare déjà ce
-  disque automatiquement si vous déployez via **Blueprint**.
-
-Sans ce disque, le site fonctionnera très bien mais **repartira à zéro
-au moindre redéploiement** — à réserver à des tests, pas à la
-production.
+1. **Pas de disque persistant.** Sur le plan gratuit, on ne peut pas
+   attacher de "Disk" à `/var/lib/mysql`. Résultat : les données créées
+   depuis l'interface admin (actualités, événements, photos de galerie,
+   messages de contact, mot de passe admin changé...) sont
+   **réinitialisées à chaque redéploiement** du service backend (nouveau
+   commit poussé, ou redémarrage manuel). Le compte admin par défaut
+   (`admin@enspd.bj` / `EnspdAdmin2026!`) et le schéma sont recréés
+   automatiquement à chaque fois — donc le site ne casse jamais, mais le
+   contenu ajouté entre-temps ne survit pas à un redéploiement.
+   → Si un jour le contenu doit être permanent, il suffira de passer au
+   plan **Starter** (7 $/mois) et de réactiver le disque (voir section
+   "Disk" commentée dans `render.yaml`).
+2. **Mise en veille après inactivité.** Un service gratuit s'endort après
+   15 minutes sans requête, et met ~30-50 secondes à se "réveiller" au
+   premier visiteur suivant. Normal sur ce plan, pas un bug.
 
 ---
 
@@ -201,7 +200,7 @@ tout-en-un avec disque persistant pour MySQL). Pour l'utiliser :
 - [ ] **Changer le mot de passe admin par défaut dès la première connexion**
 - [ ] Photo du Directeur uploadée via l'interface admin
 - [ ] `COOKIE_SECURE=true` en production (HTTPS) — déjà configuré
-- [ ] **Disk Render attaché sur `/var/lib/mysql`** (sinon les données sont perdues à chaque redéploiement)
+- [x] Plan **Free** choisi (pas de carte bancaire) — sachant que le contenu admin repart à zéro à chaque redéploiement (voir "Plan gratuit" ci-dessus)
 
 ### Sécurité
 - [ ] Remplacer `DB_PASS=CHANGEZ_MOI` par un mot de passe fort (min. 16 caractères) dans le Dashboard Render

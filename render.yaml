@@ -29,11 +29,7 @@ services:
     env: docker
     dockerfilePath: ./backend-enspd/Dockerfile
     dockerContext: ./backend-enspd
-    plan: starter
-    disk:
-      name: enspd-mysql-data
-      mountPath: /var/lib/mysql
-      sizeGB: 1
+    plan: free
     envVars:
       - key: PORT
         value: "10000"
